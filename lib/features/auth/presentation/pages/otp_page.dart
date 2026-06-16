@@ -33,7 +33,7 @@ class _OtpView extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.successMessage != null) {
-          Navigator.of(context).pushReplacementNamed(AppRouter.counter);
+          Navigator.of(context).pushReplacementNamed(AppRouter.main);
         }
       },
       builder: (context, state) {

@@ -38,8 +38,8 @@ class _LoginView extends StatelessWidget {
               arguments: state.userId,
             );
           } else {
-            // Email login: navigate directly to home
-            Navigator.of(context).pushReplacementNamed(AppRouter.counter);
+            // Email login: navigate directly to main shell
+            Navigator.of(context).pushReplacementNamed(AppRouter.main);
           }
         }
       },
@@ -103,26 +103,18 @@ class _LoginView extends StatelessWidget {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Container(
-                                      width: 80,
-                                      height: 80,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFFEEEFFF),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: Image.asset(
-                                          'assets/app_icon.jpg',
-                                          width: 20,
-                                          height: 20,
-                                          fit: BoxFit.cover,
-                                          errorBuilder: (_, _, _) =>
-                                              const SizedBox(
-                                                width: 20,
-                                                height: 20,
-                                              ),
-                                        ),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.asset(
+                                        'assets/app_icon.jpg',
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (_, _, _) =>
+                                            const SizedBox(
+                                              width: 100,
+                                              height: 100,
+                                            ),
                                       ),
                                     ),
                                     const SizedBox(height: 8),

@@ -10,6 +10,9 @@ import 'package:shinup/features/counter/data/repositories/counter_repository_imp
 import 'package:shinup/features/counter/domain/repositories/counter_repository.dart';
 import 'package:shinup/features/counter/domain/usecases/get_counter_usecase.dart';
 import 'package:shinup/features/counter/domain/usecases/increment_counter_usecase.dart';
+import 'package:shinup/features/onboarding/data/datasources/onboarding_local_datasource.dart';
+import 'package:shinup/features/onboarding/data/repositories/onboarding_repository_impl.dart';
+import 'package:shinup/features/onboarding/domain/repositories/onboarding_repository.dart';
 
 final sl = GetIt.instance;
 
@@ -23,6 +26,18 @@ Future<void> initDependencies() async {
 
   // Network
   sl.registerLazySingleton<ApiClient>(() => ApiClient());
+
+  // Onboarding - Data layer
+  sl.registerLazySingleton<OnboardingLocalDataSource>(
+    () => OnboardingLocalDataSource(sl<SharedPreferences>()),
+  );
+
+  // Onboarding - Repository
+  sl.registerLazySingleton<OnboardingRepository>(
+    () => OnboardingRepositoryImpl(
+      sl<OnboardingLocalDataSource>(),
+    ),
+  );
 
   // Auth - Data layer
   sl.registerLazySingleton<AuthRemoteDataSource>(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shinup/core/di/service_locator.dart';
 import 'package:shinup/core/routes/app_pages.dart';
 import 'package:shinup/features/auth/domain/repositories/auth_repository.dart';
+import 'package:shinup/features/onboarding/domain/repositories/onboarding_repository.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -35,12 +36,20 @@ class _SplashPageState extends State<SplashPage>
     _controller.forward();
 
     // Check auth status then navigate
-    _timer = Timer(const Duration(seconds: 2), () {
+    _timer = Timer(const Duration(seconds: 2), () async {
       if (!mounted) return;
+      final onboardingRepo = sl<OnboardingRepository>();
+      final onboardingCompleted = await onboardingRepo.isOnboardingCompleted();
+      if (!mounted) return;
+      if (!onboardingCompleted) {
+        Navigator.of(context).pushReplacementNamed(AppRouter.onboarding);
+        return;
+      }
       final authRepo = sl<AuthRepository>();
       final token = authRepo.getToken();
+      if (!mounted) return;
       if (token != null && token.isNotEmpty) {
-        Navigator.of(context).pushReplacementNamed(AppRouter.counter);
+        Navigator.of(context).pushReplacementNamed(AppRouter.main);
       } else {
         Navigator.of(context).pushReplacementNamed(AppRouter.login);
       }

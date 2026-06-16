@@ -63,6 +63,19 @@ class AppLocalizations {
       'google': 'Google',
       'apple': 'Apple',
       'facebook': 'Facebook',
+      // Navigation
+      'navHome': 'Home',
+      'navExplore': 'Explore',
+      'navBookings': 'Bookings',
+      'navFavorites': 'Favorites',
+      'navProfile': 'Profile',
+      // Onboarding
+      'onboardingSkip': 'Skip',
+      'onboardingNext': 'Next',
+      'onboardingGetStarted': 'Get Started',
+      'trustSupport': '24/7 Support',
+      'trustExpress': 'Express',
+      'trustQuality': 'Guaranteed',
       // Errors
       'errorFillAll': 'Please fill in all fields',
       'errorPhone': 'Please enter your phone number',
@@ -118,6 +131,19 @@ class AppLocalizations {
       'google': 'جوجل',
       'apple': 'أبل',
       'facebook': 'فيسبوك',
+      // Navigation
+      'navHome': 'الرئيسية',
+      'navExplore': 'استكشاف',
+      'navBookings': 'الحجوزات',
+      'navFavorites': 'المفضلة',
+      'navProfile': 'الملف الشخصي',
+      // Onboarding
+      'onboardingSkip': 'تخطي',
+      'onboardingNext': 'التالي',
+      'onboardingGetStarted': 'ابدأ',
+      'trustSupport': 'دعم 24/7',
+      'trustExpress': 'سريع',
+      'trustQuality': 'مضمون',
       // Errors
       'errorFillAll': 'يرجى ملء جميع الحقول',
       'errorPhone': 'يرجى إدخال رقم هاتفك',
@@ -195,6 +221,17 @@ class AppLocalizations {
   String get google => translate('google');
   String get apple => translate('apple');
   String get facebook => translate('facebook');
+  String get navHome => translate('navHome');
+  String get navExplore => translate('navExplore');
+  String get navBookings => translate('navBookings');
+  String get navFavorites => translate('navFavorites');
+  String get navProfile => translate('navProfile');
+  String get onboardingSkip => translate('onboardingSkip');
+  String get onboardingNext => translate('onboardingNext');
+  String get onboardingGetStarted => translate('onboardingGetStarted');
+  String get trustSupport => translate('trustSupport');
+  String get trustExpress => translate('trustExpress');
+  String get trustQuality => translate('trustQuality');
   String get errorFillAll => translate('errorFillAll');
   String get errorPhone => translate('errorPhone');
   String get errorPassword => translate('errorPassword');

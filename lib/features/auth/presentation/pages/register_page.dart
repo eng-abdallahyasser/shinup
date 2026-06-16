@@ -58,25 +58,11 @@ class _RegisterView extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Container(
-                              width: 80,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF2563EB),
-                                borderRadius: BorderRadius.circular(32),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Color(0x0D000000),
-                                    blurRadius: 2,
-                                    offset: Offset(0, 1),
-                                  ),
-                                ],
-                              ),
-                              child: Image.asset(
-                                'assets/app_icon.jpg',
-                                width: 60,
-                                height: 60,
-                              ),
+                            Image.asset(
+                              'assets/app_icon.jpg',
+                              width: 160,
+                              height: 160
+                              ,
                             ),
                             const SizedBox(height: 16),
                             Text(
