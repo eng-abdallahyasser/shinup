@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
@@ -21,22 +22,50 @@ class ApiClient {
   }
 
   Future<Map<String, dynamic>> get(String path) async {
+    log('GET $path');
     final response = await http.get(
       Uri.parse('$baseUrl$path'),
       headers: _headers,
     );
+    log('GET $path: ${response.statusCode} ${response.body}');
     return _handleResponse(response);
+  }
+
+  Future<List<dynamic>> getList(String path) async {
+    log('GET $path');
+    final response = await http.get(
+      Uri.parse('$baseUrl$path'),
+      headers: _headers,
+    );
+    log('GET $path: ${response.statusCode} ${response.body}');
+    return _handleListResponse(response);
   }
 
   Future<Map<String, dynamic>> post(
     String path, {
     Map<String, dynamic>? body,
   }) async {
+    log('POST $path: ${body != null ? jsonEncode(body) : 'No body'}');
     final response = await http.post(
       Uri.parse('$baseUrl$path'),
       headers: _headers,
       body: body != null ? jsonEncode(body) : null,
     );
+    log('POST $path: ${response.statusCode} ${response.body}');
+    return _handleResponse(response);
+  }
+
+  Future<Map<String, dynamic>> patch(
+    String path, {
+    Map<String, dynamic>? body,
+  }) async {
+    log('PATCH $path: ${body != null ? jsonEncode(body) : 'No body'}');
+    final response = await http.patch(
+      Uri.parse('$baseUrl$path'),
+      headers: _headers,
+      body: body != null ? jsonEncode(body) : null,
+    );
+    log('PATCH $path: ${response.statusCode} ${response.body}');
     return _handleResponse(response);
   }
 
@@ -52,6 +81,21 @@ class ApiClient {
     final message =
         data['message'] as String? ?? 'Request failed (${response.statusCode})';
     throw ApiException(message, response.statusCode);
+  }
+
+  List<dynamic> _handleListResponse(http.Response response) {
+    final data = response.body.isNotEmpty
+        ? jsonDecode(response.body) as List<dynamic>
+        : <dynamic>[];
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return data;
+    }
+
+    final message = data.isNotEmpty && data.first is Map
+        ? (data.first as Map<String, dynamic>)['message'] as String?
+        : 'Request failed (${response.statusCode})';
+    throw ApiException(message ?? 'Request failed (${response.statusCode})', response.statusCode);
   }
 }
 

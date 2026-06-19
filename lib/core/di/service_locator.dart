@@ -13,6 +13,9 @@ import 'package:shinup/features/counter/domain/usecases/increment_counter_usecas
 import 'package:shinup/features/onboarding/data/datasources/onboarding_local_datasource.dart';
 import 'package:shinup/features/onboarding/data/repositories/onboarding_repository_impl.dart';
 import 'package:shinup/features/onboarding/domain/repositories/onboarding_repository.dart';
+import 'package:shinup/features/profile/data/datasources/profile_remote_datasource.dart';
+import 'package:shinup/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:shinup/features/profile/domain/repositories/profile_repository.dart';
 
 final sl = GetIt.instance;
 
@@ -69,5 +72,19 @@ Future<void> initDependencies() async {
   );
   sl.registerLazySingleton<IncrementCounterUseCase>(
     () => IncrementCounterUseCase(sl<CounterRepository>()),
+  );
+
+  // Profile - Data layer
+  sl.registerLazySingleton<ProfileRemoteDataSource>(
+    () => ProfileRemoteDataSource(sl<ApiClient>()),
+  );
+
+  // Profile - Repository
+  sl.registerLazySingleton<ProfileRepository>(
+    () => ProfileRepositoryImpl(
+      sl<ProfileRemoteDataSource>(),
+      sl<ApiClient>(),
+      sl<SharedPreferences>(),
+    ),
   );
 }

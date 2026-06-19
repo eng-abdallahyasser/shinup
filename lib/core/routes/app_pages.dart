@@ -6,6 +6,8 @@ import 'package:shinup/features/auth/presentation/pages/register_page.dart';
 import 'package:shinup/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:shinup/features/main/presentation/pages/main_shell.dart';
 import 'package:shinup/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:shinup/features/profile/presentation/pages/add_vehicle_page.dart';
+import 'package:shinup/features/profile/presentation/pages/car_detail_page.dart';
 import 'package:shinup/features/splash/presentation/pages/splash_page.dart';
 
 class AppRouter {
@@ -19,6 +21,8 @@ class AppRouter {
   static const String otp = '/otp';
   static const String forgotPassword = '/forgot-password';
   static const String resetPassword = '/reset-password';
+  static const String addVehicle = '/add-vehicle';
+  static const String carDetail = '/car-detail';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -61,6 +65,17 @@ class AppRouter {
       case resetPassword:
         return MaterialPageRoute(
           builder: (_) => const ResetPasswordPage(),
+          settings: settings,
+        );
+      case addVehicle:
+        return MaterialPageRoute(
+          builder: (_) => const AddVehiclePage(),
+          settings: settings,
+        );
+      case carDetail:
+        final carId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => CarDetailPage(carId: carId),
           settings: settings,
         );
       default:

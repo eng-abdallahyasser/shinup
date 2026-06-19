@@ -102,7 +102,7 @@ class AuthResponse {
 
   factory AuthResponse.fromJson(Map<String, dynamic> json) {
     return AuthResponse(
-      token: json['token'] as String?,
+      token: json['accessToken'] as String?,
       userId: json['userId'] as String? ?? json['user']?['id'] as String?,
       message: json['message'] as String?,
       user: json['user'] as Map<String, dynamic>?,

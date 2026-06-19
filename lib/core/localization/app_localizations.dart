@@ -17,6 +17,8 @@ class AppLocalizations {
       'counterDescription': 'You have pushed the button this many times:',
       'increment': 'Increment',
       // Auth - Login
+      'emailLabel': 'EMAIL',
+      'emailHint': 'Enter your email',
       'welcomeBack': 'Welcome back',
       'signInSubtitle': 'Sign in to manage your vehicle repairs and services.',
       'loginWithPhone': 'Phone',
@@ -69,6 +71,63 @@ class AppLocalizations {
       'navBookings': 'Bookings',
       'navFavorites': 'Favorites',
       'navProfile': 'Profile',
+      // Profile
+      'profileTitle': 'Profile',
+      'editProfile': 'Edit Profile',
+      'addVehicleTitle': 'Add Vehicle',
+      'carType': 'Car Type',
+      'carBrand': 'Brand',
+      'carModel': 'Model',
+      'carYear': 'Year',
+      'carColor': 'Color',
+      'carPlate': 'Plate Number',
+      'carDefault': 'Set as default vehicle',
+      'addCarBtn': 'Add Vehicle',
+      'selectCarType': 'Please select a car type',
+      'enterBrand': 'Please enter the brand',
+      'enterModel': 'Please enter the model',
+      'enterYear': 'Please enter the year',
+      'validYear': 'Please enter a valid year',
+      'enterColor': 'Please enter the color',
+      'enterPlate': 'Please enter the plate number',
+      'failedCarTypes': 'Failed to load car types',
+      'failedAddCar': 'Failed to add vehicle. Please try again.',
+      'editVehicleTitle': 'Edit Vehicle',
+      'failedLoadCar': 'Failed to load car details.',
+      'failedUpdateCar': 'Failed to update vehicle. Please try again.',
+      'failedSetDefault': 'Failed to set as default. Please try again.',
+      'setAsDefault': 'Set as Default Vehicle',
+      'setDefaultBtn': 'Set as Default',
+      'setDefaultSubtitle': 'Make this your primary vehicle for bookings.',
+      'defaultVehicleSubtitle': 'This is your default vehicle.',
+      'defaultBadge': 'Default',
+      'personalInfo': 'PERSONAL INFO',
+      'fullName': 'FULL NAME',
+      'emailAddress': 'EMAIL ADDRESS',
+      'phoneNumber': 'PHONE NUMBER',
+      'edit': 'Edit',
+      'save': 'Save',
+      'myVehicles': 'MY VEHICLES',
+      'addVehicle': 'Add Vehicle',
+      'noVehicles': 'No vehicles added yet. Tap + to add your first vehicle.',
+      'loyaltyRewards': 'LOYALTY & REWARDS',
+      'rewardsPoints': 'Rewards Points',
+      'redeemYourPoints': 'Redeem your\nPoints',
+      'recentActivity': 'RECENT ACTIVITY',
+      'pointsEarned': 'Points Earned',
+      'pointsUsed': 'Points Used',
+      'accountSecurity': 'ACCOUNT SECURITY',
+      'updatePassword': 'Update password',
+      'currentPassword': 'Current password',
+      'newPassword': 'New password',
+      'updatePasswordBtn': 'Update Password',
+      'activeSessions': 'ACTIVE SESSIONS',
+      'current': 'Current',
+      'ago': 'ago',
+      'language': 'Language',
+      'deleteAccount': 'Delete Account',
+      'signOut': 'Sign Out',
+      'version': 'Version',
       // Onboarding
       'onboardingSkip': 'Skip',
       'onboardingNext': 'Next',
@@ -88,6 +147,8 @@ class AppLocalizations {
       'counterDescription': 'لقد ضغطت على الزر هذا العدد من المرات:',
       'increment': 'زيادة',
       // Auth - Login
+      'emailLabel': 'البريد الإلكتروني',
+      'emailHint': 'أدخل بريدك الإلكتروني',
       'welcomeBack': 'مرحباً بعودتك',
       'signInSubtitle': 'سجل الدخول لإدارة إصلاحات وخدمات سيارتك.',
       'loginWithPhone': 'هاتف',
@@ -133,10 +194,67 @@ class AppLocalizations {
       'facebook': 'فيسبوك',
       // Navigation
       'navHome': 'الرئيسية',
-      'navExplore': 'استكشاف',
-      'navBookings': 'الحجوزات',
+      'navExplore': 'الخريطة',
+      'navBookings': 'مواعيد',
       'navFavorites': 'المفضلة',
-      'navProfile': 'الملف الشخصي',
+      'navProfile': ' ملفي',
+      // Profile
+      'profileTitle': 'الملف الشخصي',
+      'editProfile': 'تعديل الملف',
+      'addVehicleTitle': 'إضافة سيارة',
+      'carType': 'نوع السيارة',
+      'carBrand': 'العلامة التجارية',
+      'carModel': 'الموديل',
+      'carYear': 'السنة',
+      'carColor': 'اللون',
+      'carPlate': 'رقم اللوحة',
+      'carDefault': 'تعيين كسيارة افتراضية',
+      'addCarBtn': 'إضافة سيارة',
+      'selectCarType': 'يرجى اختيار نوع السيارة',
+      'enterBrand': 'يرجى إدخال العلامة التجارية',
+      'enterModel': 'يرجى إدخال الموديل',
+      'enterYear': 'يرجى إدخال السنة',
+      'validYear': 'يرجى إدخال سنة صالحة',
+      'enterColor': 'يرجى إدخال اللون',
+      'enterPlate': 'يرجى إدخال رقم اللوحة',
+      'failedCarTypes': 'فشل تحميل أنواع السيارات',
+      'failedAddCar': 'فشل إضافة السيارة. حاول مرة أخرى.',
+      'editVehicleTitle': 'تعديل السيارة',
+      'failedLoadCar': 'فشل تحميل بيانات السيارة.',
+      'failedUpdateCar': 'فشل تحديث السيارة. حاول مرة أخرى.',
+      'failedSetDefault': 'فشل تعيين كسيارة افتراضية. حاول مرة أخرى.',
+      'setAsDefault': 'تعيين كسيارة افتراضية',
+      'setDefaultBtn': 'تعيين افتراضي',
+      'setDefaultSubtitle': 'اجعل هذه سيارتك الأساسية للحجوزات.',
+      'defaultVehicleSubtitle': 'هذه هي سيارتك الافتراضية.',
+      'defaultBadge': 'افتراضي',
+      'personalInfo': 'المعلومات الشخصية',
+      'fullName': 'الاسم الكامل',
+      'emailAddress': 'البريد الإلكتروني',
+      'phoneNumber': 'رقم الهاتف',
+      'edit': 'تعديل',
+      'save': 'حفظ',
+      'myVehicles': 'سياراتي',
+      'addVehicle': 'إضافة سيارة',
+      'noVehicles': 'لم تتم إضافة سيارات بعد. اضغط + لإضافة سيارتك الأولى.',
+      'loyaltyRewards': 'المكافآت والولاء',
+      'rewardsPoints': 'نقاط المكافآت',
+      'redeemYourPoints': 'استبدال\nالنقاط',
+      'recentActivity': 'آخر النشاطات',
+      'pointsEarned': 'النقاط المكتسبة',
+      'pointsUsed': 'النقاط المستخدمة',
+      'accountSecurity': 'أمان الحساب',
+      'updatePassword': 'تحديث كلمة المرور',
+      'currentPassword': 'كلمة المرور الحالية',
+      'newPassword': 'كلمة المرور الجديدة',
+      'updatePasswordBtn': 'تحديث كلمة المرور',
+      'activeSessions': 'الجلسات النشطة',
+      'current': 'الحالية',
+      'ago': 'منذ',
+      'language': 'اللغة',
+      'deleteAccount': 'حذف الحساب',
+      'signOut': 'تسجيل الخروج',
+      'version': 'الإصدار',
       // Onboarding
       'onboardingSkip': 'تخطي',
       'onboardingNext': 'التالي',
@@ -226,6 +344,62 @@ class AppLocalizations {
   String get navBookings => translate('navBookings');
   String get navFavorites => translate('navFavorites');
   String get navProfile => translate('navProfile');
+  String get profileTitle => translate('profileTitle');
+  String get editProfile => translate('editProfile');
+  String get addVehicleTitle => translate('addVehicleTitle');
+  String get carType => translate('carType');
+  String get carBrand => translate('carBrand');
+  String get carModel => translate('carModel');
+  String get carYear => translate('carYear');
+  String get carColor => translate('carColor');
+  String get carPlate => translate('carPlate');
+  String get carDefault => translate('carDefault');
+  String get addCarBtn => translate('addCarBtn');
+  String get selectCarType => translate('selectCarType');
+  String get enterBrand => translate('enterBrand');
+  String get enterModel => translate('enterModel');
+  String get enterYear => translate('enterYear');
+  String get validYear => translate('validYear');
+  String get enterColor => translate('enterColor');
+  String get enterPlate => translate('enterPlate');
+  String get failedCarTypes => translate('failedCarTypes');
+  String get failedAddCar => translate('failedAddCar');
+  String get editVehicleTitle => translate('editVehicleTitle');
+  String get failedLoadCar => translate('failedLoadCar');
+  String get failedUpdateCar => translate('failedUpdateCar');
+  String get failedSetDefault => translate('failedSetDefault');
+  String get setAsDefault => translate('setAsDefault');
+  String get setDefaultBtn => translate('setDefaultBtn');
+  String get setDefaultSubtitle => translate('setDefaultSubtitle');
+  String get defaultVehicleSubtitle => translate('defaultVehicleSubtitle');
+  String get defaultBadge => translate('defaultBadge');
+  String get personalInfo => translate('personalInfo');
+  String get fullName => translate('fullName');
+  String get emailAddress => translate('emailAddress');
+  String get phoneNumber => translate('phoneNumber');
+  String get edit => translate('edit');
+  String get save => translate('save');
+  String get myVehicles => translate('myVehicles');
+  String get addVehicle => translate('addVehicle');
+  String get noVehicles => translate('noVehicles');
+  String get loyaltyRewards => translate('loyaltyRewards');
+  String get rewardsPoints => translate('rewardsPoints');
+  String get redeemYourPoints => translate('redeemYourPoints');
+  String get recentActivity => translate('recentActivity');
+  String get pointsEarned => translate('pointsEarned');
+  String get pointsUsed => translate('pointsUsed');
+  String get accountSecurity => translate('accountSecurity');
+  String get updatePassword => translate('updatePassword');
+  String get currentPassword => translate('currentPassword');
+  String get newPassword => translate('newPassword');
+  String get updatePasswordBtn => translate('updatePasswordBtn');
+  String get activeSessions => translate('activeSessions');
+  String get current => translate('current');
+  String get ago => translate('ago');
+  String get language => translate('language');
+  String get deleteAccount => translate('deleteAccount');
+  String get signOut => translate('signOut');
+  String get version => translate('version');
   String get onboardingSkip => translate('onboardingSkip');
   String get onboardingNext => translate('onboardingNext');
   String get onboardingGetStarted => translate('onboardingGetStarted');

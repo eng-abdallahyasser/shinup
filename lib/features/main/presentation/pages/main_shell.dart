@@ -4,7 +4,7 @@ import 'package:shinup/features/main/presentation/pages/bookings_page.dart';
 import 'package:shinup/features/main/presentation/pages/explore_page.dart';
 import 'package:shinup/features/main/presentation/pages/favorites_page.dart';
 import 'package:shinup/features/main/presentation/pages/home_page.dart';
-import 'package:shinup/features/main/presentation/pages/profile_page.dart';
+import 'package:shinup/features/profile/presentation/pages/profile_page.dart';
 import 'package:shinup/features/main/presentation/widgets/bottom_nav_bar.dart';
 
 /// The main shell that wraps all authenticated screens with a bottom navigation bar.
