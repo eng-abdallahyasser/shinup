@@ -449,11 +449,148 @@ class _CarDetailPageState extends State<CarDetailPage> {
                           ),
                   ),
                 ),
+                const SizedBox(height: 16),
+
+                // ── Delete Vehicle Button ───────────────────────────
+                SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: OutlinedButton.icon(
+                    onPressed: _confirmDelete,
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: const Color(0xFFE53935),
+                      side: const BorderSide(color: Color(0xFFE53935)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(9999),
+                      ),
+                      elevation: 0,
+                    ),
+                    icon: const Icon(Icons.delete_outline_rounded, size: 20),
+                    label: Text(
+                      t.deleteVehicle,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 24),
               ],
             ),
           ),
         );
+    }
+  }
+
+  Future<void> _confirmDelete() async {
+    final t = AppLocalizations.of(context);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        title: Row(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: const BoxDecoration(
+                color: Color(0xFFFFF0F0),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.delete_outline_rounded,
+                color: Color(0xFFE53935),
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(
+              t.deleteVehicle,
+              style: const TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                color: Color(0xFF191B23),
+              ),
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              t.deleteVehicleConfirm,
+              style: const TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                color: Color(0xFF434655),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              t.deleteVehicleWarning,
+              style: const TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 13,
+                color: Color(0xFF737686),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(
+              t.cancel,
+              style: const TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                color: Color(0xFF737686),
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFE53935),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(9999),
+              ),
+              elevation: 0,
+            ),
+            child: Text(
+              t.delete,
+              style: const TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      setState(() => _status = _CarDetailStatus.saving);
+      try {
+        await _profileRepository.deleteCar(widget.carId);
+        if (!mounted) return;
+        Navigator.of(context).pop(true);
+      } catch (e) {
+        if (!mounted) return;
+        setState(() {
+          _status = _CarDetailStatus.loaded;
+          _errorMessage = AppLocalizations.of(context).failedDeleteCar;
+        });
+      }
     }
   }
 

@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shinup/core/di/service_locator.dart';
+import 'package:shinup/core/network/api_client.dart';
 import 'package:shinup/core/routes/app_pages.dart';
 import 'package:shinup/features/auth/domain/repositories/auth_repository.dart';
 import 'package:shinup/features/onboarding/domain/repositories/onboarding_repository.dart';
@@ -49,11 +51,50 @@ class _SplashPageState extends State<SplashPage>
       final token = authRepo.getToken();
       if (!mounted) return;
       if (token != null && token.isNotEmpty) {
-        Navigator.of(context).pushReplacementNamed(AppRouter.main);
+        // Validate the token by fetching the user profile
+        try {
+          await authRepo.getProfile();
+          // Token is valid — proceed
+        } on ApiException catch (e) {
+          if (e.statusCode == 401) {
+            // Token expired/invalid — clear and redirect to login
+            await authRepo.clearToken();
+            if (!mounted) return;
+            Navigator.of(context).pushReplacementNamed(AppRouter.login);
+            return;
+          }
+          // Other API errors (5xx, etc.) — proceed anyway, token might be fine
+        } catch (_) {
+          // Network errors — proceed, token might still be valid
+        }
+
+        if (!mounted) return;
+        final locationGranted = await _checkLocationPermission();
+        if (!mounted) return;
+        if (!locationGranted) {
+          Navigator.of(context).pushReplacementNamed(
+            AppRouter.locationAccess,
+            arguments: {'redirectRoute': AppRouter.main},
+          );
+        } else {
+          Navigator.of(context).pushReplacementNamed(AppRouter.main);
+        }
       } else {
         Navigator.of(context).pushReplacementNamed(AppRouter.login);
       }
     });
+  }
+
+  /// Checks if location permission is already granted.
+  /// Returns true if permission is granted (whileInUse or always).
+  Future<bool> _checkLocationPermission() async {
+    try {
+      final permission = await Geolocator.checkPermission();
+      return permission == LocationPermission.whileInUse ||
+          permission == LocationPermission.always;
+    } catch (_) {
+      return false;
+    }
   }
 
   @override

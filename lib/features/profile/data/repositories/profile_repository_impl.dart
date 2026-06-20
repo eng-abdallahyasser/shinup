@@ -62,4 +62,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<void> setDefaultCar(String carId) async {
     await _remoteDataSource.setDefaultCar(carId);
   }
+
+  @override
+  Future<void> deleteCar(String carId) async {
+    await _remoteDataSource.deleteCar(carId);
+  }
 }

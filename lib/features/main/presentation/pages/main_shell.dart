@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shinup/core/localization/app_localizations.dart';
 import 'package:shinup/features/main/presentation/pages/bookings_page.dart';
 import 'package:shinup/features/main/presentation/pages/explore_page.dart';
-import 'package:shinup/features/main/presentation/pages/favorites_page.dart';
 import 'package:shinup/features/main/presentation/pages/home_page.dart';
 import 'package:shinup/features/profile/presentation/pages/profile_page.dart';
 import 'package:shinup/features/main/presentation/widgets/bottom_nav_bar.dart';
@@ -29,7 +28,6 @@ class _MainShellState extends State<MainShell> {
       HomePage(),
       ExplorePage(),
       BookingsPage(),
-      FavoritesPage(),
       ProfilePage(),
     ];
   }
@@ -57,11 +55,6 @@ class _MainShellState extends State<MainShell> {
         icon: Icons.calendar_today_outlined,
         activeIcon: Icons.calendar_today,
         label: t.navBookings,
-      ),
-      BottomNavTab(
-        icon: Icons.favorite_outline,
-        activeIcon: Icons.favorite,
-        label: t.navFavorites,
       ),
       BottomNavTab(
         icon: Icons.person_outline,

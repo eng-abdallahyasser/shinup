@@ -96,6 +96,12 @@ class AppLocalizations {
       'failedLoadCar': 'Failed to load car details.',
       'failedUpdateCar': 'Failed to update vehicle. Please try again.',
       'failedSetDefault': 'Failed to set as default. Please try again.',
+      'deleteVehicle': 'Delete Vehicle',
+      'deleteVehicleConfirm': 'Are you sure you want to delete this vehicle?',
+      'deleteVehicleWarning': 'This action cannot be undone.',
+      'cancel': 'Cancel',
+      'delete': 'Delete',
+      'failedDeleteCar': 'Failed to delete vehicle. Please try again.',
       'setAsDefault': 'Set as Default Vehicle',
       'setDefaultBtn': 'Set as Default',
       'setDefaultSubtitle': 'Make this your primary vehicle for bookings.',
@@ -135,11 +141,53 @@ class AppLocalizations {
       'trustSupport': '24/7 Support',
       'trustExpress': 'Express',
       'trustQuality': 'Guaranteed',
+      // Location Permission
+      'locationAccessTitle': 'Enable Location',
+      'locationAccessSubtitle': 'Let Shinup find nearby services and repair shops for your vehicle.',
+      'locationAccessTrustAccurate': 'Accurate',
+      'locationAccessTrustFast': 'Fast',
+      'locationAccessTrustReliable': 'Reliable',
+      'locationAccessEnable': 'Enable Location',
+      'locationAccessMaybeLater': 'Maybe Later',
+      'locationAccessPrivacy': 'Your location is only used while using the app. We never share your data.',
       // Errors
       'errorFillAll': 'Please fill in all fields',
       'errorPhone': 'Please enter your phone number',
       'errorPassword': 'Please enter your password',
       'errorTerms': 'Please accept the terms and conditions',
+      // Booking
+      'bookingTitle': 'Book Service',
+      'bookingSelection': 'Selection',
+      'bookingDateAndTime': 'Date & Time',
+      'bookingReview': 'Review',
+      'bookingWash': 'Wash',
+      'bookingAsap': 'ASAP',
+      'bookingNearestAvailable': 'Nearest Available',
+      'bookingSchedule': 'Schedule',
+      'bookingPickDateAndTime': 'Pick Date & Time',
+      'bookingInMinutes': 'In 30 minutes',
+      'bookingSelectDate': 'Select Date',
+      'bookingAvailable': 'available',
+      'bookingSelectTimeSlot': 'Select Time Slot',
+      'bookingContinue': 'Continue',
+      'bookingReviewAndConfirm': 'Review & Confirm',
+      'bookingSelectionLabel': 'SELECTION',
+      'bookingDateAndTimeLabel': 'DATE & TIME',
+      'bookingReviewLabel': 'REVIEW',
+      'bookingDetails': 'Booking Details',
+      'bookingProvider': 'PROVIDER',
+      'bookingDateAndTimeRow': 'DATE & TIME',
+      'bookingAsapBadge': 'ASAP',
+      'bookingServiceRow': 'SERVICE',
+      'bookingNotes': 'Notes',
+      'bookingNotesPlaceholder': 'Add special instructions for the provider...',
+      'bookingPhotos': 'Photos',
+      'bookingPhotosHint': 'Tap to add photos of your vehicle',
+      'bookingServiceFee': 'Service Fee',
+      'bookingFree': 'Free',
+      'bookingTotal': 'Total',
+      'bookingConfirm': 'Confirm Booking',
+      'bookingDisclaimer': 'By confirming, you agree to our Terms of Service and Cancellation Policy.',
     },
     'ar': {
       'appTitle': 'Shinup',
@@ -223,6 +271,12 @@ class AppLocalizations {
       'failedLoadCar': 'فشل تحميل بيانات السيارة.',
       'failedUpdateCar': 'فشل تحديث السيارة. حاول مرة أخرى.',
       'failedSetDefault': 'فشل تعيين كسيارة افتراضية. حاول مرة أخرى.',
+      'deleteVehicle': 'حذف السيارة',
+      'deleteVehicleConfirm': 'هل أنت متأكد أنك تريد حذف هذه السيارة؟',
+      'deleteVehicleWarning': 'لا يمكن التراجع عن هذا الإجراء.',
+      'cancel': 'إلغاء',
+      'delete': 'حذف',
+      'failedDeleteCar': 'فشل حذف السيارة. حاول مرة أخرى.',
       'setAsDefault': 'تعيين كسيارة افتراضية',
       'setDefaultBtn': 'تعيين افتراضي',
       'setDefaultSubtitle': 'اجعل هذه سيارتك الأساسية للحجوزات.',
@@ -262,11 +316,53 @@ class AppLocalizations {
       'trustSupport': 'دعم 24/7',
       'trustExpress': 'سريع',
       'trustQuality': 'مضمون',
+      // Location Permission
+      'locationAccessTitle': 'تفعيل الموقع',
+      'locationAccessSubtitle': 'اسمح لـ Shinup بالعثور على الخدمات وورش الإصلاح القريبة من سيارتك.',
+      'locationAccessTrustAccurate': 'دقيق',
+      'locationAccessTrustFast': 'سريع',
+      'locationAccessTrustReliable': 'موثوق',
+      'locationAccessEnable': 'تفعيل الموقع',
+      'locationAccessMaybeLater': 'لاحقاً',
+      'locationAccessPrivacy': 'يتم استخدام موقعك فقط أثناء استخدام التطبيق. نحن لا نشارك بياناتك أبداً.',
       // Errors
       'errorFillAll': 'يرجى ملء جميع الحقول',
       'errorPhone': 'يرجى إدخال رقم هاتفك',
       'errorPassword': 'يرجى إدخال كلمة المرور',
       'errorTerms': 'يرجى الموافقة على الشروط والأحكام',
+      // Booking
+      'bookingTitle': 'حجز خدمة',
+      'bookingSelection': 'اختيار',
+      'bookingDateAndTime': 'التاريخ والوقت',
+      'bookingReview': 'مراجعة',
+      'bookingWash': 'غسيل',
+      'bookingAsap': 'بأسرع وقت',
+      'bookingNearestAvailable': 'الأقرب المتاح',
+      'bookingSchedule': 'جدولة',
+      'bookingPickDateAndTime': 'اختر التاريخ والوقت',
+      'bookingInMinutes': 'خلال 30 دقيقة',
+      'bookingSelectDate': 'اختر التاريخ',
+      'bookingAvailable': 'متاح',
+      'bookingSelectTimeSlot': 'اختر الوقت',
+      'bookingContinue': 'متابعة',
+      'bookingReviewAndConfirm': 'مراجعة وتأكيد',
+      'bookingSelectionLabel': 'اختيار',
+      'bookingDateAndTimeLabel': 'تاريخ ووقت',
+      'bookingReviewLabel': 'مراجعة',
+      'bookingDetails': 'تفاصيل الحجز',
+      'bookingProvider': 'مقدم الخدمة',
+      'bookingDateAndTimeRow': 'التاريخ والوقت',
+      'bookingAsapBadge': 'بأسرع وقت',
+      'bookingServiceRow': 'الخدمة',
+      'bookingNotes': 'ملاحظات',
+      'bookingNotesPlaceholder': 'أضف تعليمات خاصة لمقدم الخدمة...',
+      'bookingPhotos': 'صور',
+      'bookingPhotosHint': 'انقر لإضافة صور لسيارتك',
+      'bookingServiceFee': 'رسوم الخدمة',
+      'bookingFree': 'مجاناً',
+      'bookingTotal': 'الإجمالي',
+      'bookingConfirm': 'تأكيد الحجز',
+      'bookingDisclaimer': 'بالتأكيد، أنت توافق على شروط الخدمة وسياسة الإلغاء.',
     },
   };
 
@@ -368,6 +464,12 @@ class AppLocalizations {
   String get failedLoadCar => translate('failedLoadCar');
   String get failedUpdateCar => translate('failedUpdateCar');
   String get failedSetDefault => translate('failedSetDefault');
+  String get deleteVehicle => translate('deleteVehicle');
+  String get deleteVehicleConfirm => translate('deleteVehicleConfirm');
+  String get deleteVehicleWarning => translate('deleteVehicleWarning');
+  String get cancel => translate('cancel');
+  String get delete => translate('delete');
+  String get failedDeleteCar => translate('failedDeleteCar');
   String get setAsDefault => translate('setAsDefault');
   String get setDefaultBtn => translate('setDefaultBtn');
   String get setDefaultSubtitle => translate('setDefaultSubtitle');
@@ -406,6 +508,49 @@ class AppLocalizations {
   String get trustSupport => translate('trustSupport');
   String get trustExpress => translate('trustExpress');
   String get trustQuality => translate('trustQuality');
+  String get locationAccessTitle => translate('locationAccessTitle');
+  String get locationAccessSubtitle => translate('locationAccessSubtitle');
+  String get locationAccessTrustAccurate => translate('locationAccessTrustAccurate');
+  String get locationAccessTrustFast => translate('locationAccessTrustFast');
+  String get locationAccessTrustReliable => translate('locationAccessTrustReliable');
+  String get locationAccessEnable => translate('locationAccessEnable');
+  String get locationAccessMaybeLater => translate('locationAccessMaybeLater');
+  String get locationAccessPrivacy => translate('locationAccessPrivacy');
+
+  // Booking
+  String get bookingTitle => translate('bookingTitle');
+  String get bookingSelection => translate('bookingSelection');
+  String get bookingDateAndTime => translate('bookingDateAndTime');
+  String get bookingReview => translate('bookingReview');
+  String get bookingWash => translate('bookingWash');
+  String get bookingAsap => translate('bookingAsap');
+  String get bookingNearestAvailable => translate('bookingNearestAvailable');
+  String get bookingSchedule => translate('bookingSchedule');
+  String get bookingPickDateAndTime => translate('bookingPickDateAndTime');
+  String get bookingInMinutes => translate('bookingInMinutes');
+  String get bookingSelectDate => translate('bookingSelectDate');
+  String get bookingAvailable => translate('bookingAvailable');
+  String get bookingSelectTimeSlot => translate('bookingSelectTimeSlot');
+  String get bookingContinue => translate('bookingContinue');
+  String get bookingReviewAndConfirm => translate('bookingReviewAndConfirm');
+  String get bookingSelectionLabel => translate('bookingSelectionLabel');
+  String get bookingDateAndTimeLabel => translate('bookingDateAndTimeLabel');
+  String get bookingReviewLabel => translate('bookingReviewLabel');
+  String get bookingDetails => translate('bookingDetails');
+  String get bookingProvider => translate('bookingProvider');
+  String get bookingDateAndTimeRow => translate('bookingDateAndTimeRow');
+  String get bookingAsapBadge => translate('bookingAsapBadge');
+  String get bookingServiceRow => translate('bookingServiceRow');
+  String get bookingNotes => translate('bookingNotes');
+  String get bookingNotesPlaceholder => translate('bookingNotesPlaceholder');
+  String get bookingPhotos => translate('bookingPhotos');
+  String get bookingPhotosHint => translate('bookingPhotosHint');
+  String get bookingServiceFee => translate('bookingServiceFee');
+  String get bookingFree => translate('bookingFree');
+  String get bookingTotal => translate('bookingTotal');
+  String get bookingConfirm => translate('bookingConfirm');
+  String get bookingDisclaimer => translate('bookingDisclaimer');
+
   String get errorFillAll => translate('errorFillAll');
   String get errorPhone => translate('errorPhone');
   String get errorPassword => translate('errorPassword');

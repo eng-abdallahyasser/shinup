@@ -184,6 +184,21 @@ class ProfileCubit extends Cubit<ProfileState> {
     await _profileRepository.logout();
   }
 
+  Future<void> deleteCar(String carId) async {
+    try {
+      await _profileRepository.deleteCar(carId);
+      final updatedVehicles =
+          state.vehicles.where((v) => v.id != carId).toList();
+      emit(state.copyWith(vehicles: updatedVehicles));
+    } on ApiException catch (e) {
+      emit(state.copyWith(errorMessage: e.message));
+    } catch (_) {
+      emit(state.copyWith(
+        errorMessage: 'Failed to delete vehicle. Please try again.',
+      ));
+    }
+  }
+
   void onToggleEditMode() => emit(state.copyWith(isEditing: !state.isEditing));
 
   void onUpdateFullName(String name) =>

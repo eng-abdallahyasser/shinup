@@ -10,4 +10,5 @@ abstract class ProfileRepository {
   Future<UserCarModel> getCar(String carId);
   Future<UserCarModel> updateCar(String carId, UpdateCarRequest request);
   Future<void> setDefaultCar(String carId);
+  Future<void> deleteCar(String carId);
 }

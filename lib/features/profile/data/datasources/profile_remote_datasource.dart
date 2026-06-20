@@ -50,4 +50,8 @@ class ProfileRemoteDataSource {
   Future<void> setDefaultCar(String carId) async {
     await _client.patch('/customers/me/cars/$carId/default');
   }
+
+  Future<void> deleteCar(String carId) async {
+    await _client.delete('/customers/me/cars/$carId');
+  }
 }

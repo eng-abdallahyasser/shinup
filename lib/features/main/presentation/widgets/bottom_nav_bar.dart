@@ -56,7 +56,7 @@ class AppBottomNavBar extends StatelessWidget {
           final tab = tabs[index];
 
           return Expanded(
-            flex:  isActive ? 3 :2,
+            flex: isActive ? 4 : 3,
             child: _NavItem(
               icon: isActive ? tab.activeIcon : tab.icon,
               label: tab.label,
@@ -89,8 +89,9 @@ class _NavItem extends StatelessWidget {
     const Color inactiveColor = Color(0xFF434655);
 
     final Color iconColor = isActive ? activeColor : inactiveColor;
-    final Color pillBackground =
-        isActive ? const Color(0xFF2563EB) : Colors.transparent;
+    final Color pillBackground = isActive
+        ? const Color(0xFF2563EB)
+        : Colors.transparent;
 
     final double paddingHorizontal = isActive ? 16.0 : 8.0;
     const double paddingVertical = 4.0;
@@ -119,21 +120,19 @@ class _NavItem extends StatelessWidget {
             AnimatedSize(
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeInOut,
-              child: isActive
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        label,
-                        style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: activeColor,
-                          height: 1.5,
-                        ),
-                      ),
-                    )
-                  : const SizedBox.shrink(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: isActive ? activeColor : inactiveColor,
+                    height: 1.5,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
