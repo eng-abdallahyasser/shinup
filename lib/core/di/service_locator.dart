@@ -28,7 +28,9 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton(() => LocaleCubit(sl<SharedPreferences>()));
 
   // Network
-  sl.registerLazySingleton<ApiClient>(() => ApiClient());
+  final apiClient = ApiClient();
+  apiClient.setLanguageCode(prefs.getString('locale') ?? 'ar');
+  sl.registerLazySingleton<ApiClient>(() => apiClient);
 
   // Onboarding - Data layer
   sl.registerLazySingleton<OnboardingLocalDataSource>(

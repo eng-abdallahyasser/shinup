@@ -3,6 +3,7 @@ class ProfileModel {
   final String fullName;
   final String email;
   final String phone;
+  final String? avatarUrl;
   final bool isEmailVerified;
   final bool isPhoneVerified;
   final bool isActive;
@@ -13,6 +14,7 @@ class ProfileModel {
     required this.fullName,
     required this.email,
     required this.phone,
+    this.avatarUrl,
     this.isEmailVerified = false,
     this.isPhoneVerified = false,
     this.isActive = true,
@@ -25,6 +27,7 @@ class ProfileModel {
       fullName: json['fullName'] as String? ?? '',
       email: json['email'] as String? ?? '',
       phone: json['phone'] as String? ?? '',
+      avatarUrl: json['avatarUrl'] as String?,
       isEmailVerified: json['isEmailVerified'] as bool? ?? false,
       isPhoneVerified: json['isPhoneVerified'] as bool? ?? false,
       isActive: json['isActive'] as bool? ?? true,

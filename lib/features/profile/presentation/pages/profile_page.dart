@@ -9,6 +9,7 @@ import 'package:shinup/features/profile/presentation/widgets/footer_actions_sect
 import 'package:shinup/features/profile/presentation/widgets/loyalty_section.dart';
 import 'package:shinup/features/profile/presentation/widgets/personal_info_section.dart';
 import 'package:shinup/features/profile/presentation/widgets/profile_summary.dart';
+import 'package:shinup/features/profile/presentation/widgets/addresses_section.dart';
 import 'package:shinup/features/profile/presentation/widgets/vehicles_section.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -136,10 +137,14 @@ class _ProfileView extends StatelessWidget {
                         ProfileSummary(
                           fullName: state.fullName,
                           email: state.email,
+                          avatarUrl: state.avatarUrl,
                           editProfileLabel: t.editProfile,
                           onEditTap: () => context
                               .read<ProfileCubit>()
                               .onToggleEditMode(),
+                          onAvatarTap: () => context
+                              .read<ProfileCubit>()
+                              .uploadAvatar(),
                         ),
                         const SizedBox(height: 24),
 
@@ -189,6 +194,34 @@ class _ProfileView extends StatelessWidget {
                                 .pushNamed(
                               AppRouter.carDetail,
                               arguments: vehicle.id,
+                            ) as bool?;
+                            if (updated == true && context.mounted) {
+                              context.read<ProfileCubit>().loadProfile();
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 24),
+
+                        // Section 3b: My Addresses
+                        AddressesSection(
+                          addresses: state.addresses,
+                          myAddressesLabel: t.myAddresses,
+                          addAddressLabel: t.addAddress,
+                          noAddressesLabel: t.noAddresses,
+                          onAddAddress: () async {
+                            final added = await Navigator.of(context)
+                                .pushNamed(
+                              AppRouter.addAddress,
+                            ) as bool?;
+                            if (added == true && context.mounted) {
+                              context.read<ProfileCubit>().loadProfile();
+                            }
+                          },
+                          onEditAddress: (address) async {
+                            final updated = await Navigator.of(context)
+                                .pushNamed(
+                              AppRouter.addressDetail,
+                              arguments: address.id,
                             ) as bool?;
                             if (updated == true && context.mounted) {
                               context.read<ProfileCubit>().loadProfile();

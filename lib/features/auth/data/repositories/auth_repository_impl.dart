@@ -38,19 +38,18 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<AuthResponse> login({
-    String? phone,
-    String? email,
+    required String identifier,
     required String password,
     String deviceType = 'ANDROID',
+    String deviceToken = '',
   }) async {
     final request = LoginRequest(
-      phone: phone,
-      email: email,
+      identifier: identifier,
       password: password,
       deviceType: deviceType,
+      deviceToken: deviceToken,
     );
     final response = await _remoteDataSource.login(request);
-    // Don't auto-save token here; the caller (bloc) decides when to save
     return response;
   }
 

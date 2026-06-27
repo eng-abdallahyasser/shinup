@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shinup/core/network/api_client.dart';
 import 'package:shinup/features/profile/data/datasources/profile_remote_datasource.dart';
+import 'package:shinup/features/profile/data/models/address_models.dart';
 import 'package:shinup/features/profile/data/models/car_models.dart';
 import 'package:shinup/features/profile/data/models/profile_model.dart';
 import 'package:shinup/features/profile/domain/repositories/profile_repository.dart';
@@ -66,5 +67,41 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<void> deleteCar(String carId) async {
     await _remoteDataSource.deleteCar(carId);
+  }
+
+  @override
+  Future<ProfileModel> uploadAvatar(String filePath) async {
+    return _remoteDataSource.uploadAvatar(filePath);
+  }
+
+  @override
+  Future<List<AddressModel>> getAddresses() async {
+    return _remoteDataSource.getAddresses();
+  }
+
+  @override
+  Future<AddressModel> getAddress(String addressId) async {
+    return _remoteDataSource.getAddress(addressId);
+  }
+
+  @override
+  Future<void> addAddress(AddAddressRequest request) async {
+    await _remoteDataSource.addAddress(request);
+  }
+
+  @override
+  Future<AddressModel> updateAddress(
+      String addressId, UpdateAddressRequest request) async {
+    return _remoteDataSource.updateAddress(addressId, request);
+  }
+
+  @override
+  Future<void> setDefaultAddress(String addressId) async {
+    await _remoteDataSource.setDefaultAddress(addressId);
+  }
+
+  @override
+  Future<void> deleteAddress(String addressId) async {
+    await _remoteDataSource.deleteAddress(addressId);
   }
 }

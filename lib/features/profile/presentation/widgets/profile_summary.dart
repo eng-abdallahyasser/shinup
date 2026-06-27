@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 class ProfileSummary extends StatelessWidget {
   final String fullName;
   final String email;
+  final String? avatarUrl;
   final String editProfileLabel;
   final VoidCallback onEditTap;
+  final VoidCallback? onAvatarTap;
 
   const ProfileSummary({
     super.key,
     required this.fullName,
     required this.email,
+    this.avatarUrl,
     required this.editProfileLabel,
     required this.onEditTap,
+    this.onAvatarTap,
   });
 
   @override
@@ -37,48 +41,59 @@ class ProfileSummary extends StatelessWidget {
       child: Column(
         children: [
           // Avatar
-          Stack(
-            children: [
-              Container(
-                width: 96,
-                height: 96,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF2563EB),
-                  shape: BoxShape.circle,
+          GestureDetector(
+            onTap: onAvatarTap,
+            child: Stack(
+              children: [
+                Container(
+                  width: 96,
+                  height: 96,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF2563EB),
+                    shape: BoxShape.circle,
+                    image: avatarUrl != null
+                        ? DecorationImage(
+                            image: NetworkImage(avatarUrl!),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
+                  ),
+                  child: avatarUrl == null
+                      ? Center(
+                          child: Text(
+                            initials,
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 32,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      : null,
                 ),
-                child: Center(
-                  child: Text(
-                    initials,
-                    style: const TextStyle(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 32,
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    width: 32,
+                    height: 32,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF004AC6),
+                      shape: BoxShape.circle,
+                      border: Border.fromBorderSide(
+                        BorderSide(color: Colors.white, width: 4),
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.edit_rounded,
+                      size: 14,
                       color: Colors.white,
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                right: 0,
-                bottom: 0,
-                child: Container(
-                  width: 32,
-                  height: 32,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF004AC6),
-                    shape: BoxShape.circle,
-                    border: Border.fromBorderSide(
-                      BorderSide(color: Colors.white, width: 4),
-                    ),
-                  ),
-                  child: const Icon(
-                    Icons.edit_rounded,
-                    size: 14,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 16),
           // Name

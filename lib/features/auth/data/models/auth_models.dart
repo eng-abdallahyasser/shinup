@@ -23,23 +23,23 @@ class RegisterRequest {
 }
 
 class LoginRequest {
-  final String? phone;
-  final String? email;
+  final String identifier;
   final String password;
   final String deviceType;
+  final String deviceToken;
 
   LoginRequest({
-    this.phone,
-    this.email,
+    required this.identifier,
     required this.password,
     this.deviceType = 'ANDROID',
+    this.deviceToken = '',
   });
 
   Map<String, dynamic> toJson() => {
-        if (phone != null) 'phone': phone,
-        if (email != null) 'email': email,
+        'identifier': identifier,
         'password': password,
         'deviceType': deviceType,
+        if (deviceToken.isNotEmpty) 'deviceToken': deviceToken,
       };
 }
 
@@ -89,20 +89,27 @@ class ResetPasswordRequest {
 
 class AuthResponse {
   final String? token;
+  final String? accessToken;
+  final String? refreshToken;
   final String? userId;
   final String? message;
   final Map<String, dynamic>? user;
 
   AuthResponse({
     this.token,
+    this.accessToken,
+    this.refreshToken,
     this.userId,
     this.message,
     this.user,
   });
 
   factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    final accessToken = json['accessToken'] as String?;
     return AuthResponse(
-      token: json['accessToken'] as String?,
+      token: accessToken,
+      accessToken: accessToken,
+      refreshToken: json['refreshToken'] as String?,
       userId: json['userId'] as String? ?? json['user']?['id'] as String?,
       message: json['message'] as String?,
       user: json['user'] as Map<String, dynamic>?,

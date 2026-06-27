@@ -3,17 +3,23 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
-  static const String baseUrl = 'https://shineup-backend-production.up.railway.app';
+  static const String baseUrl = 'https://shineup-backend-production.up.railway.app/api/v1';
 
   String? _token;
+  String _languageCode = 'ar';
 
   void setToken(String? token) {
     _token = token;
   }
 
+  void setLanguageCode(String code) {
+    _languageCode = code;
+  }
+
   Map<String, String> get _headers {
     final headers = <String, String>{
       'Content-Type': 'application/json',
+      'Accept-Language': _languageCode,
     };
     if (_token != null && _token!.isNotEmpty) {
       headers['Authorization'] = 'Bearer $_token';
@@ -76,6 +82,24 @@ class ApiClient {
       headers: _headers,
     );
     log('DELETE $path: ${response.statusCode} ${response.body}');
+    return _handleResponse(response);
+  }
+
+  Future<Map<String, dynamic>> uploadFile(
+    String path, {
+    required String filePath,
+    String fieldName = 'file',
+  }) async {
+    log('UPLOAD $path: $filePath');
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('$baseUrl$path'),
+    );
+    request.headers.addAll(_headers);
+    request.files.add(await http.MultipartFile.fromPath(fieldName, filePath));
+    final streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+    log('UPLOAD $path: ${response.statusCode} ${response.body}');
     return _handleResponse(response);
   }
 

@@ -9,7 +9,9 @@ import 'package:shinup/features/booking/presentation/pages/booking_step3_page.da
 import 'package:shinup/features/location/presentation/pages/location_access_page.dart';
 import 'package:shinup/features/main/presentation/pages/main_shell.dart';
 import 'package:shinup/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:shinup/features/profile/presentation/pages/add_address_page.dart';
 import 'package:shinup/features/profile/presentation/pages/add_vehicle_page.dart';
+import 'package:shinup/features/profile/presentation/pages/address_detail_page.dart';
 import 'package:shinup/features/profile/presentation/pages/car_detail_page.dart';
 import 'package:shinup/features/provider/presentation/pages/provider_detail_page.dart';
 import 'package:shinup/features/splash/presentation/pages/splash_page.dart';
@@ -28,6 +30,8 @@ class AppRouter {
   static const String locationAccess = '/location-access';
   static const String addVehicle = '/add-vehicle';
   static const String carDetail = '/car-detail';
+  static const String addAddress = '/add-address';
+  static const String addressDetail = '/address-detail';
   static const String providerDetail = '/provider-detail';
   static const String bookingStep2 = '/booking-step2';
   static const String bookingStep3 = '/booking-step3';
@@ -93,6 +97,17 @@ class AppRouter {
         final carId = settings.arguments as String;
         return MaterialPageRoute(
           builder: (_) => CarDetailPage(carId: carId),
+          settings: settings,
+        );
+      case addAddress:
+        return MaterialPageRoute(
+          builder: (_) => const AddAddressPage(),
+          settings: settings,
+        );
+      case addressDetail:
+        final addressId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => AddressDetailPage(addressId: addressId),
           settings: settings,
         );
       case providerDetail:

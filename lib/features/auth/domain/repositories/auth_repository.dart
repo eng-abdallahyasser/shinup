@@ -10,10 +10,10 @@ abstract class AuthRepository {
   });
 
   Future<AuthResponse> login({
-    String? phone,
-    String? email,
+    required String identifier,
     required String password,
     String deviceType = 'ANDROID',
+    String deviceToken = '',
   });
 
   Future<AuthResponse> verifyOtp({

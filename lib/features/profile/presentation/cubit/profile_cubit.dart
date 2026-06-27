@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shinup/core/network/api_client.dart';
+import 'package:shinup/features/profile/data/models/address_models.dart';
 import 'package:shinup/features/profile/data/models/car_models.dart';
 import 'package:shinup/features/profile/data/models/profile_model.dart';
 import 'package:shinup/features/profile/domain/repositories/profile_repository.dart';
@@ -55,6 +57,7 @@ class ProfileState extends Equatable {
   final String fullName;
   final String email;
   final String phone;
+  final String? avatarUrl;
   final bool isEditing;
 
   // Password fields
@@ -70,6 +73,9 @@ class ProfileState extends Equatable {
   // Vehicles
   final List<UserCarModel> vehicles;
 
+  // Addresses
+  final List<AddressModel> addresses;
+
   // Sessions
   final List<ActiveSession> sessions;
 
@@ -79,6 +85,7 @@ class ProfileState extends Equatable {
     this.fullName = '',
     this.email = '',
     this.phone = '',
+    this.avatarUrl,
     this.isEditing = false,
     this.showOldPassword = false,
     this.showNewPassword = false,
@@ -87,6 +94,7 @@ class ProfileState extends Equatable {
     this.pointsProgress = 0,
     this.recentActivities = const [],
     this.vehicles = const [],
+    this.addresses = const [],
     this.sessions = const [],
   });
 
@@ -96,6 +104,7 @@ class ProfileState extends Equatable {
     String? fullName,
     String? email,
     String? phone,
+    String? avatarUrl,
     bool? isEditing,
     bool? showOldPassword,
     bool? showNewPassword,
@@ -104,6 +113,7 @@ class ProfileState extends Equatable {
     int? pointsProgress,
     List<LoyaltyActivity>? recentActivities,
     List<UserCarModel>? vehicles,
+    List<AddressModel>? addresses,
     List<ActiveSession>? sessions,
   }) {
     return ProfileState(
@@ -112,6 +122,7 @@ class ProfileState extends Equatable {
       fullName: fullName ?? this.fullName,
       email: email ?? this.email,
       phone: phone ?? this.phone,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
       isEditing: isEditing ?? this.isEditing,
       showOldPassword: showOldPassword ?? this.showOldPassword,
       showNewPassword: showNewPassword ?? this.showNewPassword,
@@ -120,6 +131,7 @@ class ProfileState extends Equatable {
       pointsProgress: pointsProgress ?? this.pointsProgress,
       recentActivities: recentActivities ?? this.recentActivities,
       vehicles: vehicles ?? this.vehicles,
+      addresses: addresses ?? this.addresses,
       sessions: sessions ?? this.sessions,
     );
   }
@@ -131,6 +143,7 @@ class ProfileState extends Equatable {
         fullName,
         email,
         phone,
+        avatarUrl,
         isEditing,
         showOldPassword,
         showNewPassword,
@@ -139,6 +152,7 @@ class ProfileState extends Equatable {
         pointsProgress,
         recentActivities,
         vehicles,
+        addresses,
         sessions,
       ];
 }
@@ -157,15 +171,19 @@ class ProfileCubit extends Cubit<ProfileState> {
       final results = await Future.wait([
         _profileRepository.getProfile(),
         _profileRepository.getCars(),
+        _profileRepository.getAddresses(),
       ]);
       final profile = results[0] as ProfileModel;
       final cars = results[1] as List<UserCarModel>;
+      final addresses = results[2] as List<AddressModel>;
       emit(state.copyWith(
         status: ProfileStatus.loaded,
         fullName: profile.fullName,
         email: profile.email,
         phone: profile.phone,
+        avatarUrl: profile.avatarUrl,
         vehicles: cars,
+        addresses: addresses,
       ));
     } on ApiException catch (e) {
       emit(state.copyWith(
@@ -195,6 +213,45 @@ class ProfileCubit extends Cubit<ProfileState> {
     } catch (_) {
       emit(state.copyWith(
         errorMessage: 'Failed to delete vehicle. Please try again.',
+      ));
+    }
+  }
+
+  Future<void> deleteAddress(String addressId) async {
+    try {
+      await _profileRepository.deleteAddress(addressId);
+      final updated = state.addresses.where((a) => a.id != addressId).toList();
+      emit(state.copyWith(addresses: updated));
+    } on ApiException catch (e) {
+      emit(state.copyWith(errorMessage: e.message));
+    } catch (_) {
+      emit(state.copyWith(
+        errorMessage: 'Failed to delete address. Please try again.',
+      ));
+    }
+  }
+
+  Future<void> uploadAvatar() async {
+    final picker = ImagePicker();
+    final picked = await picker.pickImage(source: ImageSource.gallery);
+    if (picked == null) return;
+
+    emit(state.copyWith(status: ProfileStatus.loading, errorMessage: null));
+    try {
+      final profile = await _profileRepository.uploadAvatar(picked.path);
+      emit(state.copyWith(
+        status: ProfileStatus.loaded,
+        avatarUrl: profile.avatarUrl,
+      ));
+    } on ApiException catch (e) {
+      emit(state.copyWith(
+        status: ProfileStatus.loaded,
+        errorMessage: e.message,
+      ));
+    } catch (_) {
+      emit(state.copyWith(
+        status: ProfileStatus.loaded,
+        errorMessage: 'Failed to upload image. Please try again.',
       ));
     }
   }

@@ -32,26 +32,17 @@ class _LoginView extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) async {
         if (state.successMessage != null) {
-          if (state.loginMethod == LoginMethod.phone && state.userId.isNotEmpty) {
-            // Phone login: navigate to OTP verification
+          final permission = await Geolocator.checkPermission();
+          if (!context.mounted) return;
+          final locationGranted = permission == LocationPermission.whileInUse ||
+              permission == LocationPermission.always;
+          if (!locationGranted) {
             Navigator.of(context).pushReplacementNamed(
-              AppRouter.otp,
-              arguments: state.userId,
+              AppRouter.locationAccess,
+              arguments: {'redirectRoute': AppRouter.main},
             );
           } else {
-            // Email login: check location permission first
-            final permission = await Geolocator.checkPermission();
-            if (!context.mounted) return;
-            final locationGranted = permission == LocationPermission.whileInUse ||
-                permission == LocationPermission.always;
-            if (!locationGranted) {
-              Navigator.of(context).pushReplacementNamed(
-                AppRouter.locationAccess,
-                arguments: {'redirectRoute': AppRouter.main},
-              );
-            } else {
-              Navigator.of(context).pushReplacementNamed(AppRouter.main);
-            }
+            Navigator.of(context).pushReplacementNamed(AppRouter.main);
           }
         }
       },

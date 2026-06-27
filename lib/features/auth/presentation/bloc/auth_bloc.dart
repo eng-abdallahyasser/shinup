@@ -68,10 +68,11 @@ final class ToggleTermsAccepted extends AuthEvent {
 
 final class LoginSubmitted extends AuthEvent {
   final String deviceType;
-  const LoginSubmitted({this.deviceType = 'ANDROID'});
+  final String deviceToken;
+  const LoginSubmitted({this.deviceType = 'ANDROID', this.deviceToken = ''});
 
   @override
-  List<Object?> get props => [deviceType];
+  List<Object?> get props => [deviceType, deviceToken];
 }
 
 final class RegisterSubmitted extends AuthEvent {
@@ -277,12 +278,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   
   Future<void> _onLoginSubmitted(
       LoginSubmitted event, Emitter<AuthState> emit) async {
-    if (state.loginMethod == LoginMethod.phone && state.phone.isEmpty) {
-      emit(_copy(state, errorMessage: 'Please enter your phone number'));
-      return;
-    }
-    if (state.loginMethod == LoginMethod.email && state.email.isEmpty) {
-      emit(_copy(state, errorMessage: 'Please enter your email address'));
+    final identifier = state.loginMethod == LoginMethod.phone
+        ? state.phone
+        : state.email;
+    if (identifier.isEmpty) {
+      emit(_copy(
+        state,
+        errorMessage: state.loginMethod == LoginMethod.phone
+            ? 'Please enter your phone number'
+            : 'Please enter your email address',
+      ));
       return;
     }
     if (state.password.isEmpty) {
@@ -293,15 +298,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     try {
       final response = await _authRepository.login(
-        phone: state.loginMethod == LoginMethod.phone ? state.phone : null,
-        email: state.loginMethod == LoginMethod.email ? state.email : null,
+        identifier: identifier,
         password: state.password,
         deviceType: event.deviceType,
+        deviceToken: event.deviceToken,
       );
 
-      // Email login: save token and navigate directly to home
-      if (state.loginMethod == LoginMethod.email && response.token != null) {
-        // Save user data if available
+      if (response.token != null) {
         if (response.user != null) {
           await _authRepository.saveUserData(response.user!);
         }

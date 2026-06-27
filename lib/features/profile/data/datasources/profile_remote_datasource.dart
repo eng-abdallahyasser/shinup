@@ -1,4 +1,5 @@
 import 'package:shinup/core/network/api_client.dart';
+import 'package:shinup/features/profile/data/models/address_models.dart';
 import 'package:shinup/features/profile/data/models/car_models.dart';
 import 'package:shinup/features/profile/data/models/profile_model.dart';
 
@@ -53,5 +54,47 @@ class ProfileRemoteDataSource {
 
   Future<void> deleteCar(String carId) async {
     await _client.delete('/customers/me/cars/$carId');
+  }
+
+  Future<ProfileModel> uploadAvatar(String filePath) async {
+    final data = await _client.uploadFile(
+      '/auth/profile/avatar',
+      filePath: filePath,
+      fieldName: 'avatar',
+    );
+    return ProfileModel.fromJson(data);
+  }
+
+  Future<List<AddressModel>> getAddresses() async {
+    final data = await _client.getList('/customers/me/addresses');
+    return data
+        .map((e) => AddressModel.fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
+
+  Future<AddressModel> getAddress(String addressId) async {
+    final data = await _client.get('/customers/me/addresses/$addressId');
+    return AddressModel.fromJson(data);
+  }
+
+  Future<void> addAddress(AddAddressRequest request) async {
+    await _client.post('/customers/me/addresses', body: request.toJson());
+  }
+
+  Future<AddressModel> updateAddress(
+      String addressId, UpdateAddressRequest request) async {
+    final data = await _client.patch(
+      '/customers/me/addresses/$addressId',
+      body: request.toJson(),
+    );
+    return AddressModel.fromJson(data);
+  }
+
+  Future<void> setDefaultAddress(String addressId) async {
+    await _client.patch('/customers/me/addresses/$addressId/default');
+  }
+
+  Future<void> deleteAddress(String addressId) async {
+    await _client.delete('/customers/me/addresses/$addressId');
   }
 }

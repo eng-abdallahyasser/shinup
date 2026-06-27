@@ -116,6 +116,39 @@ class AppLocalizations {
       'myVehicles': 'MY VEHICLES',
       'addVehicle': 'Add Vehicle',
       'noVehicles': 'No vehicles added yet. Tap + to add your first vehicle.',
+      'myAddresses': 'MY ADDRESSES',
+      'addAddress': 'Add Address',
+      'noAddresses': 'No addresses added yet. Tap + to add your first address.',
+      'addAddressTitle': 'Add Address',
+      'addAddressBtn': 'Add Address',
+      'addressTitle': 'TITLE',
+      'enterAddressTitle': 'Please enter a title',
+      'addressCity': 'CITY',
+      'enterCity': 'Please enter the city',
+      'addressArea': 'AREA',
+      'enterArea': 'Please enter the area',
+      'addressStreet': 'STREET',
+      'enterStreet': 'Please enter the street',
+      'addressBuilding': 'BUILDING NUMBER',
+      'enterBuilding': 'Please enter the building number',
+      'addressLatitude': 'LATITUDE',
+      'enterLatitude': 'Please enter the latitude',
+      'addressLongitude': 'LONGITUDE',
+      'enterLongitude': 'Please enter the longitude',
+      'addressNotes': 'NOTES (OPTIONAL)',
+      'addressDefault': 'Set as default address',
+      'editAddressTitle': 'Edit Address',
+      'failedLoadAddress': 'Failed to load address details.',
+      'failedAddAddress': 'Failed to add address. Please try again.',
+      'failedUpdateAddress': 'Failed to update address. Please try again.',
+      'failedSetDefaultAddress': 'Failed to set as default. Please try again.',
+      'failedDeleteAddress': 'Failed to delete address. Please try again.',
+      'deleteAddress': 'Delete Address',
+      'deleteAddressConfirm': 'Are you sure you want to delete this address?',
+      'deleteAddressWarning': 'This action cannot be undone.',
+      'setAsDefaultAddress': 'Set as Default Address',
+      'setDefaultAddressSubtitle': 'Make this your primary address for bookings.',
+      'defaultAddressSubtitle': 'This is your default address.',
       'loyaltyRewards': 'LOYALTY & REWARDS',
       'rewardsPoints': 'Rewards Points',
       'redeemYourPoints': 'Redeem your\nPoints',
@@ -337,6 +370,39 @@ class AppLocalizations {
       'myVehicles': 'سياراتي',
       'addVehicle': 'إضافة سيارة',
       'noVehicles': 'لم تتم إضافة سيارات بعد. اضغط + لإضافة سيارتك الأولى.',
+      'myAddresses': 'عناويني',
+      'addAddress': 'إضافة عنوان',
+      'noAddresses': 'لم تتم إضافة عناوين بعد. اضغط + لإضافة عنوانك الأول.',
+      'addAddressTitle': 'إضافة عنوان',
+      'addAddressBtn': 'إضافة عنوان',
+      'addressTitle': 'العنوان',
+      'enterAddressTitle': 'يرجى إدخال العنوان',
+      'addressCity': 'المدينة',
+      'enterCity': 'يرجى إدخال المدينة',
+      'addressArea': 'المنطقة',
+      'enterArea': 'يرجى إدخال المنطقة',
+      'addressStreet': 'الشارع',
+      'enterStreet': 'يرجى إدخال الشارع',
+      'addressBuilding': 'رقم المبنى',
+      'enterBuilding': 'يرجى إدخال رقم المبنى',
+      'addressLatitude': 'خط العرض',
+      'enterLatitude': 'يرجى إدخال خط العرض',
+      'addressLongitude': 'خط الطول',
+      'enterLongitude': 'يرجى إدخال خط الطول',
+      'addressNotes': 'ملاحظات (اختياري)',
+      'addressDefault': 'تعيين كعنوان افتراضي',
+      'editAddressTitle': 'تعديل العنوان',
+      'failedLoadAddress': 'فشل تحميل بيانات العنوان.',
+      'failedAddAddress': 'فشل إضافة العنوان. حاول مرة أخرى.',
+      'failedUpdateAddress': 'فشل تحديث العنوان. حاول مرة أخرى.',
+      'failedSetDefaultAddress': 'فشل تعيين كعنوان افتراضي. حاول مرة أخرى.',
+      'failedDeleteAddress': 'فشل حذف العنوان. حاول مرة أخرى.',
+      'deleteAddress': 'حذف العنوان',
+      'deleteAddressConfirm': 'هل أنت متأكد أنك تريد حذف هذا العنوان؟',
+      'deleteAddressWarning': 'لا يمكن التراجع عن هذا الإجراء.',
+      'setAsDefaultAddress': 'تعيين كعنوان افتراضي',
+      'setDefaultAddressSubtitle': 'اجعل هذا عنوانك الأساسي للحجوزات.',
+      'defaultAddressSubtitle': 'هذا هو عنوانك الافتراضي.',
       'loyaltyRewards': 'المكافآت والولاء',
       'rewardsPoints': 'نقاط المكافآت',
       'redeemYourPoints': 'استبدال\nالنقاط',
@@ -576,6 +642,39 @@ class AppLocalizations {
   String get myVehicles => translate('myVehicles');
   String get addVehicle => translate('addVehicle');
   String get noVehicles => translate('noVehicles');
+  String get myAddresses => translate('myAddresses');
+  String get addAddress => translate('addAddress');
+  String get noAddresses => translate('noAddresses');
+  String get addAddressTitle => translate('addAddressTitle');
+  String get addAddressBtn => translate('addAddressBtn');
+  String get addressTitle => translate('addressTitle');
+  String get enterAddressTitle => translate('enterAddressTitle');
+  String get addressCity => translate('addressCity');
+  String get enterCity => translate('enterCity');
+  String get addressArea => translate('addressArea');
+  String get enterArea => translate('enterArea');
+  String get addressStreet => translate('addressStreet');
+  String get enterStreet => translate('enterStreet');
+  String get addressBuilding => translate('addressBuilding');
+  String get enterBuilding => translate('enterBuilding');
+  String get addressLatitude => translate('addressLatitude');
+  String get enterLatitude => translate('enterLatitude');
+  String get addressLongitude => translate('addressLongitude');
+  String get enterLongitude => translate('enterLongitude');
+  String get addressNotes => translate('addressNotes');
+  String get addressDefault => translate('addressDefault');
+  String get editAddressTitle => translate('editAddressTitle');
+  String get failedLoadAddress => translate('failedLoadAddress');
+  String get failedAddAddress => translate('failedAddAddress');
+  String get failedUpdateAddress => translate('failedUpdateAddress');
+  String get failedSetDefaultAddress => translate('failedSetDefaultAddress');
+  String get failedDeleteAddress => translate('failedDeleteAddress');
+  String get deleteAddress => translate('deleteAddress');
+  String get deleteAddressConfirm => translate('deleteAddressConfirm');
+  String get deleteAddressWarning => translate('deleteAddressWarning');
+  String get setAsDefaultAddress => translate('setAsDefaultAddress');
+  String get setDefaultAddressSubtitle => translate('setDefaultAddressSubtitle');
+  String get defaultAddressSubtitle => translate('defaultAddressSubtitle');
   String get loyaltyRewards => translate('loyaltyRewards');
   String get rewardsPoints => translate('rewardsPoints');
   String get redeemYourPoints => translate('redeemYourPoints');
