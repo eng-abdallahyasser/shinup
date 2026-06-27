@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shinup/core/localization/app_localizations.dart';
 
 // ═════════════════════════════════════════════════════════════════════════════
 //  Service Data
@@ -30,13 +31,13 @@ class ServicesContent extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
       color: const Color(0xFFFAF8FF),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ── Wash & Care group ─────────────────────────────────
           ServiceGroup(
             icon: Icons.local_car_wash_outlined,
-            title: 'Wash & Care',
+            title: AppLocalizations.of(context).providerServiceGroupWashCare,
             services: [
               ServiceData(
                 name: 'Exterior Wash',
@@ -58,7 +59,7 @@ class ServicesContent extends StatelessWidget {
           // ── Repair & Maintenance group ────────────────────────
           ServiceGroup(
             icon: Icons.build_outlined,
-            title: 'Repairs & Maintenance',
+            title: AppLocalizations.of(context).providerServiceGroupRepairs,
             services: [
               ServiceData(
                 name: 'Oil Change',
@@ -238,8 +239,8 @@ class ServiceCard extends StatelessWidget {
                   border: Border.all(color: const Color(0xFFC3C6D7)),
                   borderRadius: BorderRadius.circular(9999),
                 ),
-                child: const Text(
-                  'Add',
+                child: Text(
+                  AppLocalizations.of(context).providerServiceAdd,
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,

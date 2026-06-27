@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shinup/core/di/service_locator.dart';
 import 'package:shinup/core/localization/app_localizations.dart';
 import 'package:shinup/core/routes/app_pages.dart';
@@ -29,7 +30,7 @@ class _LoginView extends StatelessWidget {
     final t = AppLocalizations.of(context);
 
     return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.successMessage != null) {
           if (state.loginMethod == LoginMethod.phone && state.userId.isNotEmpty) {
             // Phone login: navigate to OTP verification
@@ -38,8 +39,19 @@ class _LoginView extends StatelessWidget {
               arguments: state.userId,
             );
           } else {
-            // Email login: navigate directly to main shell
-            Navigator.of(context).pushReplacementNamed(AppRouter.main);
+            // Email login: check location permission first
+            final permission = await Geolocator.checkPermission();
+            if (!context.mounted) return;
+            final locationGranted = permission == LocationPermission.whileInUse ||
+                permission == LocationPermission.always;
+            if (!locationGranted) {
+              Navigator.of(context).pushReplacementNamed(
+                AppRouter.locationAccess,
+                arguments: {'redirectRoute': AppRouter.main},
+              );
+            } else {
+              Navigator.of(context).pushReplacementNamed(AppRouter.main);
+            }
           }
         }
       },

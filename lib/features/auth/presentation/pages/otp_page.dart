@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shinup/core/di/service_locator.dart';
 import 'package:shinup/core/localization/app_localizations.dart';
 import 'package:shinup/core/routes/app_pages.dart';
@@ -31,9 +32,20 @@ class _OtpView extends StatelessWidget {
     final t = AppLocalizations.of(context);
 
     return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.successMessage != null) {
-          Navigator.of(context).pushReplacementNamed(AppRouter.main);
+          final permission = await Geolocator.checkPermission();
+          if (!context.mounted) return;
+          final locationGranted = permission == LocationPermission.whileInUse ||
+              permission == LocationPermission.always;
+          if (!locationGranted) {
+            Navigator.of(context).pushReplacementNamed(
+              AppRouter.locationAccess,
+              arguments: {'redirectRoute': AppRouter.main},
+            );
+          } else {
+            Navigator.of(context).pushReplacementNamed(AppRouter.main);
+          }
         }
       },
       builder: (context, state) {

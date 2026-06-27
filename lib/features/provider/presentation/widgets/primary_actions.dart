@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shinup/core/localization/app_localizations.dart';
 
 class PrimaryActions extends StatelessWidget {
   const PrimaryActions({super.key});
@@ -11,9 +12,9 @@ class PrimaryActions extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ActionButton(icon: Icons.phone_rounded, label: 'Call'),
-          ActionButton(icon: Icons.navigation_rounded, label: 'Directions'),
-          ActionButton(icon: Icons.share_outlined, label: 'Share'),
+          ActionButton(icon: Icons.phone_rounded, label: AppLocalizations.of(context).providerActionCall),
+          ActionButton(icon: Icons.navigation_rounded, label: AppLocalizations.of(context).providerActionDirections),
+          ActionButton(icon: Icons.share_outlined, label: AppLocalizations.of(context).providerActionShare),
         ],
       ),
     );

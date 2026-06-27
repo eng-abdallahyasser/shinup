@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shinup/core/localization/app_localizations.dart';
 
 class BottomCta extends StatelessWidget {
   final VoidCallback? onBookNow;
@@ -29,11 +30,11 @@ class BottomCta extends StatelessWidget {
         child: Row(
           children: [
             // Price info
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'TOTAL',
+                  AppLocalizations.of(context).providerCtaTotal,
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,
@@ -70,8 +71,8 @@ class BottomCta extends StatelessWidget {
                       borderRadius: BorderRadius.circular(9999),
                     ),
                   ),
-                  child: const Text(
-                    'Book Now',
+                  child: Text(
+                    AppLocalizations.of(context).providerCtaBookNow,
                     style: TextStyle(
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w600,

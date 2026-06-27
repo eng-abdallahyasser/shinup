@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shinup/core/localization/app_localizations.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
@@ -60,8 +61,8 @@ class ProfileHeader extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         // Distance
-                        const Text(
-                          '1.2 km away',
+                        Text(
+                          '${AppLocalizations.of(context).formatNumber(1.2)} ${AppLocalizations.of(context).providerUnitKmAway}',
                           style: TextStyle(
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w500,
@@ -122,8 +123,8 @@ class ProfileHeader extends StatelessWidget {
                   color: const Color(0xFF6BFF8F),
                   borderRadius: BorderRadius.circular(9999),
                 ),
-                child: const Text(
-                  'OPEN',
+                child: Text(
+                  AppLocalizations.of(context).homeStatusOpen,
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,
@@ -135,8 +136,8 @@ class ProfileHeader extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              const Text(
-                'Full Exterior Polish & Wax',
+              Text(
+                AppLocalizations.of(context).exploreServiceTitle.replaceAll('\n', ' '),
                 style: TextStyle(
                   fontFamily: 'Inter',
                   fontStyle: FontStyle.italic,

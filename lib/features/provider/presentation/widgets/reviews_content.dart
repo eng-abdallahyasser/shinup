@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shinup/core/localization/app_localizations.dart';
 
 // ═════════════════════════════════════════════════════════════════════════════
 //  Reviews Content
@@ -12,12 +13,12 @@ class ReviewsContent extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
       color: const Color(0xFFFAF8FF),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ── Heading ───────────────────────────────────────────
           Text(
-            'Customer Reviews',
+            AppLocalizations.of(context).providerReviewsTitle,
             style: TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w600,
@@ -73,13 +74,13 @@ class RatingSummaryCard extends StatelessWidget {
         color: const Color(0xFFF3F3FE),
         borderRadius: BorderRadius.circular(32),
       ),
-      child: const Column(
+      child: Column(
         children: [
-          RatingBar(label: 'Excellent', value: '95%', fill: 0.95),
+          RatingBar(label: AppLocalizations.of(context).providerRatingExcellent, value: '95%', fill: 0.95),
           SizedBox(height: 8),
-          RatingBar(label: 'Good', value: '90%', fill: 0.90),
+          RatingBar(label: AppLocalizations.of(context).providerRatingGood, value: '90%', fill: 0.90),
           SizedBox(height: 8),
-          RatingBar(label: 'Average', value: '84%', fill: 0.84),
+          RatingBar(label: AppLocalizations.of(context).providerRatingAverage, value: '84%', fill: 0.84),
         ],
       ),
     );

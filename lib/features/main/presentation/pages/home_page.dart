@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shinup/core/localization/app_localizations.dart';
 import 'package:shinup/core/routes/app_pages.dart';
 
 class HomePage extends StatelessWidget {
@@ -71,7 +72,7 @@ class _TopAppBar extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                'Location',
+                AppLocalizations.of(context).homeAppBarTitle,
                 style: TextStyle(
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w600,
@@ -112,7 +113,7 @@ class _HeroSection extends StatelessWidget {
       child: SizedBox(
         height: 60,
         child: Text(
-          'Book Trusted Car Care,\nRight Where You Are.',
+          AppLocalizations.of(context).homeHeroTitle,
           style: TextStyle(
             fontFamily: 'Inter',
             fontWeight: FontWeight.w700,
@@ -142,7 +143,7 @@ class _SearchSection extends StatelessWidget {
         height: 56,
         child: TextField(
           decoration: InputDecoration(
-            hintText: 'What does your car need?',
+            hintText: AppLocalizations.of(context).homeSearchHint,
             hintStyle: TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w400,
@@ -202,6 +203,17 @@ class _ServiceFiltersState extends State<_ServiceFilters> {
     _FilterData('Tire', Icons.settings_outlined),
   ];
 
+  String _localizedFilterLabel(String label) {
+    // This method is called inside build where we have context
+    final t = AppLocalizations.of(context);
+    return switch (label) {
+      'Wash' => t.homeFilterWash,
+      'Repair' => t.homeFilterRepair,
+      'Tire' => t.homeFilterTire,
+      _ => label,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -255,7 +267,7 @@ class _ServiceFiltersState extends State<_ServiceFilters> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    f.label,
+                    _localizedFilterLabel(f.label),
                     style: TextStyle(
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w400,
@@ -316,7 +328,7 @@ class _RecommendedHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Recommended for you',
+            AppLocalizations.of(context).homeRecommendedTitle,
             style: TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w600,
@@ -331,7 +343,7 @@ class _RecommendedHeader extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
               child: Text(
-                'See all',
+                AppLocalizations.of(context).homeSeeAll,
                 style: TextStyle(
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
@@ -356,23 +368,23 @@ class _ProviderCarousel extends StatelessWidget {
       id: 'shine-co',
       name: 'Shine & Co',
       rating: '4.8',
-      distance: '1.2 km',
+      distanceValue: 1.2,
       tags: ['Repair', 'Tires'],
       status: 'Open',
       statusColor: Color(0xFF6BFF8F),
       statusTextColor: Color(0xFF007432),
-      color: Color(0xFFE3F2FD),
+      imagePath: 'assets/images/provider_shine_co.jpg',
     ),
     _ProviderData(
       id: 'garage-37',
       name: 'Garage 37',
       rating: '4.9',
-      distance: '2.4 km',
+      distanceValue: 2.4,
       tags: ['Repair', 'Car Wash'],
       status: 'Open',
       statusColor: Color(0xFF6BFF8F),
       statusTextColor: Color(0xFF007432),
-      color: Color(0xFFFCE4EC),
+      imagePath: 'assets/images/provider_garage_37.jpg',
     ),
   ];
 
@@ -402,22 +414,22 @@ class _ProviderData {
   final String id;
   final String name;
   final String rating;
-  final String distance;
+  final double distanceValue;
   final List<String> tags;
   final String status;
   final Color statusColor;
   final Color statusTextColor;
-  final Color color;
+  final String imagePath;
   const _ProviderData({
     required this.id,
     required this.name,
     required this.rating,
-    required this.distance,
+    required this.distanceValue,
     required this.tags,
     required this.status,
     required this.statusColor,
     required this.statusTextColor,
-    required this.color,
+    required this.imagePath,
   });
 }
 
@@ -426,6 +438,16 @@ class _ProviderCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const _ProviderCard({required this.data, required this.onTap});
+
+  static String _localizeTag(String tag, BuildContext context) {
+    final t = AppLocalizations.of(context);
+    return switch (tag) {
+      'Repair' => t.homeTagRepair,
+      'Tires' => t.homeTagTires,
+      'Car Wash' => t.homeTagCarWash,
+      _ => tag,
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -454,20 +476,28 @@ class _ProviderCard extends StatelessWidget {
               // ── Image area ──────────────────────────────────────────
               Stack(
                 children: [
-                  Container(
-                    height: 160,
-                    decoration: BoxDecoration(
-                      color: data.color,
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(32),
-                      ),
+                  ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(32),
                     ),
-                    child: Center(
-                      child: Icon(
-                        Icons.build_circle_outlined,
-                        size: 48,
-                        color: Colors.white.withValues(alpha: 0.6),
-                      ),
+                    child: Image.asset(
+                      data.imagePath,
+                      height: 160,
+                      width: 280,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          height: 160,
+                          color: const Color(0xFFE3F2FD),
+                          child: const Center(
+                            child: Icon(
+                              Icons.build_circle_outlined,
+                              size: 48,
+                              color: Color(0x99FFFFFF),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   // ❖ Rating badge
@@ -545,7 +575,7 @@ class _ProviderCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(9999),
                           ),
                           child: Text(
-                            data.status.toUpperCase(),
+                            AppLocalizations.of(context).homeStatusOpen,
                             style: TextStyle(
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w700,
@@ -569,7 +599,7 @@ class _ProviderCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          data.distance,
+                          '${AppLocalizations.of(context).formatNumber(data.distanceValue)} ${AppLocalizations.of(context).homeUnitKm}',
                           style: const TextStyle(
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w500,
@@ -584,6 +614,7 @@ class _ProviderCard extends StatelessWidget {
                     // Tags
                     Row(
                       children: data.tags.map((tag) {
+                        final localizedTag = _localizeTag(tag, context);
                         return Padding(
                           padding: const EdgeInsets.only(right: 8),
                           child: Container(
@@ -596,7 +627,7 @@ class _ProviderCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(9999),
                             ),
                             child: Text(
-                              tag,
+                              localizedTag,
                               style: const TextStyle(
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -638,8 +669,8 @@ class _PromoGrid extends StatelessWidget {
             // ❖ Left card — 20% Off
             Expanded(
               child: _PromoCard(
-                label: 'PROMO',
-                title: "20% Off Your\nFirst Wash",
+                label: AppLocalizations.of(context).homePromoLabel,
+                title: AppLocalizations.of(context).homePromoTitle,
                 backgroundColor: const Color(0xFF2563EB),
                 labelColor: const Color(0xFFEEEFFF).withValues(alpha: 0.8),
                 titleColor: const Color(0xFFEEEFFF),
@@ -651,8 +682,8 @@ class _PromoGrid extends StatelessWidget {
             // ❖ Right card — Expert Care
             Expanded(
               child: _PromoCard(
-                label: 'SUPPORT',
-                title: 'Expert Care\nAdvisor',
+                label: AppLocalizations.of(context).homeSupportLabel,
+                title: AppLocalizations.of(context).homeSupportTitle,
                 backgroundColor: const Color(0xFFBC4800),
                 labelColor: const Color(0xFFFFEDE6).withValues(alpha: 0.8),
                 titleColor: const Color(0xFFFFEDE6),

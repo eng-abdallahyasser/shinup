@@ -73,6 +73,7 @@ flutter:
     - assets/logo.jpeg
     - assets/app_icon.jpg
     - assets/onboarding/
+    - assets/images/
 
 # ── App Icon ────────────────────────────────────────────────────────────────
 # Use assets/app_icon.png as the source for all platform launcher icons.

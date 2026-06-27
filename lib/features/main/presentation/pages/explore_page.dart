@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:shinup/core/localization/app_localizations.dart';
 
 /// Explore page displaying an interactive map with nearby service providers.
 ///
@@ -40,16 +41,16 @@ class _ExplorePageState extends State<ExplorePage> {
     super.dispose();
   }
 
-  /// Request permission and start listening to position updates.
+  /// Silently attempt to get the user's location.
+  /// Does NOT request permission — relies on it being granted ahead of time
+  /// via [LocationAccessPage]. If permission isn't granted, stays on default.
   Future<void> _initLocation() async {
     try {
       final permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        final req = await Geolocator.requestPermission();
-        if (req == LocationPermission.denied ||
-            req == LocationPermission.deniedForever) {
-          return; // User denied – stays on default location
-        }
+      final granted = permission == LocationPermission.whileInUse ||
+          permission == LocationPermission.always;
+      if (!granted) {
+        return; // Permission not granted — stays on default location
       }
 
       // Get last known position as a quick initial fix
@@ -113,20 +114,20 @@ class _ExplorePageState extends State<ExplorePage> {
           ),
 
           // ── TopAppBar ───────────────────────────────────────────
-          _MapTopAppBar(),
+          // _MapTopAppBar(),
 
           // ── Floating Selection Overlay ──────────────────────────
           const Positioned(
             left: 0,
             right: 0,
-            top: 80,
+            top: 20,
             child: _FloatingSelectionPill(),
           ),
 
           // ── Toggle Buttons (Search + My Location) ───────────────
           Positioned(
             right: 20,
-            top: 144,
+            top: 20,
             child: Column(
               children: [
                 _MapToggleButton(
@@ -249,9 +250,9 @@ class _FloatingSelectionPill extends StatelessWidget {
             Icon(Icons.location_on_rounded,
                 size: 16, color: const Color(0xFF004AC6)),
             const SizedBox(width: 8),
-            const Text(
-              'Full Exterior Polish\n& Wax',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context).exploreServiceTitle,
+              style: const TextStyle(
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
@@ -408,9 +409,9 @@ class _ServiceCard extends StatelessWidget {
                                   size: 12,
                                   color: const Color(0xFF007432)),
                               const SizedBox(width: 4),
-                              const Text(
-                                'OPEN',
-                                style: TextStyle(
+                              Text(
+                                AppLocalizations.of(context).homeStatusOpen,
+                                style: const TextStyle(
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w700,
                                   fontSize: 12,
@@ -427,9 +428,9 @@ class _ServiceCard extends StatelessWidget {
                     const SizedBox(height: 4),
 
                     // Service description
-                    const Text(
-                      'Full Exterior Polish\n& Wax',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context).exploreServiceTitle,
+                      style: const TextStyle(
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
@@ -453,9 +454,9 @@ class _ServiceCard extends StatelessWidget {
                                   size: 14,
                                   color: const Color(0xFF004AC6)),
                               const SizedBox(width: 4),
-                              const Text(
-                                'Get directions',
-                                style: TextStyle(
+                              Text(
+                                AppLocalizations.of(context).exploreGetDirections,
+                                style: const TextStyle(
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w700,
                                   fontSize: 12,
@@ -477,9 +478,9 @@ class _ServiceCard extends StatelessWidget {
                                 size: 14,
                                 color: const Color(0xFF434655)),
                             const SizedBox(width: 4),
-                            const Text(
-                              '2.4 km',
-                              style: TextStyle(
+                            Text(
+                              '${AppLocalizations.of(context).formatNumber(2.4)} ${AppLocalizations.of(context).homeUnitKm}',
+                              style: const TextStyle(
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w700,
                                 fontSize: 12,

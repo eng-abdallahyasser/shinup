@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HeroImage extends StatelessWidget {
-  const HeroImage({super.key});
+  final String imagePath;
+
+  const HeroImage({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -9,14 +11,41 @@ class HeroImage extends StatelessWidget {
       height: 256,
       child: Stack(
         children: [
-          // Background image placeholder
-          Container(
+          // Background image
+          Image.asset(
+            imagePath,
             height: 256,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF1A237E), Color(0xFF0D47A1)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+            width: double.infinity,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                height: 256,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF1A237E), Color(0xFF0D47A1)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+              );
+            },
+          ),
+          // Gradient overlay for better readability
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 80,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withValues(alpha: 0.4),
+                  ],
+                ),
               ),
             ),
           ),

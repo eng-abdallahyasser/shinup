@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shinup/core/localization/app_localizations.dart';
 import 'package:shinup/core/routes/app_pages.dart';
 import 'package:shinup/features/provider/presentation/widgets/bottom_cta.dart';
 import 'package:shinup/features/provider/presentation/widgets/hero_image.dart';
@@ -7,6 +8,12 @@ import 'package:shinup/features/provider/presentation/widgets/profile_header.dar
 import 'package:shinup/features/provider/presentation/widgets/reviews_content.dart';
 import 'package:shinup/features/provider/presentation/widgets/about_content.dart';
 import 'package:shinup/features/provider/presentation/widgets/services_content.dart';
+
+/// Maps provider IDs to their cover image asset paths.
+const _providerImages = {
+  'shine-co': 'assets/images/provider_shine_co.jpg',
+  'garage-37': 'assets/images/provider_garage_37.jpg',
+};
 
 class ProviderDetailPage extends StatefulWidget {
   final String providerId;
@@ -32,7 +39,10 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
               padding: const EdgeInsets.only(bottom: 96),
               child: Column(
                 children: [
-                  const HeroImage(),
+                  HeroImage(
+                    imagePath: _providerImages[widget.providerId] ??
+                        'assets/images/provider_shine_co.jpg',
+                  ),
                   const ProfileHeader(),
                   const PrimaryActions(),
                   _buildTabBar(),
@@ -67,7 +77,8 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
   }
 
   Widget _buildTabBar() {
-    const tabs = ['Services', 'Reviews', 'About'];
+    final t = AppLocalizations.of(context);
+    final tabs = [t.providerTabServices, t.providerTabReviews, t.providerTabAbout];
     return Container(
       height: 51,
       padding: const EdgeInsets.symmetric(horizontal: 20),

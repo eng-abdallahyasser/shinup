@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shinup/core/localization/app_localizations.dart';
 
 class AboutContent extends StatelessWidget {
   const AboutContent({super.key});
@@ -8,12 +9,12 @@ class AboutContent extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
       color: const Color(0xFFFAF8FF),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ── Heading ───────────────────────────────────────────
           Text(
-            'About & Contact',
+            AppLocalizations.of(context).providerAboutTitle,
             style: TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w600,
@@ -27,11 +28,17 @@ class AboutContent extends StatelessWidget {
           // ── Operating Hours ───────────────────────────────────
           _AboutRow(
             icon: Icons.access_time_rounded,
-            title: 'Operating Hours',
+            title: AppLocalizations.of(context).providerAboutHours,
             children: [
-              _HoursRow(day: 'Mon–Fri', time: '8:00 AM – 6:00 PM'),
+              _HoursRow(
+                day: AppLocalizations.of(context).providerAboutHoursWeekdays,
+                time: AppLocalizations.of(context).providerAboutHoursWeekdaysTime,
+              ),
               SizedBox(height: 4),
-              _HoursRow(day: 'Sat–Sun', time: '9:00 AM – 4:00 PM'),
+              _HoursRow(
+                day: AppLocalizations.of(context).providerAboutHoursWeekend,
+                time: AppLocalizations.of(context).providerAboutHoursWeekendTime,
+              ),
             ],
           ),
 
@@ -40,7 +47,7 @@ class AboutContent extends StatelessWidget {
           // ── Phone ─────────────────────────────────────────────
           _AboutRow(
             icon: Icons.phone_rounded,
-            title: 'Phone',
+            title: AppLocalizations.of(context).providerAboutPhone,
             children: [
               Text(
                 '+20 123 456 7890',
@@ -59,7 +66,7 @@ class AboutContent extends StatelessWidget {
 
           // ── Specializations ───────────────────────────────────
           Text(
-            'Specializations',
+            AppLocalizations.of(context).providerAboutSpecializations,
             style: TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w600,

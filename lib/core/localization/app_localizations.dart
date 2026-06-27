@@ -188,6 +188,52 @@ class AppLocalizations {
       'bookingTotal': 'Total',
       'bookingConfirm': 'Confirm Booking',
       'bookingDisclaimer': 'By confirming, you agree to our Terms of Service and Cancellation Policy.',
+      // Home
+      'homeAppBarTitle': 'Location',
+      'homeHeroTitle': 'Book Trusted Car Care,\nRight Where You Are.',
+      'homeSearchHint': 'What does your car need?',
+      'homeFilterWash': 'Wash',
+      'homeFilterRepair': 'Repair',
+      'homeFilterTire': 'Tire',
+      'homeRecommendedTitle': 'Recommended for you',
+      'homeSeeAll': 'See all',
+      'homeStatusOpen': 'OPEN',
+      'homeUnitKm': 'km',
+      'homeTagRepair': 'Repair',
+      'homeTagTires': 'Tires',
+      'homeTagCarWash': 'Car Wash',
+      'homePromoLabel': 'PROMO',
+      'homePromoTitle': '20% Off Your\nFirst Wash',
+      'homeSupportLabel': 'SUPPORT',
+      'homeSupportTitle': 'Expert Care\nAdvisor',
+      // Explore
+      'exploreServiceTitle': 'Full Exterior Polish\n& Wax',
+      'exploreGetDirections': 'Get directions',
+      // Provider Detail
+      'providerTabServices': 'Services',
+      'providerTabReviews': 'Reviews',
+      'providerTabAbout': 'About',
+      'providerUnitKmAway': 'km away',
+      'providerActionCall': 'Call',
+      'providerActionDirections': 'Directions',
+      'providerActionShare': 'Share',
+      'providerServiceGroupWashCare': 'Wash & Care',
+      'providerServiceGroupRepairs': 'Repairs & Maintenance',
+      'providerServiceAdd': 'Add',
+      'providerReviewsTitle': 'Customer Reviews',
+      'providerRatingExcellent': 'Excellent',
+      'providerRatingGood': 'Good',
+      'providerRatingAverage': 'Average',
+      'providerAboutTitle': 'About & Contact',
+      'providerAboutHours': 'Operating Hours',
+      'providerAboutHoursWeekdays': 'Mon\u2013Fri',
+      'providerAboutHoursWeekdaysTime': '8:00 AM \u2013 6:00 PM',
+      'providerAboutHoursWeekend': 'Sat\u2013Sun',
+      'providerAboutHoursWeekendTime': '9:00 AM \u2013 4:00 PM',
+      'providerAboutPhone': 'Phone',
+      'providerAboutSpecializations': 'Specializations',
+      'providerCtaTotal': 'TOTAL',
+      'providerCtaBookNow': 'Book Now',
     },
     'ar': {
       'appTitle': 'Shinup',
@@ -363,6 +409,52 @@ class AppLocalizations {
       'bookingTotal': 'الإجمالي',
       'bookingConfirm': 'تأكيد الحجز',
       'bookingDisclaimer': 'بالتأكيد، أنت توافق على شروط الخدمة وسياسة الإلغاء.',
+      // Home
+      'homeAppBarTitle': 'الموقع',
+      'homeHeroTitle': 'احجز عناية موثوقة بسيارتك،\nأينما كنت.',
+      'homeSearchHint': 'ماذا تحتاج سيارتك؟',
+      'homeFilterWash': 'غسيل',
+      'homeFilterRepair': 'إصلاح',
+      'homeFilterTire': 'إطارات',
+      'homeRecommendedTitle': 'موصى به لك',
+      'homeSeeAll': 'عرض الكل',
+      'homeStatusOpen': 'مفتوح',
+      'homeUnitKm': 'كم',
+      'homeTagRepair': 'إصلاح',
+      'homeTagTires': 'إطارات',
+      'homeTagCarWash': 'غسيل سيارات',
+      'homePromoLabel': 'عرض',
+      'homePromoTitle': 'خصم 20%\nلأول غسلة',
+      'homeSupportLabel': 'دعم',
+      'homeSupportTitle': 'مستشار\nرعاية خبير',
+      // Explore
+      'exploreServiceTitle': 'تلميع خارجي كامل\nوشمع',
+      'exploreGetDirections': 'الحصول على الاتجاهات',
+      // Provider Detail
+      'providerTabServices': 'الخدمات',
+      'providerTabReviews': 'التقييمات',
+      'providerTabAbout': 'حول',
+      'providerUnitKmAway': 'كم',
+      'providerActionCall': 'اتصال',
+      'providerActionDirections': 'اتجاهات',
+      'providerActionShare': 'مشاركة',
+      'providerServiceGroupWashCare': 'غسيل وعناية',
+      'providerServiceGroupRepairs': 'إصلاحات وصيانة',
+      'providerServiceAdd': 'إضافة',
+      'providerReviewsTitle': 'تقييمات العملاء',
+      'providerRatingExcellent': 'ممتاز',
+      'providerRatingGood': 'جيد',
+      'providerRatingAverage': 'متوسط',
+      'providerAboutTitle': 'حول والاتصال',
+      'providerAboutHours': 'ساعات العمل',
+      'providerAboutHoursWeekdays': 'الإثنين–الجمعة',
+      'providerAboutHoursWeekdaysTime': '٨:٠٠ ص – ٦:٠٠ م',
+      'providerAboutHoursWeekend': 'السبت–الأحد',
+      'providerAboutHoursWeekendTime': '٩:٠٠ ص – ٤:٠٠ م',
+      'providerAboutPhone': 'الهاتف',
+      'providerAboutSpecializations': 'التخصصات',
+      'providerCtaTotal': 'المجموع',
+      'providerCtaBookNow': 'احجز الآن',
     },
   };
 
@@ -550,6 +642,55 @@ class AppLocalizations {
   String get bookingTotal => translate('bookingTotal');
   String get bookingConfirm => translate('bookingConfirm');
   String get bookingDisclaimer => translate('bookingDisclaimer');
+
+  // Home
+  String get homeAppBarTitle => translate('homeAppBarTitle');
+  String get homeHeroTitle => translate('homeHeroTitle');
+  String get homeSearchHint => translate('homeSearchHint');
+  String get homeFilterWash => translate('homeFilterWash');
+  String get homeFilterRepair => translate('homeFilterRepair');
+  String get homeFilterTire => translate('homeFilterTire');
+  String get homeRecommendedTitle => translate('homeRecommendedTitle');
+  String get homeSeeAll => translate('homeSeeAll');
+  String get homeStatusOpen => translate('homeStatusOpen');
+  String get homeUnitKm => translate('homeUnitKm');
+  String get homeTagRepair => translate('homeTagRepair');
+  String get homeTagTires => translate('homeTagTires');
+  String get homeTagCarWash => translate('homeTagCarWash');
+  String get homePromoLabel => translate('homePromoLabel');
+  String get homePromoTitle => translate('homePromoTitle');
+  String get homeSupportLabel => translate('homeSupportLabel');
+  String get homeSupportTitle => translate('homeSupportTitle');
+
+  // Explore
+  String get exploreServiceTitle => translate('exploreServiceTitle');
+  String get exploreGetDirections => translate('exploreGetDirections');
+
+  // Provider Detail
+  String get providerTabServices => translate('providerTabServices');
+  String get providerTabReviews => translate('providerTabReviews');
+  String get providerTabAbout => translate('providerTabAbout');
+  String get providerUnitKmAway => translate('providerUnitKmAway');
+  String get providerActionCall => translate('providerActionCall');
+  String get providerActionDirections => translate('providerActionDirections');
+  String get providerActionShare => translate('providerActionShare');
+  String get providerServiceGroupWashCare => translate('providerServiceGroupWashCare');
+  String get providerServiceGroupRepairs => translate('providerServiceGroupRepairs');
+  String get providerServiceAdd => translate('providerServiceAdd');
+  String get providerReviewsTitle => translate('providerReviewsTitle');
+  String get providerRatingExcellent => translate('providerRatingExcellent');
+  String get providerRatingGood => translate('providerRatingGood');
+  String get providerRatingAverage => translate('providerRatingAverage');
+  String get providerAboutTitle => translate('providerAboutTitle');
+  String get providerAboutHours => translate('providerAboutHours');
+  String get providerAboutHoursWeekdays => translate('providerAboutHoursWeekdays');
+  String get providerAboutHoursWeekdaysTime => translate('providerAboutHoursWeekdaysTime');
+  String get providerAboutHoursWeekend => translate('providerAboutHoursWeekend');
+  String get providerAboutHoursWeekendTime => translate('providerAboutHoursWeekendTime');
+  String get providerAboutPhone => translate('providerAboutPhone');
+  String get providerAboutSpecializations => translate('providerAboutSpecializations');
+  String get providerCtaTotal => translate('providerCtaTotal');
+  String get providerCtaBookNow => translate('providerCtaBookNow');
 
   String get errorFillAll => translate('errorFillAll');
   String get errorPhone => translate('errorPhone');
