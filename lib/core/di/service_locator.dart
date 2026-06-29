@@ -13,9 +13,21 @@ import 'package:shinup/features/counter/domain/usecases/increment_counter_usecas
 import 'package:shinup/features/onboarding/data/datasources/onboarding_local_datasource.dart';
 import 'package:shinup/features/onboarding/data/repositories/onboarding_repository_impl.dart';
 import 'package:shinup/features/onboarding/domain/repositories/onboarding_repository.dart';
+import 'package:shinup/features/booking/data/datasources/booking_remote_datasource.dart';
+import 'package:shinup/features/booking/data/repositories/booking_repository_impl.dart';
+import 'package:shinup/features/booking/domain/repositories/booking_repository.dart';
+import 'package:shinup/features/explore/data/datasources/explore_remote_datasource.dart';
+import 'package:shinup/features/explore/data/repositories/explore_repository_impl.dart';
+import 'package:shinup/features/explore/domain/repositories/explore_repository.dart';
+import 'package:shinup/features/home/data/datasources/home_remote_datasource.dart';
+import 'package:shinup/features/home/data/repositories/home_repository_impl.dart';
+import 'package:shinup/features/home/domain/repositories/home_repository.dart';
 import 'package:shinup/features/profile/data/datasources/profile_remote_datasource.dart';
 import 'package:shinup/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:shinup/features/profile/domain/repositories/profile_repository.dart';
+import 'package:shinup/features/provider/data/datasources/provider_remote_datasource.dart';
+import 'package:shinup/features/provider/data/repositories/provider_repository_impl.dart';
+import 'package:shinup/features/provider/domain/repositories/provider_repository.dart';
 
 final sl = GetIt.instance;
 
@@ -88,5 +100,45 @@ Future<void> initDependencies() async {
       sl<ApiClient>(),
       sl<SharedPreferences>(),
     ),
+  );
+
+  // Home - Data layer
+  sl.registerLazySingleton<HomeRemoteDataSource>(
+    () => HomeRemoteDataSource(sl<ApiClient>()),
+  );
+
+  // Home - Repository
+  sl.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImpl(sl<HomeRemoteDataSource>()),
+  );
+
+  // Explore - Data layer
+  sl.registerLazySingleton<ExploreRemoteDataSource>(
+    () => ExploreRemoteDataSource(sl<ApiClient>()),
+  );
+
+  // Explore - Repository
+  sl.registerLazySingleton<ExploreRepository>(
+    () => ExploreRepositoryImpl(sl<ExploreRemoteDataSource>()),
+  );
+
+  // Booking - Data layer
+  sl.registerLazySingleton<BookingRemoteDataSource>(
+    () => BookingRemoteDataSource(sl<ApiClient>()),
+  );
+
+  // Booking - Repository
+  sl.registerLazySingleton<BookingRepository>(
+    () => BookingRepositoryImpl(sl<BookingRemoteDataSource>()),
+  );
+
+  // Provider - Data layer
+  sl.registerLazySingleton<ProviderRemoteDataSource>(
+    () => ProviderRemoteDataSource(sl<ApiClient>()),
+  );
+
+  // Provider - Repository
+  sl.registerLazySingleton<ProviderRepository>(
+    () => ProviderRepositoryImpl(sl<ProviderRemoteDataSource>()),
   );
 }

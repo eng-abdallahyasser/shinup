@@ -14,6 +14,7 @@ import 'package:shinup/features/profile/presentation/pages/add_vehicle_page.dart
 import 'package:shinup/features/profile/presentation/pages/address_detail_page.dart';
 import 'package:shinup/features/profile/presentation/pages/car_detail_page.dart';
 import 'package:shinup/features/provider/presentation/pages/provider_detail_page.dart';
+import 'package:shinup/features/provider/presentation/pages/provider_list_page.dart';
 import 'package:shinup/features/splash/presentation/pages/splash_page.dart';
 
 class AppRouter {
@@ -33,6 +34,7 @@ class AppRouter {
   static const String addAddress = '/add-address';
   static const String addressDetail = '/address-detail';
   static const String providerDetail = '/provider-detail';
+  static const String providerList = '/provider-list';
   static const String bookingStep2 = '/booking-step2';
   static const String bookingStep3 = '/booking-step3';
 
@@ -114,6 +116,15 @@ class AppRouter {
         final providerId = settings.arguments as String;
         return MaterialPageRoute(
           builder: (_) => ProviderDetailPage(providerId: providerId),
+          settings: settings,
+        );
+      case providerList:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => ProviderListPage(
+            serviceId: args['serviceId'] as String,
+            serviceName: args['serviceName'] as String,
+          ),
           settings: settings,
         );
       case bookingStep2:

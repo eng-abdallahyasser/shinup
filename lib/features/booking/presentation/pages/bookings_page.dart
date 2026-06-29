@@ -24,10 +24,6 @@ class BookingsPage extends StatelessWidget {
   }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  TopAppBar — Menu + "Shinup" + Notification bell
-// ═════════════════════════════════════════════════════════════════════════════
-
 class _TopAppBar extends StatelessWidget {
   const _TopAppBar();
 
@@ -48,7 +44,6 @@ class _TopAppBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // ❖ Menu icon + Brand
           Row(
             children: [
               Icon(Icons.menu, size: 20, color: const Color(0xFF004AC6)),
@@ -66,7 +61,6 @@ class _TopAppBar extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          // ❖ Notification bell
           Padding(
             padding: const EdgeInsets.all(8),
             child: Icon(
@@ -80,10 +74,6 @@ class _TopAppBar extends StatelessWidget {
     );
   }
 }
-
-// ═════════════════════════════════════════════════════════════════════════════
-//  Filter Bar — Upcoming / Past / Cancelled
-// ═════════════════════════════════════════════════════════════════════════════
 
 class _FilterBar extends StatefulWidget {
   const _FilterBar();
@@ -146,10 +136,6 @@ class _FilterBarState extends State<_FilterBar> {
   }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Bookings List
-// ═════════════════════════════════════════════════════════════════════════════
-
 class _BookingsList extends StatelessWidget {
   const _BookingsList();
 
@@ -159,7 +145,6 @@ class _BookingsList extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(20, 24, 20, 0),
       child: Column(
         children: [
-          // Card 1: Confirmed
           _BookingCard(
             icon: Icons.local_car_wash_rounded,
             iconBgColor: Color(0xFFDBE1FF),
@@ -178,7 +163,6 @@ class _BookingsList extends StatelessWidget {
 
           SizedBox(height: 16),
 
-          // Card 2: Ready
           _BookingCard(
             icon: Icons.check_circle_rounded,
             iconBgColor: Color(0xFF6BFF8F),
@@ -197,12 +181,10 @@ class _BookingsList extends StatelessWidget {
 
           SizedBox(height: 16),
 
-          // Promo Card
           _PromoCard(),
 
           SizedBox(height: 16),
 
-          // Card 3: Pending
           _BookingCard(
             icon: Icons.access_time_rounded,
             iconBgColor: Color(0xFFE7E7F3),
@@ -225,10 +207,6 @@ class _BookingsList extends StatelessWidget {
     );
   }
 }
-
-// ═════════════════════════════════════════════════════════════════════════════
-//  Booking Card
-// ═════════════════════════════════════════════════════════════════════════════
 
 class _BookingCard extends StatelessWidget {
   final IconData icon;
@@ -282,11 +260,9 @@ class _BookingCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ── Row 1: Icon + Info + Status badge ──────────────────
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Provider icon
               Container(
                 width: 48,
                 height: 48,
@@ -297,7 +273,6 @@ class _BookingCard extends StatelessWidget {
                 child: Icon(icon, size: 20, color: iconColor),
               ),
               const SizedBox(width: 16),
-              // Name + service
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -326,7 +301,6 @@ class _BookingCard extends StatelessWidget {
                   ],
                 ),
               ),
-              // Status badge
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,
@@ -352,10 +326,8 @@ class _BookingCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // ── Row 2: Date & Time ────────────────────────────────
           Column(
             children: [
-              // Date
               Row(
                 children: [
                   Icon(
@@ -377,7 +349,6 @@ class _BookingCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              // Time
               Row(
                 children: [
                   Icon(
@@ -402,10 +373,8 @@ class _BookingCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // ── Row 3: Action buttons ──────────────────────────────
           Row(
             children: [
-              // Primary action (filled)
               Expanded(
                 child: SizedBox(
                   height: 50,
@@ -433,7 +402,6 @@ class _BookingCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-              // Secondary action (outlined)
               Expanded(
                 child: SizedBox(
                   height: 50,
@@ -468,10 +436,6 @@ class _BookingCard extends StatelessWidget {
   }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Promo Card — "Upgrade to Shinup Pro"
-// ═════════════════════════════════════════════════════════════════════════════
-
 class _PromoCard extends StatelessWidget {
   const _PromoCard();
 
@@ -498,7 +462,6 @@ class _PromoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(32),
         child: Stack(
           children: [
-            // Background image placeholder (dark teal)
             Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -508,7 +471,6 @@ class _PromoCard extends StatelessWidget {
                 ),
               ),
             ),
-            // Dark gradient overlay (matching design spec)
             Positioned.fill(
               child: Container(
                 decoration: const BoxDecoration(
@@ -524,7 +486,6 @@ class _PromoCard extends StatelessWidget {
                 ),
               ),
             ),
-            // Decorative sparkle icon
             Positioned(
               right: -10,
               top: -20,
@@ -537,7 +498,6 @@ class _PromoCard extends StatelessWidget {
                 ),
               ),
             ),
-            // Content at bottom
             Positioned(
               left: 16,
               right: 16,

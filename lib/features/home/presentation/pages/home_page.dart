@@ -1,9 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:shinup/core/di/service_locator.dart';
 import 'package:shinup/core/localization/app_localizations.dart';
 import 'package:shinup/core/routes/app_pages.dart';
+import 'package:shinup/features/home/data/models/home_models.dart';
+import 'package:shinup/features/home/domain/repositories/home_repository.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final HomeRepository _repository = sl<HomeRepository>();
+
+  List<ServiceCategory> _categories = [];
+  String? _selectedCategoryId;
+  List<Service> _services = [];
+  bool _isLoadingCategories = true;
+  bool _isLoadingServices = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCategories();
+  }
+
+  Future<void> _loadCategories() async {
+    try {
+      final categories = await _repository.getServiceCategories();
+      if (mounted) {
+        setState(() {
+          _categories = categories;
+          _isLoadingCategories = false;
+        });
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() => _isLoadingCategories = false);
+      }
+    }
+  }
+
+  Future<void> _loadServices(String categoryId) async {
+    setState(() => _isLoadingServices = true);
+    try {
+      final services = await _repository.getServicesByCategory(categoryId);
+      if (mounted) {
+        setState(() {
+          _services = services;
+          _isLoadingServices = false;
+        });
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _services = [];
+          _isLoadingServices = false;
+        });
+      }
+    }
+  }
+
+  void _onCategoryTapped(String categoryId) {
+    if (_selectedCategoryId == categoryId) {
+      setState(() {
+        _selectedCategoryId = null;
+        _services = [];
+      });
+    } else {
+      setState(() => _selectedCategoryId = categoryId);
+      _loadServices(categoryId);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,35 +82,50 @@ class HomePage extends StatelessWidget {
         children: [
           Column(
             children: [
-              _TopAppBar(),
+              const _TopAppBar(),
               Expanded(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(0, 30, 0, 96),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _HeroSection(),
-                      _SearchSection(),
-                      _ServiceFilters(),
-                      _RecommendedSection(),
-                      _PromoGrid(),
+                      const _HeroSection(),
+                      const _SearchSection(),
+                      if (_isLoadingCategories)
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24),
+                          child: Center(child: CircularProgressIndicator()),
+                        )
+                      else
+                        _ServiceFilters(
+                          categories: _categories,
+                          selectedCategoryId: _selectedCategoryId,
+                          onCategoryTapped: _onCategoryTapped,
+                        ),
+                      if (_selectedCategoryId != null) ...[
+                        if (_isLoadingServices)
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 48),
+                            child: Center(child: CircularProgressIndicator()),
+                          )
+                        else
+                          _ServicesList(services: _services),
+                      ] else ...[
+                        const _RecommendedSection(),
+                        const _PromoGrid(),
+                      ],
                     ],
                   ),
                 ),
               ),
             ],
           ),
-          // ❖ FAB
           const Positioned(right: 20, bottom: 96, child: _FabButton()),
         ],
       ),
     );
   }
 }
-
-// ═════════════════════════════════════════════════════════════════════════════
-//  TopAppBar
-// ═════════════════════════════════════════════════════════════════════════════
 
 class _TopAppBar extends StatelessWidget {
   const _TopAppBar();
@@ -62,7 +147,6 @@ class _TopAppBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // ❖ Menu icon + Brand
           Row(
             children: [
               Icon(
@@ -84,7 +168,6 @@ class _TopAppBar extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          // ❖ Notification bell
           Padding(
             padding: const EdgeInsets.all(8),
             child: Icon(
@@ -98,10 +181,6 @@ class _TopAppBar extends StatelessWidget {
     );
   }
 }
-
-// ═════════════════════════════════════════════════════════════════════════════
-//  Hero – "What does your car need?"
-// ═════════════════════════════════════════════════════════════════════════════
 
 class _HeroSection extends StatelessWidget {
   const _HeroSection();
@@ -127,10 +206,6 @@ class _HeroSection extends StatelessWidget {
     );
   }
 }
-
-// ═════════════════════════════════════════════════════════════════════════════
-//  Search
-// ═════════════════════════════════════════════════════════════════════════════
 
 class _SearchSection extends StatelessWidget {
   const _SearchSection();
@@ -183,56 +258,32 @@ class _SearchSection extends StatelessWidget {
   }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Service Filters
-// ═════════════════════════════════════════════════════════════════════════════
+class _ServiceFilters extends StatelessWidget {
+  final List<ServiceCategory> categories;
+  final String? selectedCategoryId;
+  final ValueChanged<String> onCategoryTapped;
 
-class _ServiceFilters extends StatefulWidget {
-  const _ServiceFilters();
-
-  @override
-  State<_ServiceFilters> createState() => _ServiceFiltersState();
-}
-
-class _ServiceFiltersState extends State<_ServiceFilters> {
-  int? _selectedIndex;
-
-  static const _filters = [
-    _FilterData('Wash', Icons.local_car_wash_outlined),
-    _FilterData('Repair', Icons.build_outlined),
-    _FilterData('Tire', Icons.settings_outlined),
-  ];
-
-  String _localizedFilterLabel(String label) {
-    // This method is called inside build where we have context
-    final t = AppLocalizations.of(context);
-    return switch (label) {
-      'Wash' => t.homeFilterWash,
-      'Repair' => t.homeFilterRepair,
-      'Tire' => t.homeFilterTire,
-      _ => label,
-    };
-  }
+  const _ServiceFilters({
+    required this.categories,
+    required this.selectedCategoryId,
+    required this.onCategoryTapped,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (categories.isEmpty) return const SizedBox.shrink();
     return Container(
       height: 98,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: _filters.length,
+        itemCount: categories.length,
         separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
-          final f = _filters[index];
-          final isActive = _selectedIndex == index;
+          final cat = categories[index];
+          final isActive = selectedCategoryId == cat.id;
           return GestureDetector(
-            onTap: () {
-              setState(() {
-                // Toggle: if already selected, deselect; otherwise select.
-                _selectedIndex = _selectedIndex == index ? null : index;
-              });
-            },
+            onTap: () => onCategoryTapped(cat.id),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOut,
@@ -259,7 +310,7 @@ class _ServiceFiltersState extends State<_ServiceFilters> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    f.icon,
+                    Icons.category_outlined,
                     size: 18,
                     color: isActive
                         ? const Color(0xFFEEEFFF)
@@ -267,7 +318,7 @@ class _ServiceFiltersState extends State<_ServiceFilters> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    _localizedFilterLabel(f.label),
+                    cat.name,
                     style: TextStyle(
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w400,
@@ -288,15 +339,146 @@ class _ServiceFiltersState extends State<_ServiceFilters> {
   }
 }
 
-class _FilterData {
-  final String label;
-  final IconData icon;
-  const _FilterData(this.label, this.icon);
+class _ServicesList extends StatelessWidget {
+  final List<Service> services;
+
+  const _ServicesList({required this.services});
+
+  @override
+  Widget build(BuildContext context) {
+    if (services.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 20),
+        child: Center(
+          child: Text(
+            'No services available',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              color: const Color(0xFF737686),
+            ),
+          ),
+        ),
+      );
+    }
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Text(
+              'Services',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+                fontSize: 20,
+                height: 28 / 20,
+                color: const Color(0xFF191B23),
+              ),
+            ),
+          ),
+          ...services.map((service) => Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: _ServiceCard(service: service),
+              )),
+        ],
+      ),
+    );
+  }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Recommended Section
-// ═════════════════════════════════════════════════════════════════════════════
+class _ServiceCard extends StatelessWidget {
+  final Service service;
+
+  const _ServiceCard({required this.service});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(32),
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            AppRouter.providerList,
+            arguments: {
+              'serviceId': service.id,
+              'serviceName': service.name,
+            },
+          );
+        },
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: const Color(0xFFF3F3FE)),
+            borderRadius: BorderRadius.circular(32),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0D000000),
+                blurRadius: 20,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE3F2FD),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.build_circle_outlined,
+                    size: 28,
+                    color: Color(0xFF004AC6),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      service.name,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        height: 24 / 16,
+                        color: Color(0xFF191B23),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      service.description,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        height: 20 / 14,
+                        color: Color(0xFF737686),
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class _RecommendedSection extends StatelessWidget {
   const _RecommendedSection();
@@ -473,7 +655,6 @@ class _ProviderCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ── Image area ──────────────────────────────────────────
               Stack(
                 children: [
                   ClipRRect(
@@ -500,7 +681,6 @@ class _ProviderCard extends StatelessWidget {
                       },
                     ),
                   ),
-                  // ❖ Rating badge
                   Positioned(
                     right: 12,
                     top: 12,
@@ -545,13 +725,11 @@ class _ProviderCard extends StatelessWidget {
                   ),
                 ],
               ),
-              // ── Card body ───────────────────────────────────────────
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Name + Status badge
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -589,7 +767,6 @@ class _ProviderCard extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    // Location
                     Row(
                       children: [
                         Icon(
@@ -611,7 +788,6 @@ class _ProviderCard extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 4),
-                    // Tags
                     Row(
                       children: data.tags.map((tag) {
                         final localizedTag = _localizeTag(tag, context);
@@ -651,10 +827,6 @@ class _ProviderCard extends StatelessWidget {
   }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Bento Promo Grid
-// ═════════════════════════════════════════════════════════════════════════════
-
 class _PromoGrid extends StatelessWidget {
   const _PromoGrid();
 
@@ -666,7 +838,6 @@ class _PromoGrid extends StatelessWidget {
         height: 192,
         child: Row(
           children: [
-            // ❖ Left card — 20% Off
             Expanded(
               child: _PromoCard(
                 label: AppLocalizations.of(context).homePromoLabel,
@@ -679,7 +850,6 @@ class _PromoGrid extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            // ❖ Right card — Expert Care
             Expanded(
               child: _PromoCard(
                 label: AppLocalizations.of(context).homeSupportLabel,
@@ -727,7 +897,6 @@ class _PromoCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          // ❖ Decorative corner icon
           Positioned(
             right: -5,
             top: -12,
@@ -739,7 +908,6 @@ class _PromoCard extends StatelessWidget {
               ),
             ),
           ),
-          // ❖ Content
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -775,10 +943,6 @@ class _PromoCard extends StatelessWidget {
     );
   }
 }
-
-// ═════════════════════════════════════════════════════════════════════════════
-//  Floating Action Button
-// ═════════════════════════════════════════════════════════════════════════════
 
 class _FabButton extends StatelessWidget {
   const _FabButton();

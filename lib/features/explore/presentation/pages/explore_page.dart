@@ -5,14 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:shinup/core/localization/app_localizations.dart';
 
-/// Explore page displaying an interactive map with nearby service providers.
-///
-/// Features:
-/// - OpenStreetMap tiles via [FlutterMap]
-/// - User location tracking via [Geolocator]
-/// - Floating overlay pill showing current service category
-/// - Side toggle buttons (search + my-location)
-/// - Bottom service provider card with details
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
 
@@ -23,8 +15,7 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage> {
   final MapController _mapController = MapController();
 
-  /// The user's current location, or a sensible default if unavailable.
-  LatLng _currentPosition = const LatLng(24.7136, 46.6753); // Riyadh default
+  LatLng _currentPosition = const LatLng(24.7136, 46.6753);
 
   StreamSubscription<Position>? _positionStream;
 
@@ -41,19 +32,15 @@ class _ExplorePageState extends State<ExplorePage> {
     super.dispose();
   }
 
-  /// Silently attempt to get the user's location.
-  /// Does NOT request permission — relies on it being granted ahead of time
-  /// via [LocationAccessPage]. If permission isn't granted, stays on default.
   Future<void> _initLocation() async {
     try {
       final permission = await Geolocator.checkPermission();
       final granted = permission == LocationPermission.whileInUse ||
           permission == LocationPermission.always;
       if (!granted) {
-        return; // Permission not granted — stays on default location
+        return;
       }
 
-      // Get last known position as a quick initial fix
       final pos = await Geolocator.getLastKnownPosition();
       if (pos != null && mounted) {
         setState(() {
@@ -61,7 +48,6 @@ class _ExplorePageState extends State<ExplorePage> {
         });
       }
 
-      // Listen for ongoing updates
       _positionStream = Geolocator.getPositionStream(
         locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.high,
@@ -75,11 +61,9 @@ class _ExplorePageState extends State<ExplorePage> {
         }
       });
     } catch (_) {
-      // Location unavailable – keep default
     }
   }
 
-  /// Move the map to the user's current location.
   void _goToMyLocation() {
     _mapController.move(_currentPosition, 15);
   }
@@ -89,7 +73,6 @@ class _ExplorePageState extends State<ExplorePage> {
     return SafeArea(
       child: Stack(
         children: [
-          // ── Full-screen Map ─────────────────────────────────────
           FlutterMap(
             mapController: _mapController,
             options: MapOptions(
@@ -113,10 +96,6 @@ class _ExplorePageState extends State<ExplorePage> {
             ],
           ),
 
-          // ── TopAppBar ───────────────────────────────────────────
-          // _MapTopAppBar(),
-
-          // ── Floating Selection Overlay ──────────────────────────
           const Positioned(
             left: 0,
             right: 0,
@@ -124,7 +103,6 @@ class _ExplorePageState extends State<ExplorePage> {
             child: _FloatingSelectionPill(),
           ),
 
-          // ── Toggle Buttons (Search + My Location) ───────────────
           Positioned(
             right: 20,
             top: 20,
@@ -147,7 +125,6 @@ class _ExplorePageState extends State<ExplorePage> {
             ),
           ),
 
-          // ── Floating Service Card at Bottom ─────────────────────
           const Positioned(
             left: 0,
             right: 0,
@@ -159,65 +136,6 @@ class _ExplorePageState extends State<ExplorePage> {
     );
   }
 }
-
-// ═════════════════════════════════════════════════════════════════════════════
-//  Map Top AppBar
-// ═════════════════════════════════════════════════════════════════════════════
-
-class _MapTopAppBar extends StatelessWidget {
-  const _MapTopAppBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: const BoxDecoration(
-        color: Color(0xFFFAF8FF),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x0D000000),
-            blurRadius: 2,
-            offset: Offset(0, 1),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // ❖ Menu icon + Brand
-          Row(
-            children: [
-              Icon(Icons.menu,
-                  size: 20, color: const Color(0xFF004AC6)),
-              const SizedBox(width: 8),
-              Text(
-                'Shinup',
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 24,
-                  height: 30 / 24,
-                  color: const Color(0xFF004AC6),
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          // ❖ Notification bell
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Icon(Icons.notifications_outlined,
-                size: 20, color: const Color(0xFF434655)),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ═════════════════════════════════════════════════════════════════════════════
-//  Floating Selection Pill
-// ═════════════════════════════════════════════════════════════════════════════
 
 class _FloatingSelectionPill extends StatelessWidget {
   const _FloatingSelectionPill();
@@ -267,10 +185,6 @@ class _FloatingSelectionPill extends StatelessWidget {
   }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Map Toggle Button (Search / My Location)
-// ═════════════════════════════════════════════════════════════════════════════
-
 class _MapToggleButton extends StatelessWidget {
   final IconData icon;
   final Color backgroundColor;
@@ -319,10 +233,6 @@ class _MapToggleButton extends StatelessWidget {
   }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Floating Service Card
-// ═════════════════════════════════════════════════════════════════════════════
-
 class _ServiceCard extends StatelessWidget {
   const _ServiceCard();
 
@@ -353,7 +263,6 @@ class _ServiceCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Thumbnail image ─────────────────────────────────
             Container(
               width: 80,
               height: 80,
@@ -371,14 +280,12 @@ class _ServiceCard extends StatelessWidget {
             ),
             const SizedBox(width: 16),
 
-            // ── Text content ────────────────────────────────────
             Expanded(
               child: SizedBox(
                 height: 148,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Name + OPEN badge
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -427,7 +334,6 @@ class _ServiceCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
 
-                    // Service description
                     Text(
                       AppLocalizations.of(context).exploreServiceTitle,
                       style: const TextStyle(
@@ -441,10 +347,8 @@ class _ServiceCard extends StatelessWidget {
 
                     const Spacer(),
 
-                    // Bottom row: directions link + distance + arrow button
                     Row(
                       children: [
-                        // Get directions link
                         GestureDetector(
                           onTap: () {},
                           child: Row(
@@ -470,7 +374,6 @@ class _ServiceCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 12),
 
-                        // Distance
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -494,7 +397,6 @@ class _ServiceCard extends StatelessWidget {
 
                         const Spacer(),
 
-                        // Arrow button
                         Container(
                           width: 40,
                           height: 40,
