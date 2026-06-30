@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "459788339990",
+    "project_id": "shine-up-fb867",
+    "storage_bucket": "shine-up-fb867.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459788339990:android:ce54c2fa30ecc831159e37",
+        "android_client_info": {
+          "package_name": "com.example.shinup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCOIHAJPsIxHcskKZIJY7WTPQW0_L3YNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459788339990:android:883782a415c9633f159e37",
+        "android_client_info": {
+          "package_name": "com.example.shinup_provider"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCOIHAJPsIxHcskKZIJY7WTPQW0_L3YNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -89,10 +89,11 @@ class ApiClient {
     String path, {
     required String filePath,
     String fieldName = 'file',
+    String method = 'POST',
   }) async {
     log('UPLOAD $path: $filePath');
     final request = http.MultipartRequest(
-      'POST',
+      method,
       Uri.parse('$baseUrl$path'),
     );
     request.headers.addAll(_headers);

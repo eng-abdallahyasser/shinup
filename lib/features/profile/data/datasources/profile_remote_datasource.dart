@@ -61,6 +61,7 @@ class ProfileRemoteDataSource {
       '/auth/profile/avatar',
       filePath: filePath,
       fieldName: 'avatar',
+      method: 'PATCH',
     );
     return ProfileModel.fromJson(data);
   }
