@@ -51,15 +51,14 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDCOIHAJPsIxHcskKZIJY7WTPQW0_L3YNw',
-    appId: '1:459788339990:android:ce54c2fa30ecc831159e37',
+    appId: '1:459788339990:android:cea95a77f12e24a1159e37',
     messagingSenderId: '459788339990',
     projectId: 'shine-up-fb867',
     storageBucket: 'shine-up-fb867.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAwSwWt2m7H-_Ee5bbRJPmBsKnCbw5RUG4',
-    appId: '1:459788339990:ios:3ef75eb2ca7e3922159e37',
+    appId: '1:459788339990:ios:cb610651d822f45d159e37',
     messagingSenderId: '459788339990',
     projectId: 'shine-up-fb867',
     storageBucket: 'shine-up-fb867.firebasestorage.app',

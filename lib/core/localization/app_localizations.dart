@@ -221,6 +221,21 @@ class AppLocalizations {
       'bookingTotal': 'Total',
       'bookingConfirm': 'Confirm Booking',
       'bookingDisclaimer': 'By confirming, you agree to our Terms of Service and Cancellation Policy.',
+      'bookingFilterUpcoming': 'Upcoming',
+      'bookingFilterPast': 'Past',
+      'bookingFilterCancelled': 'Cancelled',
+      'bookingNoBookings': 'No bookings found',
+      'bookingEmptySubtitle': 'Your bookings will appear here',
+      'bookingCancelTitle': 'Cancel Booking',
+      'bookingCancelConfirm': 'Are you sure you want to cancel this booking?',
+      'bookingCancelKeep': 'Keep Booking',
+      'bookingCancelAction': 'Cancel Booking',
+      'bookingCancelBtn': 'Cancel Booking',
+      'bookingCancelledSuccess': 'Booking cancelled',
+      'bookingFailedLoad': 'Failed to load bookings',
+      'bookingFailedCancel': 'Failed to cancel booking',
+      'bookingRetry': 'Retry',
+      'bookingMyBookings': 'My Bookings',
       // Home
       'homeAppBarTitle': 'Location',
       'homeHeroTitle': 'Book Trusted Car Care,\nRight Where You Are.',
@@ -475,6 +490,21 @@ class AppLocalizations {
       'bookingTotal': 'الإجمالي',
       'bookingConfirm': 'تأكيد الحجز',
       'bookingDisclaimer': 'بالتأكيد، أنت توافق على شروط الخدمة وسياسة الإلغاء.',
+      'bookingFilterUpcoming': 'القادمة',
+      'bookingFilterPast': 'السابقة',
+      'bookingFilterCancelled': 'ملغية',
+      'bookingNoBookings': 'لا توجد حجوزات',
+      'bookingEmptySubtitle': 'ستظهر حجوزاتك هنا',
+      'bookingCancelTitle': 'إلغاء الحجز',
+      'bookingCancelConfirm': 'هل أنت متأكد من إلغاء هذا الحجز؟',
+      'bookingCancelKeep': 'الاحتفاظ بالحجز',
+      'bookingCancelAction': 'إلغاء الحجز',
+      'bookingCancelBtn': 'إلغاء الحجز',
+      'bookingCancelledSuccess': 'تم إلغاء الحجز',
+      'bookingFailedLoad': 'فشل تحميل الحجوزات',
+      'bookingFailedCancel': 'فشل إلغاء الحجز',
+      'bookingRetry': 'إعادة المحاولة',
+      'bookingMyBookings': 'حجوزاتي',
       // Home
       'homeAppBarTitle': 'الموقع',
       'homeHeroTitle': 'احجز عناية موثوقة بسيارتك،\nأينما كنت.',
@@ -627,6 +657,21 @@ class AppLocalizations {
   String get deleteVehicleWarning => translate('deleteVehicleWarning');
   String get cancel => translate('cancel');
   String get delete => translate('delete');
+  String get bookingFilterUpcoming => translate('bookingFilterUpcoming');
+  String get bookingFilterPast => translate('bookingFilterPast');
+  String get bookingFilterCancelled => translate('bookingFilterCancelled');
+  String get bookingNoBookings => translate('bookingNoBookings');
+  String get bookingEmptySubtitle => translate('bookingEmptySubtitle');
+  String get bookingCancelTitle => translate('bookingCancelTitle');
+  String get bookingCancelConfirm => translate('bookingCancelConfirm');
+  String get bookingCancelKeep => translate('bookingCancelKeep');
+  String get bookingCancelAction => translate('bookingCancelAction');
+  String get bookingCancelBtn => translate('bookingCancelBtn');
+  String get bookingCancelledSuccess => translate('bookingCancelledSuccess');
+  String get bookingFailedLoad => translate('bookingFailedLoad');
+  String get bookingFailedCancel => translate('bookingFailedCancel');
+  String get bookingRetry => translate('bookingRetry');
+  String get bookingMyBookings => translate('bookingMyBookings');
   String get failedDeleteCar => translate('failedDeleteCar');
   String get setAsDefault => translate('setAsDefault');
   String get setDefaultBtn => translate('setDefaultBtn');

@@ -8,28 +8,15 @@ class BookingRepositoryImpl implements BookingRepository {
   BookingRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<List<BookingModel>> getBookings() async {
-    return _remoteDataSource.getBookings();
+  Future<PaginatedBookingsResponse> getBookings({
+    int page = 1,
+    int limit = 20,
+  }) async {
+    return _remoteDataSource.getBookings(page: page, limit: limit);
   }
 
   @override
-  Future<BookingModel> getBooking(String bookingId) async {
-    return _remoteDataSource.getBooking(bookingId);
-  }
-
-  @override
-  Future<BookingModel> createBooking(CreateBookingRequest request) async {
-    return _remoteDataSource.createBooking(request);
-  }
-
-  @override
-  Future<BookingModel> updateBooking(
-      String bookingId, Map<String, dynamic> updates) async {
-    return _remoteDataSource.updateBooking(bookingId, updates);
-  }
-
-  @override
-  Future<void> cancelBooking(String bookingId) async {
-    await _remoteDataSource.cancelBooking(bookingId);
+  Future<void> cancelBooking(String bookingId, {required String reason}) async {
+    await _remoteDataSource.cancelBooking(bookingId, reason: reason);
   }
 }

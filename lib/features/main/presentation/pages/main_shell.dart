@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shineup/core/di/service_locator.dart';
 import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/features/booking/presentation/cubit/booking_cubit.dart';
 import 'package:shineup/features/booking/presentation/pages/bookings_page.dart';
+import 'package:shineup/features/booking/domain/repositories/booking_repository.dart';
 import 'package:shineup/features/explore/presentation/pages/explore_page.dart';
 import 'package:shineup/features/home/presentation/pages/home_page.dart';
 import 'package:shineup/features/profile/presentation/pages/profile_page.dart';
@@ -24,11 +28,16 @@ class _MainShellState extends State<MainShell> {
   @override
   void initState() {
     super.initState();
-    _pages = const [
-      HomePage(),
-      ExplorePage(),
-      BookingsPage(),
-      ProfilePage(),
+    _pages = [
+      const HomePage(),
+      const ExplorePage(),
+      BlocProvider(
+        create: (_) => BookingCubit(
+          repository: sl<BookingRepository>(),
+        ),
+        child: const BookingsPage(),
+      ),
+      const ProfilePage(),
     ];
   }
 

@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:459788339990:android:ce54c2fa30ecc831159e37",
+        "mobilesdk_app_id": "1:459788339990:android:cea95a77f12e24a1159e37",
         "android_client_info": {
           "package_name": "com.example.shineup"
         }
@@ -26,9 +26,28 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:459788339990:android:ce54c2fa30ecc831159e37",
+        "android_client_info": {
+          "package_name": "com.example.shinup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCOIHAJPsIxHcskKZIJY7WTPQW0_L3YNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:459788339990:android:883782a415c9633f159e37",
         "android_client_info": {
-          "package_name": "com.example.shineup_provider"
+          "package_name": "com.example.shinup_provider"
         }
       },
       "oauth_client": [],

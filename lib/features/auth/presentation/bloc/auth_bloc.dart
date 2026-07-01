@@ -304,6 +304,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         deviceToken: event.deviceToken,
       );
 
+      if (response.user != null) {
+        final roles = response.user!['roles'] as List<dynamic>?;
+        final isCustomer = roles?.any(
+          (r) => (r as Map<String, dynamic>)['name'] == 'customer',
+        ) == true;
+        if (!isCustomer) {
+          emit(_copy(
+            state,
+            isLoading: false,
+            errorMessage: 'Only customer accounts can login via the app',
+          ));
+          return;
+        }
+      }
+
       if (response.token != null) {
         if (response.user != null) {
           await _authRepository.saveUserData(response.user!);

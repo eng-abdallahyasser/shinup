@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -244,11 +245,13 @@ class ProfileCubit extends Cubit<ProfileState> {
         avatarUrl: profile.avatarUrl,
       ));
     } on ApiException catch (e) {
+      log('AVATAR UPLOAD ERROR: ${e.message} (status: ${e.statusCode})');
       emit(state.copyWith(
         status: ProfileStatus.loaded,
         errorMessage: e.message,
       ));
-    } catch (_) {
+    } catch (e) {
+      log('AVATAR UPLOAD FAILED: $e');
       emit(state.copyWith(
         status: ProfileStatus.loaded,
         errorMessage: 'Failed to upload image. Please try again.',
