@@ -1,6 +1,6 @@
-import 'package:shinup/features/profile/data/models/address_models.dart';
-import 'package:shinup/features/profile/data/models/car_models.dart';
-import 'package:shinup/features/profile/data/models/profile_model.dart';
+import 'package:shineup/features/profile/data/models/address_models.dart';
+import 'package:shineup/features/profile/data/models/car_models.dart';
+import 'package:shineup/features/profile/data/models/profile_model.dart';
 
 abstract class ProfileRepository {
   Future<ProfileModel> getProfile();

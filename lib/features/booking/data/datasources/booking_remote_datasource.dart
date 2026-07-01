@@ -1,5 +1,5 @@
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/features/booking/data/models/booking_model.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/features/booking/data/models/booking_model.dart';
 
 class BookingRemoteDataSource {
   final ApiClient _client;

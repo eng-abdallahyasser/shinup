@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
-import 'package:shinup/features/profile/data/models/address_models.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/features/profile/data/models/address_models.dart';
 
 class AddressesSection extends StatelessWidget {
   final List<AddressModel> addresses;

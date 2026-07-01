@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
-import 'package:shinup/core/routes/app_pages.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/core/routes/app_pages.dart';
 
 /// Step 2 of the booking flow — Date & Time selection.
 ///

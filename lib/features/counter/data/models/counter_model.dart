@@ -1,4 +1,4 @@
-import 'package:shinup/features/counter/domain/entities/counter_entity.dart';
+import 'package:shineup/features/counter/domain/entities/counter_entity.dart';
 
 class CounterModel extends CounterEntity {
   const CounterModel({super.value});

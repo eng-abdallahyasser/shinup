@@ -1,5 +1,5 @@
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/features/provider/data/models/nearby_worker_model.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/features/provider/data/models/nearby_worker_model.dart';
 
 class ProviderRemoteDataSource {
   final ApiClient _client;

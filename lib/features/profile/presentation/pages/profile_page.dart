@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shinup/core/di/service_locator.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
-import 'package:shinup/core/routes/app_pages.dart';
-import 'package:shinup/features/profile/presentation/cubit/profile_cubit.dart';
-import 'package:shinup/features/profile/presentation/widgets/account_security_section.dart';
-import 'package:shinup/features/profile/presentation/widgets/footer_actions_section.dart';
-import 'package:shinup/features/profile/presentation/widgets/loyalty_section.dart';
-import 'package:shinup/features/profile/presentation/widgets/personal_info_section.dart';
-import 'package:shinup/features/profile/presentation/widgets/profile_summary.dart';
-import 'package:shinup/features/profile/presentation/widgets/addresses_section.dart';
-import 'package:shinup/features/profile/presentation/widgets/vehicles_section.dart';
+import 'package:shineup/core/di/service_locator.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/core/routes/app_pages.dart';
+import 'package:shineup/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:shineup/features/profile/presentation/widgets/account_security_section.dart';
+import 'package:shineup/features/profile/presentation/widgets/footer_actions_section.dart';
+import 'package:shineup/features/profile/presentation/widgets/loyalty_section.dart';
+import 'package:shineup/features/profile/presentation/widgets/personal_info_section.dart';
+import 'package:shineup/features/profile/presentation/widgets/profile_summary.dart';
+import 'package:shineup/features/profile/presentation/widgets/addresses_section.dart';
+import 'package:shineup/features/profile/presentation/widgets/vehicles_section.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

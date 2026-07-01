@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/features/auth/domain/repositories/auth_repository.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/features/auth/domain/repositories/auth_repository.dart';
 
 // ── Auth Mode ───────────────────────────────────────────────────────────────
 

@@ -1,4 +1,4 @@
-import 'package:shinup/features/home/data/models/home_models.dart';
+import 'package:shineup/features/home/data/models/home_models.dart';
 
 abstract class HomeRepository {
   Future<List<ProviderData>> getRecommendedProviders();

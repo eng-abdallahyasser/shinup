@@ -12,7 +12,7 @@ class AppLocalizations {
 
   static const Map<String, Map<String, String>> _strings = {
     'en': {
-      'appTitle': 'Shinup',
+      'appTitle': 'Shineup',
       'counterTitle': 'Counter',
       'counterDescription': 'You have pushed the button this many times:',
       'increment': 'Increment',
@@ -176,7 +176,7 @@ class AppLocalizations {
       'trustQuality': 'Guaranteed',
       // Location Permission
       'locationAccessTitle': 'Enable Location',
-      'locationAccessSubtitle': 'Let Shinup find nearby services and repair shops for your vehicle.',
+      'locationAccessSubtitle': 'Let Shineup find nearby services and repair shops for your vehicle.',
       'locationAccessTrustAccurate': 'Accurate',
       'locationAccessTrustFast': 'Fast',
       'locationAccessTrustReliable': 'Reliable',
@@ -269,7 +269,7 @@ class AppLocalizations {
       'providerCtaBookNow': 'Book Now',
     },
     'ar': {
-      'appTitle': 'Shinup',
+      'appTitle': 'Shineup',
       'counterTitle': 'عداد',
       'counterDescription': 'لقد ضغطت على الزر هذا العدد من المرات:',
       'increment': 'زيادة',
@@ -430,7 +430,7 @@ class AppLocalizations {
       'trustQuality': 'مضمون',
       // Location Permission
       'locationAccessTitle': 'تفعيل الموقع',
-      'locationAccessSubtitle': 'اسمح لـ Shinup بالعثور على الخدمات وورش الإصلاح القريبة من سيارتك.',
+      'locationAccessSubtitle': 'اسمح لـ Shineup بالعثور على الخدمات وورش الإصلاح القريبة من سيارتك.',
       'locationAccessTrustAccurate': 'دقيق',
       'locationAccessTrustFast': 'سريع',
       'locationAccessTrustReliable': 'موثوق',

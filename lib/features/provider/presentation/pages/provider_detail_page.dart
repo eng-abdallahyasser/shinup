@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
-import 'package:shinup/core/routes/app_pages.dart';
-import 'package:shinup/features/provider/presentation/widgets/bottom_cta.dart';
-import 'package:shinup/features/provider/presentation/widgets/hero_image.dart';
-import 'package:shinup/features/provider/presentation/widgets/primary_actions.dart';
-import 'package:shinup/features/provider/presentation/widgets/profile_header.dart';
-import 'package:shinup/features/provider/presentation/widgets/reviews_content.dart';
-import 'package:shinup/features/provider/presentation/widgets/about_content.dart';
-import 'package:shinup/features/provider/presentation/widgets/services_content.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/core/routes/app_pages.dart';
+import 'package:shineup/features/provider/presentation/widgets/bottom_cta.dart';
+import 'package:shineup/features/provider/presentation/widgets/hero_image.dart';
+import 'package:shineup/features/provider/presentation/widgets/primary_actions.dart';
+import 'package:shineup/features/provider/presentation/widgets/profile_header.dart';
+import 'package:shineup/features/provider/presentation/widgets/reviews_content.dart';
+import 'package:shineup/features/provider/presentation/widgets/about_content.dart';
+import 'package:shineup/features/provider/presentation/widgets/services_content.dart';
 
 /// Maps provider IDs to their cover image asset paths.
 const _providerImages = {

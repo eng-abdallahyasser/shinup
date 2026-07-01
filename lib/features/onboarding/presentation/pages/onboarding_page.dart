@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/core/di/service_locator.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
-import 'package:shinup/core/routes/app_pages.dart';
-import 'package:shinup/features/onboarding/data/models/onboarding_model.dart';
-import 'package:shinup/features/onboarding/domain/repositories/onboarding_repository.dart';
-import 'package:shinup/features/onboarding/presentation/widgets/onboarding_step.dart';
+import 'package:shineup/core/di/service_locator.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/core/routes/app_pages.dart';
+import 'package:shineup/features/onboarding/data/models/onboarding_model.dart';
+import 'package:shineup/features/onboarding/domain/repositories/onboarding_repository.dart';
+import 'package:shineup/features/onboarding/presentation/widgets/onboarding_step.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});

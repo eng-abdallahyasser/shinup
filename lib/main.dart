@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:shinup/core/di/service_locator.dart';
-import 'package:shinup/core/localization/locale_cubit.dart';
-import 'package:shinup/core/routes/app_pages.dart';
-import 'package:shinup/core/theme/app_theme.dart';
+import 'package:shineup/core/di/service_locator.dart';
+import 'package:shineup/core/localization/locale_cubit.dart';
+import 'package:shineup/core/routes/app_pages.dart';
+import 'package:shineup/core/theme/app_theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shinup/firebase_options.dart';
+import 'package:shineup/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,11 +14,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
 );
   await initDependencies();
-  runApp(const ShinupApp());
+  runApp(const ShineupApp());
 }
 
-class ShinupApp extends StatelessWidget {
-  const ShinupApp({super.key});
+class ShineupApp extends StatelessWidget {
+  const ShineupApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ShinupApp extends StatelessWidget {
       child: BlocBuilder<LocaleCubit, LocaleState>(
         builder: (context, state) {
           return MaterialApp(
-            title: 'Shinup',
+            title: 'Shineup',
             debugShowCheckedModeBanner: false,
             locale: state.locale,
             supportedLocales: const [

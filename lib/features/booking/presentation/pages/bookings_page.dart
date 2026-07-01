@@ -506,7 +506,7 @@ class _PromoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Upgrade to Shinup Pro',
+                    'Upgrade to Shineup Pro',
                     style: TextStyle(
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w600,

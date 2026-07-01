@@ -1,6 +1,6 @@
-import 'package:shinup/features/onboarding/data/datasources/onboarding_local_datasource.dart';
-import 'package:shinup/features/onboarding/data/models/onboarding_model.dart';
-import 'package:shinup/features/onboarding/domain/repositories/onboarding_repository.dart';
+import 'package:shineup/features/onboarding/data/datasources/onboarding_local_datasource.dart';
+import 'package:shineup/features/onboarding/data/models/onboarding_model.dart';
+import 'package:shineup/features/onboarding/domain/repositories/onboarding_repository.dart';
 
 class OnboardingRepositoryImpl implements OnboardingRepository {
   final OnboardingLocalDataSource _localDataSource;

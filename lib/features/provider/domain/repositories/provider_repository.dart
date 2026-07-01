@@ -1,4 +1,4 @@
-import 'package:shinup/features/provider/data/models/nearby_worker_model.dart';
+import 'package:shineup/features/provider/data/models/nearby_worker_model.dart';
 
 abstract class ProviderRepository {
   Future<List<NearbyWorkerResult>> getNearbyWorkers({

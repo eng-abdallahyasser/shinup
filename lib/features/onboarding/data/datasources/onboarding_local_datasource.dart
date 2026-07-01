@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shinup/features/onboarding/data/models/onboarding_model.dart';
+import 'package:shineup/features/onboarding/data/models/onboarding_model.dart';
 
 class OnboardingLocalDataSource {
   final SharedPreferences _prefs;

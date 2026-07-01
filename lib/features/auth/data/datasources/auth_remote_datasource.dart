@@ -1,5 +1,5 @@
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/features/auth/data/models/auth_models.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/features/auth/data/models/auth_models.dart';
 
 class AuthRemoteDataSource {
   final ApiClient _client;

@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/features/auth/data/datasources/auth_remote_datasource.dart';
-import 'package:shinup/features/auth/data/models/auth_models.dart';
-import 'package:shinup/features/auth/domain/repositories/auth_repository.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/features/auth/data/datasources/auth_remote_datasource.dart';
+import 'package:shineup/features/auth/data/models/auth_models.dart';
+import 'package:shineup/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _remoteDataSource;

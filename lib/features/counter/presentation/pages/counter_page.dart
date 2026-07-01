@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shinup/core/di/service_locator.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
-import 'package:shinup/features/counter/domain/usecases/get_counter_usecase.dart';
-import 'package:shinup/features/counter/domain/usecases/increment_counter_usecase.dart';
-import 'package:shinup/features/counter/presentation/bloc/counter_bloc.dart';
-import 'package:shinup/features/counter/presentation/widgets/counter_display.dart';
+import 'package:shineup/core/di/service_locator.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/features/counter/domain/usecases/get_counter_usecase.dart';
+import 'package:shineup/features/counter/domain/usecases/increment_counter_usecase.dart';
+import 'package:shineup/features/counter/presentation/bloc/counter_bloc.dart';
+import 'package:shineup/features/counter/presentation/widgets/counter_display.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});

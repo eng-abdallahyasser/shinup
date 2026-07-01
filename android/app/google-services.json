@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:459788339990:android:ce54c2fa30ecc831159e37",
         "android_client_info": {
-          "package_name": "com.example.shinup"
+          "package_name": "com.example.shineup"
         }
       },
       "oauth_client": [],
@@ -28,7 +28,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:459788339990:android:883782a415c9633f159e37",
         "android_client_info": {
-          "package_name": "com.example.shinup_provider"
+          "package_name": "com.example.shineup_provider"
         }
       },
       "oauth_client": [],

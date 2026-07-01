@@ -1,5 +1,5 @@
-import 'package:shinup/features/counter/domain/entities/counter_entity.dart';
-import 'package:shinup/features/counter/domain/repositories/counter_repository.dart';
+import 'package:shineup/features/counter/domain/entities/counter_entity.dart';
+import 'package:shineup/features/counter/domain/repositories/counter_repository.dart';
 
 class GetCounterUseCase {
   final CounterRepository _repository;

@@ -1,4 +1,4 @@
-import 'package:shinup/features/auth/data/models/auth_models.dart';
+import 'package:shineup/features/auth/data/models/auth_models.dart';
 
 abstract class AuthRepository {
   Future<AuthResponse> register({

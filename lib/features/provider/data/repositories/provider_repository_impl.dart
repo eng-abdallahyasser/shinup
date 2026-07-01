@@ -1,6 +1,6 @@
-import 'package:shinup/features/provider/data/datasources/provider_remote_datasource.dart';
-import 'package:shinup/features/provider/data/models/nearby_worker_model.dart';
-import 'package:shinup/features/provider/domain/repositories/provider_repository.dart';
+import 'package:shineup/features/provider/data/datasources/provider_remote_datasource.dart';
+import 'package:shineup/features/provider/data/models/nearby_worker_model.dart';
+import 'package:shineup/features/provider/domain/repositories/provider_repository.dart';
 
 class ProviderRepositoryImpl implements ProviderRepository {
   final ProviderRemoteDataSource _remoteDataSource;

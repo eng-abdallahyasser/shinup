@@ -1,7 +1,7 @@
-import 'package:shinup/features/counter/data/datasources/counter_local_datasource.dart';
-import 'package:shinup/features/counter/data/models/counter_model.dart';
-import 'package:shinup/features/counter/domain/entities/counter_entity.dart';
-import 'package:shinup/features/counter/domain/repositories/counter_repository.dart';
+import 'package:shineup/features/counter/data/datasources/counter_local_datasource.dart';
+import 'package:shineup/features/counter/data/models/counter_model.dart';
+import 'package:shineup/features/counter/domain/entities/counter_entity.dart';
+import 'package:shineup/features/counter/domain/repositories/counter_repository.dart';
 
 class CounterRepositoryImpl implements CounterRepository {
   final CounterLocalDataSource _dataSource;

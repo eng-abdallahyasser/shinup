@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
-import 'package:shinup/core/routes/app_pages.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/core/routes/app_pages.dart';
 
 class LocationAccessPage extends StatefulWidget {
   /// The route to navigate to after permission is granted or skipped.

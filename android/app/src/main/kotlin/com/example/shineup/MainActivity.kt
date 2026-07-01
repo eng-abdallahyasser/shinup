@@ -1,4 +1,4 @@
-package com.example.shinup
+package com.example.shineup
 
 import io.flutter.embedding.android.FlutterActivity
 

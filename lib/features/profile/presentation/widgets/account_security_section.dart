@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:shineup/features/profile/presentation/cubit/profile_cubit.dart';
 
 class AccountSecuritySection extends StatelessWidget {
   final bool showOldPassword;

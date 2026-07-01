@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
-import 'package:shinup/features/booking/presentation/pages/bookings_page.dart';
-import 'package:shinup/features/explore/presentation/pages/explore_page.dart';
-import 'package:shinup/features/home/presentation/pages/home_page.dart';
-import 'package:shinup/features/profile/presentation/pages/profile_page.dart';
-import 'package:shinup/features/main/presentation/widgets/bottom_nav_bar.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/features/booking/presentation/pages/bookings_page.dart';
+import 'package:shineup/features/explore/presentation/pages/explore_page.dart';
+import 'package:shineup/features/home/presentation/pages/home_page.dart';
+import 'package:shineup/features/profile/presentation/pages/profile_page.dart';
+import 'package:shineup/features/main/presentation/widgets/bottom_nav_bar.dart';
 
 /// The main shell that wraps all authenticated screens with a bottom navigation bar.
 ///

@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shinup/core/di/service_locator.dart';
-import 'package:shinup/core/routes/app_pages.dart';
-import 'package:shinup/features/provider/data/models/nearby_worker_model.dart';
-import 'package:shinup/features/provider/domain/repositories/provider_repository.dart';
+import 'package:shineup/core/di/service_locator.dart';
+import 'package:shineup/core/routes/app_pages.dart';
+import 'package:shineup/features/provider/data/models/nearby_worker_model.dart';
+import 'package:shineup/features/provider/domain/repositories/provider_repository.dart';
 
 class ProviderListPage extends StatefulWidget {
   final String serviceId;

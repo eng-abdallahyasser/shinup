@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shinup/core/constants/app_constants.dart';
+import 'package:shineup/core/constants/app_constants.dart';
 
 class CounterLocalDataSource {
   final SharedPreferences _prefs;

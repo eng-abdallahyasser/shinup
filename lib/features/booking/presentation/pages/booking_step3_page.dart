@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
 
 /// Step 3 of the booking flow — Review & Confirm.
 class BookingStep3Page extends StatelessWidget {

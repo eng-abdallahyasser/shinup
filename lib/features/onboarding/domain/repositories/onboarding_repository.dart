@@ -1,4 +1,4 @@
-import 'package:shinup/features/onboarding/data/models/onboarding_model.dart';
+import 'package:shineup/features/onboarding/data/models/onboarding_model.dart';
 
 abstract class OnboardingRepository {
   List<OnboardingData> getSteps();

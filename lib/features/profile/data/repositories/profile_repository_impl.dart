@@ -1,10 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/features/profile/data/datasources/profile_remote_datasource.dart';
-import 'package:shinup/features/profile/data/models/address_models.dart';
-import 'package:shinup/features/profile/data/models/car_models.dart';
-import 'package:shinup/features/profile/data/models/profile_model.dart';
-import 'package:shinup/features/profile/domain/repositories/profile_repository.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/features/profile/data/datasources/profile_remote_datasource.dart';
+import 'package:shineup/features/profile/data/models/address_models.dart';
+import 'package:shineup/features/profile/data/models/car_models.dart';
+import 'package:shineup/features/profile/data/models/profile_model.dart';
+import 'package:shineup/features/profile/domain/repositories/profile_repository.dart';
 
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource _remoteDataSource;

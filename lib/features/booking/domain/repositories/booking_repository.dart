@@ -1,4 +1,4 @@
-import 'package:shinup/features/booking/data/models/booking_model.dart';
+import 'package:shineup/features/booking/data/models/booking_model.dart';
 
 abstract class BookingRepository {
   Future<List<BookingModel>> getBookings();

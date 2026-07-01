@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/features/auth/presentation/pages/forgot_password_page.dart';
-import 'package:shinup/features/auth/presentation/pages/login_page.dart';
-import 'package:shinup/features/auth/presentation/pages/otp_page.dart';
-import 'package:shinup/features/auth/presentation/pages/register_page.dart';
-import 'package:shinup/features/auth/presentation/pages/reset_password_page.dart';
-import 'package:shinup/features/booking/presentation/pages/booking_step2_page.dart';
-import 'package:shinup/features/booking/presentation/pages/booking_step3_page.dart';
-import 'package:shinup/features/location/presentation/pages/location_access_page.dart';
-import 'package:shinup/features/main/presentation/pages/main_shell.dart';
-import 'package:shinup/features/onboarding/presentation/pages/onboarding_page.dart';
-import 'package:shinup/features/profile/presentation/pages/add_address_page.dart';
-import 'package:shinup/features/profile/presentation/pages/add_vehicle_page.dart';
-import 'package:shinup/features/profile/presentation/pages/address_detail_page.dart';
-import 'package:shinup/features/profile/presentation/pages/car_detail_page.dart';
-import 'package:shinup/features/provider/presentation/pages/provider_detail_page.dart';
-import 'package:shinup/features/provider/presentation/pages/provider_list_page.dart';
-import 'package:shinup/features/splash/presentation/pages/splash_page.dart';
+import 'package:shineup/features/auth/presentation/pages/forgot_password_page.dart';
+import 'package:shineup/features/auth/presentation/pages/login_page.dart';
+import 'package:shineup/features/auth/presentation/pages/otp_page.dart';
+import 'package:shineup/features/auth/presentation/pages/register_page.dart';
+import 'package:shineup/features/auth/presentation/pages/reset_password_page.dart';
+import 'package:shineup/features/booking/presentation/pages/booking_step2_page.dart';
+import 'package:shineup/features/booking/presentation/pages/booking_step3_page.dart';
+import 'package:shineup/features/location/presentation/pages/location_access_page.dart';
+import 'package:shineup/features/main/presentation/pages/main_shell.dart';
+import 'package:shineup/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:shineup/features/profile/presentation/pages/add_address_page.dart';
+import 'package:shineup/features/profile/presentation/pages/add_vehicle_page.dart';
+import 'package:shineup/features/profile/presentation/pages/address_detail_page.dart';
+import 'package:shineup/features/profile/presentation/pages/car_detail_page.dart';
+import 'package:shineup/features/provider/presentation/pages/provider_detail_page.dart';
+import 'package:shineup/features/provider/presentation/pages/provider_list_page.dart';
+import 'package:shineup/features/splash/presentation/pages/splash_page.dart';
 
 class AppRouter {
   AppRouter._();

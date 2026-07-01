@@ -1,4 +1,4 @@
-# shinup
+# Shineup
 
 A new Flutter project.
 

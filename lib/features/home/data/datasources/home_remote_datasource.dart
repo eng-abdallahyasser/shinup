@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/features/home/data/models/home_models.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/features/home/data/models/home_models.dart';
 
 class HomeRemoteDataSource {
   final ApiClient _client;

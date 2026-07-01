@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shinup/features/counter/domain/usecases/get_counter_usecase.dart';
-import 'package:shinup/features/counter/domain/usecases/increment_counter_usecase.dart';
+import 'package:shineup/features/counter/domain/usecases/get_counter_usecase.dart';
+import 'package:shineup/features/counter/domain/usecases/increment_counter_usecase.dart';
 
 // ── Events ──────────────────────────────────────────────────────────────────
 

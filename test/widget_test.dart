@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shinup/core/di/service_locator.dart';
-import 'package:shinup/core/localization/locale_cubit.dart';
-import 'package:shinup/core/routes/app_pages.dart';
-import 'package:shinup/core/theme/app_theme.dart';
+import 'package:shineup/core/di/service_locator.dart';
+import 'package:shineup/core/localization/locale_cubit.dart';
+import 'package:shineup/core/routes/app_pages.dart';
+import 'package:shineup/core/theme/app_theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// A minimal asset bundle that returns dummy data for any asset key.
@@ -72,7 +72,7 @@ void main() {
     await tester.pump();
 
     expect(find.byType(Image), findsOneWidget);
-    expect(find.text('SHINUP'), findsOneWidget);
+    expect(find.text('SHINEUP'), findsOneWidget);
     expect(find.text('CLEAN . SHINE . PROTECT'), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });

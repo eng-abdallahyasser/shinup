@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/features/profile/data/models/address_models.dart';
-import 'package:shinup/features/profile/data/models/car_models.dart';
-import 'package:shinup/features/profile/data/models/profile_model.dart';
-import 'package:shinup/features/profile/domain/repositories/profile_repository.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/features/profile/data/models/address_models.dart';
+import 'package:shineup/features/profile/data/models/car_models.dart';
+import 'package:shineup/features/profile/data/models/profile_model.dart';
+import 'package:shineup/features/profile/domain/repositories/profile_repository.dart';
 
 // ── Active session model ───────────────────────────────────────────────
 

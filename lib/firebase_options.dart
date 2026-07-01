@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '459788339990',
     projectId: 'shine-up-fb867',
     storageBucket: 'shine-up-fb867.firebasestorage.app',
-    iosBundleId: 'com.example.shinup',
+    iosBundleId: 'com.example.shineup',
   );
 }

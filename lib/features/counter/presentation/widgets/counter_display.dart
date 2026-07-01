@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
 
 class CounterDisplay extends StatelessWidget {
   final int value;

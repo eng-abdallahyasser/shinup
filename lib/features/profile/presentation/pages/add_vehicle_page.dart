@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shinup/core/di/service_locator.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/features/profile/data/models/car_models.dart';
-import 'package:shinup/features/profile/domain/repositories/profile_repository.dart';
+import 'package:shineup/core/di/service_locator.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/features/profile/data/models/car_models.dart';
+import 'package:shineup/features/profile/domain/repositories/profile_repository.dart';
 
 class AddVehiclePage extends StatefulWidget {
   const AddVehiclePage({super.key});

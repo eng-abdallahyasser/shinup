@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shinup/core/di/service_locator.dart';
-import 'package:shinup/core/localization/locale_cubit.dart';
-import 'package:shinup/core/network/api_client.dart';
+import 'package:shineup/core/di/service_locator.dart';
+import 'package:shineup/core/localization/locale_cubit.dart';
+import 'package:shineup/core/network/api_client.dart';
 
 class FooterActionsSection extends StatelessWidget {
   final String languageLabel;

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
@@ -84,7 +84,7 @@ class _ExplorePageState extends State<ExplorePage> {
               TileLayer(
                 urlTemplate:
                     'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                userAgentPackageName: 'com.example.shinup',
+                userAgentPackageName: 'com.example.shineup',
               ),
               RichAttributionWidget(
                 attributions: [

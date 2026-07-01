@@ -1,6 +1,6 @@
-import 'package:shinup/features/home/data/datasources/home_remote_datasource.dart';
-import 'package:shinup/features/home/data/models/home_models.dart';
-import 'package:shinup/features/home/domain/repositories/home_repository.dart';
+import 'package:shineup/features/home/data/datasources/home_remote_datasource.dart';
+import 'package:shineup/features/home/data/models/home_models.dart';
+import 'package:shineup/features/home/domain/repositories/home_repository.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   final HomeRemoteDataSource _remoteDataSource;

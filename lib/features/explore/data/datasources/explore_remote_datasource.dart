@@ -1,5 +1,5 @@
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/features/explore/data/models/explore_models.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/features/explore/data/models/explore_models.dart';
 
 class ExploreRemoteDataSource {
   final ApiClient _client;

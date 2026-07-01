@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shinup/core/di/service_locator.dart';
-import 'package:shinup/core/network/api_client.dart';
-import 'package:shinup/core/routes/app_pages.dart';
-import 'package:shinup/features/auth/domain/repositories/auth_repository.dart';
-import 'package:shinup/features/onboarding/domain/repositories/onboarding_repository.dart';
+import 'package:shineup/core/di/service_locator.dart';
+import 'package:shineup/core/network/api_client.dart';
+import 'package:shineup/core/routes/app_pages.dart';
+import 'package:shineup/features/auth/domain/repositories/auth_repository.dart';
+import 'package:shineup/features/onboarding/domain/repositories/onboarding_repository.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -136,7 +136,7 @@ class _SplashPageState extends State<SplashPage>
                 ),
                 const SizedBox(height: 28),
                 Text(
-                  'SHINUP',
+                  'SHINEUP',
                   style: theme.textTheme.headlineLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: theme.colorScheme.primary,

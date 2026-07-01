@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shinup/core/di/service_locator.dart';
-import 'package:shinup/core/localization/app_localizations.dart';
-import 'package:shinup/core/routes/app_pages.dart';
-import 'package:shinup/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:shineup/core/di/service_locator.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/core/routes/app_pages.dart';
+import 'package:shineup/features/auth/presentation/bloc/auth_bloc.dart';
 
 class OtpPage extends StatelessWidget {
   final String? userId;
