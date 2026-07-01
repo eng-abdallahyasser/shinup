@@ -6,12 +6,19 @@ class ExploreRemoteDataSource {
 
   ExploreRemoteDataSource(this._client);
 
-  Future<List<NearbyProvider>> getNearbyProviders(double lat, double lng) async {
-    final data = await _client.getList(
-      '/providers/nearby?lat=$lat&lng=$lng',
-    );
-    return data
-        .map((e) => NearbyProvider.fromJson(e as Map<String, dynamic>))
-        .toList();
+  Future<NearbyWorkersResponse> getNearbyWorkers({
+    required double latitude,
+    required double longitude,
+    List<String>? serviceIds,
+    int limit = 20,
+  }) async {
+    final buffer = StringBuffer()
+      ..write(
+          '/customers/me/nearby-workers?latitude=$latitude&longitude=$longitude&limit=$limit');
+    if (serviceIds != null && serviceIds.isNotEmpty) {
+      buffer.write('&serviceIds=${serviceIds.join(',')}');
+    }
+    final data = await _client.get(buffer.toString());
+    return NearbyWorkersResponse.fromJson(data);
   }
 }

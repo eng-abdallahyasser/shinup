@@ -8,7 +8,17 @@ class ExploreRepositoryImpl implements ExploreRepository {
   ExploreRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<List<NearbyProvider>> getNearbyProviders(double lat, double lng) async {
-    return _remoteDataSource.getNearbyProviders(lat, lng);
+  Future<NearbyWorkersResponse> getNearbyWorkers({
+    required double latitude,
+    required double longitude,
+    List<String>? serviceIds,
+    int limit = 20,
+  }) {
+    return _remoteDataSource.getNearbyWorkers(
+      latitude: latitude,
+      longitude: longitude,
+      serviceIds: serviceIds,
+      limit: limit,
+    );
   }
 }

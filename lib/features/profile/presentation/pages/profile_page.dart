@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shineup/core/di/service_locator.dart';
 import 'package:shineup/core/localization/app_localizations.dart';
+import 'package:shineup/core/constants/app_constants.dart';
 import 'package:shineup/core/routes/app_pages.dart';
 import 'package:shineup/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:shineup/features/profile/presentation/widgets/account_security_section.dart';
@@ -269,7 +270,7 @@ class _ProfileView extends StatelessWidget {
                           languageLabel: t.language,
                           deleteAccountLabel: t.deleteAccount,
                           signOutLabel: t.signOut,
-                          versionLabel: '${t.version} 1.0.0',
+                          versionLabel: '${t.version} ${AppConstants.appVersion}',
                           onSignOut: () async {
                             await context.read<ProfileCubit>().logout();
                             if (!context.mounted) return;
