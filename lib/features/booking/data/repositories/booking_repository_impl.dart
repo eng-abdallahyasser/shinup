@@ -1,5 +1,6 @@
 import 'package:shineup/features/booking/data/datasources/booking_remote_datasource.dart';
 import 'package:shineup/features/booking/data/models/booking_model.dart';
+import 'package:shineup/features/booking/data/models/create_booking_request.dart';
 import 'package:shineup/features/booking/domain/repositories/booking_repository.dart';
 
 class BookingRepositoryImpl implements BookingRepository {
@@ -18,5 +19,10 @@ class BookingRepositoryImpl implements BookingRepository {
   @override
   Future<void> cancelBooking(String bookingId, {required String reason}) async {
     await _remoteDataSource.cancelBooking(bookingId, reason: reason);
+  }
+
+  @override
+  Future<BookingModel> createBooking(CreateBookingRequest request) async {
+    return _remoteDataSource.createBooking(request);
   }
 }

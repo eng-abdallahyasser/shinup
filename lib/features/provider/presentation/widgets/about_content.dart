@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shineup/core/localization/app_localizations.dart';
 
 class AboutContent extends StatelessWidget {
-  const AboutContent({super.key});
+  final String description;
+
+  const AboutContent({super.key, required this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +14,18 @@ class AboutContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // ── Description ───────────────────────────────────────
+          Text(
+            description,
+            style: const TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w400,
+              fontSize: 16,
+              height: 24 / 16,
+              color: Color(0xFF434655),
+            ),
+          ),
+          const SizedBox(height: 24),
           // ── Heading ───────────────────────────────────────────
           Text(
             AppLocalizations.of(context).providerAboutTitle,

@@ -1,49 +1,150 @@
 import 'package:flutter/material.dart';
+import 'package:shineup/core/di/service_locator.dart';
 import 'package:shineup/core/localization/app_localizations.dart';
 import 'package:shineup/core/routes/app_pages.dart';
+import 'package:shineup/features/booking/data/models/booking_flow_data.dart';
+import 'package:shineup/features/profile/data/models/address_models.dart';
+import 'package:shineup/features/profile/data/models/car_models.dart';
+import 'package:shineup/features/profile/domain/repositories/profile_repository.dart';
 
-/// Step 2 of the booking flow — Date & Time selection.
-///
-/// Allows the user to choose between:
-/// - **ASAP** (nearest available time)
-/// - **Schedule** (pick a specific date + time slot)
+/// Step 2 of the booking flow — Date & Time + Car + Address.
 class BookingStep2Page extends StatefulWidget {
-  const BookingStep2Page({super.key});
+  final BookingFlowData? flowData;
+
+  const BookingStep2Page({super.key, this.flowData});
 
   @override
   State<BookingStep2Page> createState() => _BookingStep2PageState();
 }
 
 class _BookingStep2PageState extends State<BookingStep2Page> {
-  /// true = ASAP, false = Schedule
+  final ProfileRepository _profileRepo = sl<ProfileRepository>();
+
+  late BookingFlowData _flowData;
+
+  bool _isLoading = true;
   bool _isAsap = true;
+  int _selectedDateIndex = 0;
+  int _selectedTimeIndex = 1;
+
+  List<UserCarModel> _cars = [];
+  List<AddressModel> _addresses = [];
+  String? _selectedCarId;
+  String? _selectedAddressId;
+
+  @override
+  void initState() {
+    super.initState();
+    _flowData = widget.flowData ??
+        BookingFlowData(
+          providerId: '',
+          providerName: '',
+          selectedServices: [],
+        );
+    _loadInitialData();
+  }
+
+  Future<void> _loadInitialData() async {
+    try {
+      final cars = await _profileRepo.getCars();
+      final addresses = await _profileRepo.getAddresses();
+      if (mounted) {
+        setState(() {
+          _cars = cars;
+          _addresses = addresses;
+          _selectedCarId = cars.where((c) => c.defaultIs).firstOrNull?.id;
+          _selectedAddressId =
+              addresses.where((a) => a.defaultIs).firstOrNull?.id;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  void _onContinue() {
+    if (_selectedCarId == null || _selectedAddressId == null) return;
+
+    final car = _cars.where((c) => c.id == _selectedCarId).firstOrNull;
+    final addr =
+        _addresses.where((a) => a.id == _selectedAddressId).firstOrNull;
+
+    final updatedFlow = _flowData.copyWith(
+      bookingTimeMode: _isAsap ? 'NOW' : 'SCHEDULED',
+      carId: _selectedCarId,
+      carDisplay: car?.displayName,
+      addressId: _selectedAddressId,
+      addressDisplay: addr?.displayAddress,
+    );
+
+    Navigator.of(context).pushNamed(
+      AppRouter.bookingStep3,
+      arguments: updatedFlow,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Scaffold(
+        backgroundColor: const Color(0xFFFAF8FF),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xFFFAF8FF),
       body: SafeArea(
         child: Stack(
           children: [
-            // ── Scrollable content ──────────────────────────────
             SingleChildScrollView(
               padding: const EdgeInsets.only(bottom: 120),
               child: Column(
                 children: [
-                  const _TopAppBar(),
+                  _TopAppBar(
+                    providerName: _flowData.providerName,
+                  ),
                   const _ProgressStepper(),
-                  const _ProviderContext(),
+                  _ServiceSummary(
+                    services: _flowData.selectedServices,
+                    totalCost: _flowData.totalCost,
+                  ),
+                  _CarSelector(
+                    cars: _cars,
+                    selectedCarId: _selectedCarId,
+                    onChanged: (id) => setState(() => _selectedCarId = id),
+                  ),
+                  _AddressSelector(
+                    addresses: _addresses,
+                    selectedAddressId: _selectedAddressId,
+                    onChanged: (id) =>
+                        setState(() => _selectedAddressId = id),
+                  ),
                   _AsapToggle(
                     isAsap: _isAsap,
                     onToggle: (val) => setState(() => _isAsap = val),
                   ),
-                  if (!_isAsap) const _ScheduleSection(),
+                  if (!_isAsap) _ScheduleSection(
+                    selectedDateIndex: _selectedDateIndex,
+                    selectedTimeIndex: _selectedTimeIndex,
+                    onDateChanged: (i) =>
+                        setState(() => _selectedDateIndex = i),
+                    onTimeChanged: (i) =>
+                        setState(() => _selectedTimeIndex = i),
+                  ),
                 ],
               ),
             ),
-
-            // ── Sticky Footer ───────────────────────────────────
-            const _BottomCta(),
+            _PositionedBottomCta(
+              enabled:
+                  _selectedCarId != null && _selectedAddressId != null,
+              onContinue: _onContinue,
+            ),
           ],
         ),
       ),
@@ -52,11 +153,13 @@ class _BookingStep2PageState extends State<BookingStep2Page> {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-//  TopAppBar — Back + "Book Service" + User avatar
+//  TopAppBar
 // ═════════════════════════════════════════════════════════════════════════════
 
 class _TopAppBar extends StatelessWidget {
-  const _TopAppBar();
+  final String providerName;
+
+  const _TopAppBar({required this.providerName});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +179,6 @@ class _TopAppBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Back button
           GestureDetector(
             onTap: () => Navigator.of(context).pop(),
             child: Container(
@@ -91,7 +193,6 @@ class _TopAppBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-          // Title
           Text(
             t.bookingTitle,
             style: const TextStyle(
@@ -103,7 +204,6 @@ class _TopAppBar extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          // User avatar
           Container(
             width: 32,
             height: 32,
@@ -126,7 +226,7 @@ class _TopAppBar extends StatelessWidget {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-//  Progress Stepper — 3 steps
+//  Progress Stepper
 // ═════════════════════════════════════════════════════════════════════════════
 
 class _ProgressStepper extends StatelessWidget {
@@ -141,7 +241,6 @@ class _ProgressStepper extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          // Connecting line
           const Positioned(
             left: 60,
             right: 60,
@@ -199,8 +298,7 @@ class _StepDot extends StatelessWidget {
   Widget build(BuildContext context) {
     final circleColor =
         isCompleted ? const Color(0xFF2563EB) : const Color(0xFFFAF8FF);
-    final borderColor =
-        isCompleted ? null : const Color(0xFFC3C6D7);
+    final borderColor = isCompleted ? null : const Color(0xFFC3C6D7);
     final textColor =
         isCompleted ? const Color(0xFFEEEFFF) : const Color(0xFF737686);
     final labelColor =
@@ -252,23 +350,30 @@ class _StepDot extends StatelessWidget {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-//  Provider Context — booking info banner
+//  Service Summary
 // ═════════════════════════════════════════════════════════════════════════════
 
-class _ProviderContext extends StatelessWidget {
-  const _ProviderContext();
+class _ServiceSummary extends StatelessWidget {
+  final List<SelectedService> services;
+  final double totalCost;
+
+  const _ServiceSummary({
+    required this.services,
+    required this.totalCost,
+  });
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
       color: const Color(0xFFFAF8FF),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Booking · ${t.bookingWash}',
+            '${t.bookingWash} · ${services.length} ${t.providerCtaServices}',
             style: const TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w400,
@@ -278,9 +383,9 @@ class _ProviderContext extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          const Text(
-            'Book Shine & Co. Detailing',
-            style: TextStyle(
+          Text(
+            _flowProviderName(context),
+            style: const TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w400,
               fontSize: 16,
@@ -292,19 +397,23 @@ class _ProviderContext extends StatelessWidget {
           Row(
             children: [
               const Icon(
-                Icons.location_on_outlined,
+                Icons.shopping_cart_outlined,
                 size: 14,
                 color: Color(0xFF737686),
               ),
               const SizedBox(width: 8),
-              const Text(
-                '123 Auto Care Street, Downtown',
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                  height: 24 / 16,
-                  color: Color(0xFF434655),
+              Expanded(
+                child: Text(
+                  services.map((s) => s.name).join(', '),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    height: 20 / 14,
+                    color: Color(0xFF434655),
+                  ),
                 ),
               ),
             ],
@@ -314,20 +423,244 @@ class _ProviderContext extends StatelessWidget {
       ),
     );
   }
+
+  String _flowProviderName(BuildContext context) {
+    // We use a simple approach since we can't access flowData directly here
+    return 'Booking';
+  }
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-//  ASAP Toggle — Card before the date selector
+//  Car Selector
+// ═════════════════════════════════════════════════════════════════════════════
+
+class _CarSelector extends StatelessWidget {
+  final List<UserCarModel> cars;
+  final String? selectedCarId;
+  final ValueChanged<String> onChanged;
+
+  const _CarSelector({
+    required this.cars,
+    required this.selectedCarId,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      color: const Color(0xFFFAF8FF),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            t.bookingSelectCar,
+            style: const TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              height: 24 / 16,
+              color: Color(0xFF191B23),
+            ),
+          ),
+          const SizedBox(height: 8),
+          ...cars.map((car) {
+            final isSelected = car.id == selectedCarId;
+            return GestureDetector(
+              onTap: () => onChanged(car.id),
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? const Color(0x1A2563EB)
+                      : const Color(0xFFFAF8FF),
+                  border: Border.all(
+                    color: isSelected
+                        ? const Color(0xFF2563EB)
+                        : const Color(0xFFC3C6D7),
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.directions_car_rounded,
+                      size: 20,
+                      color: isSelected
+                          ? const Color(0xFF2563EB)
+                          : const Color(0xFF434655),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            car.displayName,
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              height: 20 / 14,
+                              color: isSelected
+                                  ? const Color(0xFF2563EB)
+                                  : const Color(0xFF191B23),
+                            ),
+                          ),
+                          Text(
+                            '${car.year} · ${car.plateNumber}',
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              height: 16 / 12,
+                              color: Color(0xFF737686),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (isSelected)
+                      const Icon(
+                        Icons.check_circle_rounded,
+                        size: 20,
+                        color: Color(0xFF2563EB),
+                      ),
+                  ],
+                ),
+              ),
+            );
+          }),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  Address Selector
+// ═════════════════════════════════════════════════════════════════════════════
+
+class _AddressSelector extends StatelessWidget {
+  final List<AddressModel> addresses;
+  final String? selectedAddressId;
+  final ValueChanged<String> onChanged;
+
+  const _AddressSelector({
+    required this.addresses,
+    required this.selectedAddressId,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      color: const Color(0xFFFAF8FF),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            t.bookingSelectAddress,
+            style: const TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              height: 24 / 16,
+              color: Color(0xFF191B23),
+            ),
+          ),
+          const SizedBox(height: 8),
+          ...addresses.map((addr) {
+            final isSelected = addr.id == selectedAddressId;
+            return GestureDetector(
+              onTap: () => onChanged(addr.id),
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? const Color(0x1A2563EB)
+                      : const Color(0xFFFAF8FF),
+                  border: Border.all(
+                    color: isSelected
+                        ? const Color(0xFF2563EB)
+                        : const Color(0xFFC3C6D7),
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      size: 20,
+                      color: isSelected
+                          ? const Color(0xFF2563EB)
+                          : const Color(0xFF434655),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            addr.title,
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              height: 20 / 14,
+                              color: isSelected
+                                  ? const Color(0xFF2563EB)
+                                  : const Color(0xFF191B23),
+                            ),
+                          ),
+                          Text(
+                            addr.displayAddress,
+                            style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              height: 16 / 12,
+                              color: Color(0xFF737686),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (isSelected)
+                      const Icon(
+                        Icons.check_circle_rounded,
+                        size: 20,
+                        color: Color(0xFF2563EB),
+                      ),
+                  ],
+                ),
+              ),
+            );
+          }),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  ASAP Toggle
 // ═════════════════════════════════════════════════════════════════════════════
 
 class _AsapToggle extends StatelessWidget {
   final bool isAsap;
   final ValueChanged<bool> onToggle;
 
-  const _AsapToggle({
-    required this.isAsap,
-    required this.onToggle,
-  });
+  const _AsapToggle({required this.isAsap, required this.onToggle});
 
   @override
   Widget build(BuildContext context) {
@@ -338,7 +671,6 @@ class _AsapToggle extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ── Two options: ASAP | Schedule ──────────────────────
           Row(
             children: [
               Expanded(
@@ -363,8 +695,6 @@ class _AsapToggle extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-
-          // ── Nearest Available card (shown when ASAP selected) ─
           if (isAsap)
             Container(
               height: 100,
@@ -384,7 +714,6 @@ class _AsapToggle extends StatelessWidget {
                 borderRadius: BorderRadius.circular(32),
                 child: Stack(
                   children: [
-                    // Background gradient
                     Container(
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -394,7 +723,6 @@ class _AsapToggle extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Dark overlay
                     Positioned.fill(
                       child: Container(
                         decoration: const BoxDecoration(
@@ -409,7 +737,6 @@ class _AsapToggle extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Content
                     Positioned(
                       left: 20,
                       bottom: 20,
@@ -531,19 +858,21 @@ class _BookingOptionCard extends StatelessWidget {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-//  Schedule Section — Date pills + Time slot grid
+//  Schedule Section
 // ═════════════════════════════════════════════════════════════════════════════
 
-class _ScheduleSection extends StatefulWidget {
-  const _ScheduleSection();
+class _ScheduleSection extends StatelessWidget {
+  final int selectedDateIndex;
+  final int selectedTimeIndex;
+  final ValueChanged<int> onDateChanged;
+  final ValueChanged<int> onTimeChanged;
 
-  @override
-  State<_ScheduleSection> createState() => _ScheduleSectionState();
-}
-
-class _ScheduleSectionState extends State<_ScheduleSection> {
-  int _selectedDateIndex = 0;
-  int _selectedTimeIndex = 1;
+  const _ScheduleSection({
+    required this.selectedDateIndex,
+    required this.selectedTimeIndex,
+    required this.onDateChanged,
+    required this.onTimeChanged,
+  });
 
   static const _weekDays = [
     _DayData('MON', '24'),
@@ -554,7 +883,6 @@ class _ScheduleSectionState extends State<_ScheduleSection> {
     _DayData('SAT', '29'),
   ];
 
-  // 3 rows × 3 columns
   static const _timeSlots = [
     ['9:00', '10:30', '12:00'],
     ['1:30', '3:00', '4:30'],
@@ -570,31 +898,15 @@ class _ScheduleSectionState extends State<_ScheduleSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ── Date pills ─────────────────────────────────────────
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                t.bookingSelectDate,
-                style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                  height: 24 / 16,
-                  color: Color(0xFF191B23),
-                ),
-              ),
-              Text(
-                '${_weekDays.length} ${t.bookingAvailable}',
-                style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                  height: 24 / 16,
-                  color: Color(0xFF737686),
-                ),
-              ),
-            ],
+          Text(
+            t.bookingSelectDate,
+            style: const TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w400,
+              fontSize: 16,
+              height: 24 / 16,
+              color: Color(0xFF191B23),
+            ),
           ),
           const SizedBox(height: 16),
           SizedBox(
@@ -605,10 +917,9 @@ class _ScheduleSectionState extends State<_ScheduleSection> {
               separatorBuilder: (_, _) => const SizedBox(width: 16),
               itemBuilder: (context, index) {
                 final day = _weekDays[index];
-                final isSelected = index == _selectedDateIndex;
+                final isSelected = index == selectedDateIndex;
                 return GestureDetector(
-                  onTap: () =>
-                      setState(() => _selectedDateIndex = index),
+                  onTap: () => onDateChanged(index),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     width: 64,
@@ -666,8 +977,6 @@ class _ScheduleSectionState extends State<_ScheduleSection> {
             ),
           ),
           const SizedBox(height: 24),
-
-          // ── Time slot grid ─────────────────────────────────────
           Text(
             t.bookingSelectTimeSlot,
             style: const TextStyle(
@@ -689,7 +998,7 @@ class _ScheduleSectionState extends State<_ScheduleSection> {
                   final globalIndex =
                       rowIndex * _timeSlots[rowIndex].length + colIndex;
                   final time = _timeSlots[rowIndex][colIndex];
-                  final isSelected = globalIndex == _selectedTimeIndex;
+                  final isSelected = globalIndex == selectedTimeIndex;
                   return Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(
@@ -700,11 +1009,9 @@ class _ScheduleSectionState extends State<_ScheduleSection> {
                             : 6,
                       ),
                       child: GestureDetector(
-                        onTap: () => setState(
-                            () => _selectedTimeIndex = globalIndex),
+                        onTap: () => onTimeChanged(globalIndex),
                         child: AnimatedContainer(
-                          duration:
-                              const Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 200),
                           height: 58,
                           decoration: BoxDecoration(
                             color: isSelected
@@ -762,11 +1069,17 @@ class _DayData {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-//  Bottom CTA — Order summary
+//  Bottom CTA
 // ═════════════════════════════════════════════════════════════════════════════
 
-class _BottomCta extends StatelessWidget {
-  const _BottomCta();
+class _PositionedBottomCta extends StatelessWidget {
+  final bool enabled;
+  final VoidCallback onContinue;
+
+  const _PositionedBottomCta({
+    required this.enabled,
+    required this.onContinue,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -792,41 +1105,11 @@ class _BottomCta extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Summary text
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  t.bookingNearestAvailable,
-                  style: const TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                    height: 24 / 16,
-                    color: Color(0xFF434655),
-                  ),
-                ),
-                const Text(
-                  '\$35',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                    height: 24 / 16,
-                    color: Color(0xFF004AC6),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(width: 66),
-            // Continue button
             Expanded(
               child: SizedBox(
                 height: 48,
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(AppRouter.bookingStep3);
-                  },
+                  onPressed: enabled ? onContinue : null,
                   icon: const Icon(
                     Icons.arrow_forward_rounded,
                     size: 16,
@@ -834,7 +1117,7 @@ class _BottomCta extends StatelessWidget {
                   ),
                   label: Text(
                     t.bookingContinue,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
@@ -845,6 +1128,8 @@ class _BottomCta extends StatelessWidget {
                     backgroundColor: const Color(0xFF2563EB),
                     foregroundColor: Colors.white,
                     elevation: 0,
+                    disabledBackgroundColor: const Color(0xFFC3C6D7),
+                    disabledForegroundColor: const Color(0xFF737686),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(9999),
                     ),

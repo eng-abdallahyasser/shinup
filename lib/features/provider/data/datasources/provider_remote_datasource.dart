@@ -1,5 +1,6 @@
 import 'package:shineup/core/network/api_client.dart';
 import 'package:shineup/features/provider/data/models/nearby_worker_model.dart';
+import 'package:shineup/features/provider/data/models/provider_detail_model.dart';
 
 class ProviderRemoteDataSource {
   final ApiClient _client;
@@ -25,5 +26,10 @@ class ProviderRemoteDataSource {
     return results
         .map((e) => NearbyWorkerResult.fromJson(e as Map<String, dynamic>))
         .toList();
+  }
+
+  Future<ProviderDetailModel> getProviderDetail(String providerId) async {
+    final data = await _client.get('/discover/providers/$providerId');
+    return ProviderDetailModel.fromJson(data);
   }
 }

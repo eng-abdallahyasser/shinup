@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:shineup/core/localization/app_localizations.dart';
 
 class BottomCta extends StatelessWidget {
+  final double totalCost;
+  final int itemCount;
   final VoidCallback? onBookNow;
 
-  const BottomCta({super.key, this.onBookNow});
+  const BottomCta({
+    super.key,
+    this.totalCost = 0,
+    this.itemCount = 0,
+    this.onBookNow,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     return Positioned(
       left: 0,
       right: 0,
@@ -34,8 +42,10 @@ class BottomCta extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context).providerCtaTotal,
-                  style: TextStyle(
+                  itemCount > 0
+                      ? '$itemCount ${t.providerCtaServices}'
+                      : t.providerCtaTotal,
+                  style: const TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,
                     fontSize: 12,
@@ -45,13 +55,15 @@ class BottomCta extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '\$35',
+                  itemCount > 0 ? '\$${totalCost.toStringAsFixed(0)}' : t.providerCtaSelectServices,
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                     height: 28 / 20,
-                    color: Color(0xFF191B23),
+                    color: itemCount > 0
+                        ? const Color(0xFF191B23)
+                        : const Color(0xFF737686),
                   ),
                 ),
               ],
@@ -62,18 +74,20 @@ class BottomCta extends StatelessWidget {
               child: SizedBox(
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: onBookNow,
+                  onPressed: itemCount > 0 ? onBookNow : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF004AC6),
                     foregroundColor: Colors.white,
                     elevation: 0,
+                    disabledBackgroundColor: const Color(0xFFC3C6D7),
+                    disabledForegroundColor: const Color(0xFF737686),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(9999),
                     ),
                   ),
                   child: Text(
-                    AppLocalizations.of(context).providerCtaBookNow,
-                    style: TextStyle(
+                    t.providerCtaBookNow,
+                    style: const TextStyle(
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w600,
                       fontSize: 16,

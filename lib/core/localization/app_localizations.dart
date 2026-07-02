@@ -199,6 +199,8 @@ class AppLocalizations {
       'bookingSchedule': 'Schedule',
       'bookingPickDateAndTime': 'Pick Date & Time',
       'bookingInMinutes': 'In 30 minutes',
+      'bookingSelectCar': 'Select Car',
+      'bookingSelectAddress': 'Select Address',
       'bookingSelectDate': 'Select Date',
       'bookingAvailable': 'available',
       'bookingSelectTimeSlot': 'Select Time Slot',
@@ -246,6 +248,7 @@ class AppLocalizations {
       'homeRecommendedTitle': 'Recommended for you',
       'homeSeeAll': 'See all',
       'homeStatusOpen': 'OPEN',
+      'homeStatusClosed': 'CLOSED',
       'homeUnitKm': 'km',
       'homeTagRepair': 'Repair',
       'homeTagTires': 'Tires',
@@ -268,6 +271,7 @@ class AppLocalizations {
       'providerServiceGroupWashCare': 'Wash & Care',
       'providerServiceGroupRepairs': 'Repairs & Maintenance',
       'providerServiceAdd': 'Add',
+      'providerServiceAdded': 'Added',
       'providerReviewsTitle': 'Customer Reviews',
       'providerRatingExcellent': 'Excellent',
       'providerRatingGood': 'Good',
@@ -282,6 +286,8 @@ class AppLocalizations {
       'providerAboutSpecializations': 'Specializations',
       'providerCtaTotal': 'TOTAL',
       'providerCtaBookNow': 'Book Now',
+      'providerCtaServices': 'services',
+      'providerCtaSelectServices': 'Select services',
     },
     'ar': {
       'appTitle': 'Shineup',
@@ -468,6 +474,8 @@ class AppLocalizations {
       'bookingSchedule': 'جدولة',
       'bookingPickDateAndTime': 'اختر التاريخ والوقت',
       'bookingInMinutes': 'خلال 30 دقيقة',
+      'bookingSelectCar': 'اختر السيارة',
+      'bookingSelectAddress': 'اختر العنوان',
       'bookingSelectDate': 'اختر التاريخ',
       'bookingAvailable': 'متاح',
       'bookingSelectTimeSlot': 'اختر الوقت',
@@ -515,6 +523,7 @@ class AppLocalizations {
       'homeRecommendedTitle': 'موصى به لك',
       'homeSeeAll': 'عرض الكل',
       'homeStatusOpen': 'مفتوح',
+      'homeStatusClosed': 'مغلق',
       'homeUnitKm': 'كم',
       'homeTagRepair': 'إصلاح',
       'homeTagTires': 'إطارات',
@@ -537,6 +546,7 @@ class AppLocalizations {
       'providerServiceGroupWashCare': 'غسيل وعناية',
       'providerServiceGroupRepairs': 'إصلاحات وصيانة',
       'providerServiceAdd': 'إضافة',
+      'providerServiceAdded': 'تمت الإضافة',
       'providerReviewsTitle': 'تقييمات العملاء',
       'providerRatingExcellent': 'ممتاز',
       'providerRatingGood': 'جيد',
@@ -551,6 +561,8 @@ class AppLocalizations {
       'providerAboutSpecializations': 'التخصصات',
       'providerCtaTotal': 'المجموع',
       'providerCtaBookNow': 'احجز الآن',
+      'providerCtaServices': 'خدمات',
+      'providerCtaSelectServices': 'اختر الخدمات',
     },
   };
 
@@ -764,6 +776,8 @@ class AppLocalizations {
   String get bookingSchedule => translate('bookingSchedule');
   String get bookingPickDateAndTime => translate('bookingPickDateAndTime');
   String get bookingInMinutes => translate('bookingInMinutes');
+  String get bookingSelectCar => translate('bookingSelectCar');
+  String get bookingSelectAddress => translate('bookingSelectAddress');
   String get bookingSelectDate => translate('bookingSelectDate');
   String get bookingAvailable => translate('bookingAvailable');
   String get bookingSelectTimeSlot => translate('bookingSelectTimeSlot');
@@ -797,6 +811,7 @@ class AppLocalizations {
   String get homeRecommendedTitle => translate('homeRecommendedTitle');
   String get homeSeeAll => translate('homeSeeAll');
   String get homeStatusOpen => translate('homeStatusOpen');
+  String get homeStatusClosed => translate('homeStatusClosed');
   String get homeUnitKm => translate('homeUnitKm');
   String get homeTagRepair => translate('homeTagRepair');
   String get homeTagTires => translate('homeTagTires');
@@ -821,6 +836,7 @@ class AppLocalizations {
   String get providerServiceGroupWashCare => translate('providerServiceGroupWashCare');
   String get providerServiceGroupRepairs => translate('providerServiceGroupRepairs');
   String get providerServiceAdd => translate('providerServiceAdd');
+  String get providerServiceAdded => translate('providerServiceAdded');
   String get providerReviewsTitle => translate('providerReviewsTitle');
   String get providerRatingExcellent => translate('providerRatingExcellent');
   String get providerRatingGood => translate('providerRatingGood');
@@ -835,6 +851,8 @@ class AppLocalizations {
   String get providerAboutSpecializations => translate('providerAboutSpecializations');
   String get providerCtaTotal => translate('providerCtaTotal');
   String get providerCtaBookNow => translate('providerCtaBookNow');
+  String get providerCtaServices => translate('providerCtaServices');
+  String get providerCtaSelectServices => translate('providerCtaSelectServices');
 
   String get errorFillAll => translate('errorFillAll');
   String get errorPhone => translate('errorPhone');

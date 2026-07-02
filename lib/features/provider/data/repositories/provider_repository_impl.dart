@@ -1,5 +1,6 @@
 import 'package:shineup/features/provider/data/datasources/provider_remote_datasource.dart';
 import 'package:shineup/features/provider/data/models/nearby_worker_model.dart';
+import 'package:shineup/features/provider/data/models/provider_detail_model.dart';
 import 'package:shineup/features/provider/domain/repositories/provider_repository.dart';
 
 class ProviderRepositoryImpl implements ProviderRepository {
@@ -20,5 +21,10 @@ class ProviderRepositoryImpl implements ProviderRepository {
       serviceIds: serviceIds,
       limit: limit,
     );
+  }
+
+  @override
+  Future<ProviderDetailModel> getProviderDetail(String providerId) async {
+    return _remoteDataSource.getProviderDetail(providerId);
   }
 }

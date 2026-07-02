@@ -4,6 +4,7 @@ import 'package:shineup/features/auth/presentation/pages/login_page.dart';
 import 'package:shineup/features/auth/presentation/pages/otp_page.dart';
 import 'package:shineup/features/auth/presentation/pages/register_page.dart';
 import 'package:shineup/features/auth/presentation/pages/reset_password_page.dart';
+import 'package:shineup/features/booking/data/models/booking_flow_data.dart';
 import 'package:shineup/features/booking/presentation/pages/booking_step2_page.dart';
 import 'package:shineup/features/booking/presentation/pages/booking_step3_page.dart';
 import 'package:shineup/features/location/presentation/pages/location_access_page.dart';
@@ -128,13 +129,15 @@ class AppRouter {
           settings: settings,
         );
       case bookingStep2:
+        final flowData = settings.arguments as BookingFlowData?;
         return MaterialPageRoute(
-          builder: (_) => const BookingStep2Page(),
+          builder: (_) => BookingStep2Page(flowData: flowData),
           settings: settings,
         );
       case bookingStep3:
+        final flowData = settings.arguments as BookingFlowData?;
         return MaterialPageRoute(
-          builder: (_) => const BookingStep3Page(),
+          builder: (_) => BookingStep3Page(flowData: flowData),
           settings: settings,
         );
       default:

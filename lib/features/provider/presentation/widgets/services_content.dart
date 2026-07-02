@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shineup/core/localization/app_localizations.dart';
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Service Data
-// ═════════════════════════════════════════════════════════════════════════════
-
 class ServiceData {
+  final String id;
   final String name;
   final String description;
   final String price;
   final String duration;
 
   const ServiceData({
+    required this.id,
     required this.name,
     required this.description,
     required this.price,
@@ -19,77 +17,72 @@ class ServiceData {
   });
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Services Content
-// ═════════════════════════════════════════════════════════════════════════════
+class ServiceCategoryGroup {
+  final String categoryName;
+  final List<ServiceData> services;
+
+  const ServiceCategoryGroup({
+    required this.categoryName,
+    required this.services,
+  });
+}
 
 class ServicesContent extends StatelessWidget {
-  const ServicesContent({super.key});
+  final List<ServiceCategoryGroup> groups;
+  final Set<String> selectedIds;
+  final ValueChanged<String> onToggle;
+
+  const ServicesContent({
+    super.key,
+    required this.groups,
+    required this.selectedIds,
+    required this.onToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (groups.isEmpty) {
+      return const SizedBox.shrink();
+    }
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
       color: const Color(0xFFFAF8FF),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // ── Wash & Care group ─────────────────────────────────
-          ServiceGroup(
-            icon: Icons.local_car_wash_outlined,
-            title: AppLocalizations.of(context).providerServiceGroupWashCare,
-            services: [
-              ServiceData(
-                name: 'Exterior Wash',
-                description:
-                    'Full exterior hand wash with premium shampoo and spot-free rinse.',
-                price: '\$35',
-                duration: '30 min',
+        children: List.generate(groups.length, (index) {
+          final isLast = index == groups.length - 1;
+          return Column(
+            children: [
+              ServiceGroup(
+                icon: Icons.local_car_wash_outlined,
+                title: groups[index].categoryName,
+                services: groups[index].services,
+                selectedIds: selectedIds,
+                onToggle: onToggle,
               ),
-              ServiceData(
-                name: 'Interior Detail',
-                description:
-                    'Complete interior cleaning including vacuum, dashboard, and windows.',
-                price: '\$65',
-                duration: '45 min',
-              ),
+              if (!isLast) const SizedBox(height: 24),
             ],
-          ),
-          SizedBox(height: 24),
-          // ── Repair & Maintenance group ────────────────────────
-          ServiceGroup(
-            icon: Icons.build_outlined,
-            title: AppLocalizations.of(context).providerServiceGroupRepairs,
-            services: [
-              ServiceData(
-                name: 'Oil Change',
-                description:
-                    'Full synthetic oil change with filter replacement and fluid top-up.',
-                price: '\$45',
-                duration: '20 min',
-              ),
-            ],
-          ),
-        ],
+          );
+        }),
       ),
     );
   }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Service Group
-// ═════════════════════════════════════════════════════════════════════════════
-
 class ServiceGroup extends StatelessWidget {
   final IconData icon;
   final String title;
   final List<ServiceData> services;
+  final Set<String> selectedIds;
+  final ValueChanged<String> onToggle;
 
   const ServiceGroup({
     super.key,
     required this.icon,
     required this.title,
     required this.services,
+    required this.selectedIds,
+    required this.onToggle,
   });
 
   @override
@@ -97,7 +90,6 @@ class ServiceGroup extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Heading
         Row(
           children: [
             Icon(icon, size: 18, color: const Color(0xFF004AC6)),
@@ -115,12 +107,15 @@ class ServiceGroup extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8),
-        // Service cards
         ...List.generate(services.length, (index) {
           return Padding(
             padding:
                 EdgeInsets.only(bottom: index < services.length - 1 ? 16 : 0),
-            child: ServiceCard(data: services[index]),
+            child: ServiceCard(
+              data: services[index],
+              isSelected: selectedIds.contains(services[index].id),
+              onToggle: onToggle,
+            ),
           );
         }),
       ],
@@ -128,14 +123,17 @@ class ServiceGroup extends StatelessWidget {
   }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  Service Card
-// ═════════════════════════════════════════════════════════════════════════════
-
 class ServiceCard extends StatelessWidget {
   final ServiceData data;
+  final bool isSelected;
+  final ValueChanged<String> onToggle;
 
-  const ServiceCard({super.key, required this.data});
+  const ServiceCard({
+    super.key,
+    required this.data,
+    required this.isSelected,
+    required this.onToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +141,12 @@ class ServiceCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: const Color(0xFFEDEDF9)),
+        border: Border.all(
+          color: isSelected
+              ? const Color(0xFF004AC6)
+              : const Color(0xFFEDEDF9),
+          width: isSelected ? 2 : 1,
+        ),
         borderRadius: BorderRadius.circular(32),
         boxShadow: const [
           BoxShadow(
@@ -155,11 +158,9 @@ class ServiceCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // ── Top row: Name + description + price ───────────────
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Name + description
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,7 +190,6 @@ class ServiceCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              // Price
               SizedBox(
                 width: 40,
                 child: Text(
@@ -206,17 +206,15 @@ class ServiceCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          // ── Bottom row: Duration + Add button ─────────────────
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Duration
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.access_time_rounded,
                     size: 15,
-                    color: const Color(0xFF434655),
+                    color: Color(0xFF434655),
                   ),
                   const SizedBox(width: 4),
                   Text(
@@ -231,22 +229,35 @@ class ServiceCard extends StatelessWidget {
                   ),
                 ],
               ),
-              // Add button
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xFFC3C6D7)),
-                  borderRadius: BorderRadius.circular(9999),
-                ),
-                child: Text(
-                  AppLocalizations.of(context).providerServiceAdd,
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    height: 21 / 14,
-                    color: Color(0xFF191B23),
+              GestureDetector(
+                onTap: () => onToggle(data.id),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? const Color(0xFF004AC6)
+                        : Colors.transparent,
+                    border: Border.all(
+                      color: isSelected
+                          ? const Color(0xFF004AC6)
+                          : const Color(0xFFC3C6D7),
+                    ),
+                    borderRadius: BorderRadius.circular(9999),
+                  ),
+                  child: Text(
+                    isSelected
+                        ? AppLocalizations.of(context).providerServiceAdded
+                        : AppLocalizations.of(context).providerServiceAdd,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      height: 21 / 14,
+                      color: isSelected
+                          ? Colors.white
+                          : const Color(0xFF191B23),
+                    ),
                   ),
                 ),
               ),

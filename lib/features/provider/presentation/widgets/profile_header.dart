@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:shineup/core/localization/app_localizations.dart';
 
 class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({super.key});
+  final String nameBusiness;
+  final bool availableIs;
+  final String description;
+
+  const ProfileHeader({
+    super.key,
+    required this.nameBusiness,
+    required this.availableIs,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
       decoration: const BoxDecoration(
@@ -25,9 +35,9 @@ class ProfileHeader extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Shine & Co',
-                      style: TextStyle(
+                    Text(
+                      nameBusiness,
+                      style: const TextStyle(
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
@@ -38,7 +48,7 @@ class ProfileHeader extends StatelessWidget {
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        // Rating
+                        // TODO: Replace with dynamic rating from API
                         Row(
                           children: [
                             Icon(
@@ -60,10 +70,10 @@ class ProfileHeader extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(width: 8),
-                        // Distance
+                        // TODO: Replace with dynamic distance from API
                         Text(
-                          '${AppLocalizations.of(context).formatNumber(1.2)} ${AppLocalizations.of(context).providerUnitKmAway}',
-                          style: TextStyle(
+                          '${t.formatNumber(1.2)} ${t.providerUnitKmAway}',
+                          style: const TextStyle(
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
@@ -76,7 +86,7 @@ class ProfileHeader extends StatelessWidget {
                   ],
                 ),
               ),
-              // Logo circle
+              // TODO: Replace with dynamic logo image from API
               Container(
                 width: 64,
                 height: 64,
@@ -115,36 +125,43 @@ class ProfileHeader extends StatelessWidget {
           // ── Status row: Open badge + tagline ──────────────────
           Row(
             children: [
-              // Open badge
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF6BFF8F),
+                  color: availableIs
+                      ? const Color(0xFF6BFF8F)
+                      : const Color(0xFFFFCDD2),
                   borderRadius: BorderRadius.circular(9999),
                 ),
                 child: Text(
-                  AppLocalizations.of(context).homeStatusOpen,
+                  availableIs ? t.homeStatusOpen : t.homeStatusClosed,
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,
                     fontSize: 12,
                     height: 16 / 12,
                     letterSpacing: 0.6,
-                    color: Color(0xFF007432),
+                    color: availableIs
+                        ? const Color(0xFF007432)
+                        : const Color(0xFFC62828),
                   ),
                 ),
               ),
               const SizedBox(width: 8),
-              Text(
-                AppLocalizations.of(context).exploreServiceTitle.replaceAll('\n', ' '),
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                  height: 20 / 14,
-                  color: Color(0xFF434655),
+              Expanded(
+                child: Text(
+                  description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    height: 20 / 14,
+                    color: Color(0xFF434655),
+                  ),
                 ),
               ),
             ],
