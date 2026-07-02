@@ -11,9 +11,9 @@ class ServiceData {
   const ServiceData({
     required this.id,
     required this.name,
-    required this.description,
-    required this.price,
-    required this.duration,
+    this.description = '',
+    this.price = '',
+    this.duration = '',
   });
 }
 

@@ -24,7 +24,7 @@ class ProviderRepositoryImpl implements ProviderRepository {
   }
 
   @override
-  Future<ProviderDetailModel> getProviderDetail(String providerId) async {
-    return _remoteDataSource.getProviderDetail(providerId);
+  Future<ProviderDetailModel> getProviderDetail(String providerMemberId) async {
+    return _remoteDataSource.getProviderDetail(providerMemberId);
   }
 }

@@ -9,5 +9,5 @@ abstract class ProviderRepository {
     int limit = 10,
   });
 
-  Future<ProviderDetailModel> getProviderDetail(String providerId);
+  Future<ProviderDetailModel> getProviderDetail(String providerMemberId);
 }

@@ -238,6 +238,47 @@ class AppLocalizations {
       'bookingFailedCancel': 'Failed to cancel booking',
       'bookingRetry': 'Retry',
       'bookingMyBookings': 'My Bookings',
+      'bookingConfirmed': 'Booking confirmed!',
+      'bookingFailedCreate': 'Failed to create booking',
+      'bookingScheduled': 'Scheduled',
+      'bookingCar': 'CAR',
+      'bookingAddress': 'ADDRESS',
+      'bookingInstructions': 'Instructions',
+      'bookingInstructionsPlaceholder': 'Add instructions for the provider...',
+      'bookingSomethingWrong': 'Something went wrong',
+      'bookingMon': 'MON',
+      'bookingTue': 'TUE',
+      'bookingWed': 'WED',
+      'bookingThu': 'THU',
+      'bookingFri': 'FRI',
+      'bookingSat': 'SAT',
+      'bookingSun': 'SUN',
+      'monthJan': 'Jan',
+      'monthFeb': 'Feb',
+      'monthMar': 'Mar',
+      'monthApr': 'Apr',
+      'monthMay': 'May',
+      'monthJun': 'Jun',
+      'monthJul': 'Jul',
+      'monthAug': 'Aug',
+      'monthSep': 'Sep',
+      'monthOct': 'Oct',
+      'monthNov': 'Nov',
+      'monthDec': 'Dec',
+      'dayMon': 'Mon',
+      'dayTue': 'Tue',
+      'dayWed': 'Wed',
+      'dayThu': 'Thu',
+      'dayFri': 'Fri',
+      'daySat': 'Sat',
+      'daySun': 'Sun',
+      'timeAM': 'AM',
+      'timePM': 'PM',
+      'statusPending': 'Pending',
+      'statusConfirmed': 'Confirmed',
+      'statusInProgress': 'In Progress',
+      'statusCompleted': 'Completed',
+      'statusCancelled': 'Cancelled',
       // Home
       'homeAppBarTitle': 'Location',
       'homeHeroTitle': 'Book Trusted Car Care,\nRight Where You Are.',
@@ -513,6 +554,47 @@ class AppLocalizations {
       'bookingFailedCancel': 'فشل إلغاء الحجز',
       'bookingRetry': 'إعادة المحاولة',
       'bookingMyBookings': 'حجوزاتي',
+      'bookingConfirmed': 'تم تأكيد الحجز!',
+      'bookingFailedCreate': 'فشل إنشاء الحجز',
+      'bookingScheduled': 'مجدول',
+      'bookingCar': 'السيارة',
+      'bookingAddress': 'العنوان',
+      'bookingInstructions': 'تعليمات',
+      'bookingInstructionsPlaceholder': 'أضف تعليمات لمقدم الخدمة...',
+      'bookingSomethingWrong': 'حدث خطأ ما',
+      'bookingMon': 'الإثنين',
+      'bookingTue': 'الثلاثاء',
+      'bookingWed': 'الأربعاء',
+      'bookingThu': 'الخميس',
+      'bookingFri': 'الجمعة',
+      'bookingSat': 'السبت',
+      'bookingSun': 'الأحد',
+      'monthJan': 'يناير',
+      'monthFeb': 'فبراير',
+      'monthMar': 'مارس',
+      'monthApr': 'أبريل',
+      'monthMay': 'مايو',
+      'monthJun': 'يونيو',
+      'monthJul': 'يوليو',
+      'monthAug': 'أغسطس',
+      'monthSep': 'سبتمبر',
+      'monthOct': 'أكتوبر',
+      'monthNov': 'نوفمبر',
+      'monthDec': 'ديسمبر',
+      'dayMon': 'الإثنين',
+      'dayTue': 'الثلاثاء',
+      'dayWed': 'الأربعاء',
+      'dayThu': 'الخميس',
+      'dayFri': 'الجمعة',
+      'daySat': 'السبت',
+      'daySun': 'الأحد',
+      'timeAM': 'ص',
+      'timePM': 'م',
+      'statusPending': 'قيد الانتظار',
+      'statusConfirmed': 'مؤكد',
+      'statusInProgress': 'قيد التنفيذ',
+      'statusCompleted': 'مكتمل',
+      'statusCancelled': 'ملغي',
       // Home
       'homeAppBarTitle': 'الموقع',
       'homeHeroTitle': 'احجز عناية موثوقة بسيارتك،\nأينما كنت.',
@@ -800,6 +882,52 @@ class AppLocalizations {
   String get bookingTotal => translate('bookingTotal');
   String get bookingConfirm => translate('bookingConfirm');
   String get bookingDisclaimer => translate('bookingDisclaimer');
+  String get bookingConfirmed => translate('bookingConfirmed');
+  String get bookingFailedCreate => translate('bookingFailedCreate');
+  String get bookingScheduled => translate('bookingScheduled');
+  String get bookingCar => translate('bookingCar');
+  String get bookingAddress => translate('bookingAddress');
+  String get bookingInstructions => translate('bookingInstructions');
+  String get bookingInstructionsPlaceholder =>
+      translate('bookingInstructionsPlaceholder');
+  String get bookingSomethingWrong => translate('bookingSomethingWrong');
+  String get bookingMon => translate('bookingMon');
+  String get bookingTue => translate('bookingTue');
+  String get bookingWed => translate('bookingWed');
+  String get bookingThu => translate('bookingThu');
+  String get bookingFri => translate('bookingFri');
+  String get bookingSat => translate('bookingSat');
+  String get bookingSun => translate('bookingSun');
+  List<String> get months => [
+        translate('monthJan'),
+        translate('monthFeb'),
+        translate('monthMar'),
+        translate('monthApr'),
+        translate('monthMay'),
+        translate('monthJun'),
+        translate('monthJul'),
+        translate('monthAug'),
+        translate('monthSep'),
+        translate('monthOct'),
+        translate('monthNov'),
+        translate('monthDec'),
+      ];
+  List<String> get days => [
+        translate('dayMon'),
+        translate('dayTue'),
+        translate('dayWed'),
+        translate('dayThu'),
+        translate('dayFri'),
+        translate('daySat'),
+        translate('daySun'),
+      ];
+  String get timeAM => translate('timeAM');
+  String get timePM => translate('timePM');
+  String get statusPending => translate('statusPending');
+  String get statusConfirmed => translate('statusConfirmed');
+  String get statusInProgress => translate('statusInProgress');
+  String get statusCompleted => translate('statusCompleted');
+  String get statusCancelled => translate('statusCancelled');
 
   // Home
   String get homeAppBarTitle => translate('homeAppBarTitle');

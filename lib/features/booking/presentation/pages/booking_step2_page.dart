@@ -425,8 +425,7 @@ class _ServiceSummary extends StatelessWidget {
   }
 
   String _flowProviderName(BuildContext context) {
-    // We use a simple approach since we can't access flowData directly here
-    return 'Booking';
+    return AppLocalizations.of(context).bookingTitle;
   }
 }
 
@@ -874,15 +873,6 @@ class _ScheduleSection extends StatelessWidget {
     required this.onTimeChanged,
   });
 
-  static const _weekDays = [
-    _DayData('MON', '24'),
-    _DayData('TUE', '25'),
-    _DayData('WED', '26'),
-    _DayData('THU', '27'),
-    _DayData('FRI', '28'),
-    _DayData('SAT', '29'),
-  ];
-
   static const _timeSlots = [
     ['9:00', '10:30', '12:00'],
     ['1:30', '3:00', '4:30'],
@@ -892,6 +882,14 @@ class _ScheduleSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
+    final weekDays = [
+      _DayData(t.bookingMon, '24'),
+      _DayData(t.bookingTue, '25'),
+      _DayData(t.bookingWed, '26'),
+      _DayData(t.bookingThu, '27'),
+      _DayData(t.bookingFri, '28'),
+      _DayData(t.bookingSat, '29'),
+    ];
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       color: const Color(0xFFFAF8FF),
@@ -913,10 +911,10 @@ class _ScheduleSection extends StatelessWidget {
             height: 88,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: _weekDays.length,
+              itemCount: weekDays.length,
               separatorBuilder: (_, _) => const SizedBox(width: 16),
               itemBuilder: (context, index) {
-                final day = _weekDays[index];
+                final day = weekDays[index];
                 final isSelected = index == selectedDateIndex;
                 return GestureDetector(
                   onTap: () => onDateChanged(index),

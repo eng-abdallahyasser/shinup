@@ -100,7 +100,7 @@ class SelectedService {
   const SelectedService({
     required this.providerServiceId,
     required this.name,
-    required this.price,
-    required this.durationMinutes,
+    this.price = 0,
+    this.durationMinutes = 0,
   });
 }

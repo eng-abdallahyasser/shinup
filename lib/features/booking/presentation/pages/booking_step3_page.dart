@@ -54,8 +54,9 @@ class _BookingStep3PageState extends State<BookingStep3Page> {
       await _bookingRepo.createBooking(request);
 
       if (mounted) {
+        final t = AppLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Booking confirmed!')),
+          SnackBar(content: Text(t.bookingConfirmed)),
         );
         Navigator.of(context).pushNamedAndRemoveUntil(
           AppRouter.main,
@@ -65,8 +66,9 @@ class _BookingStep3PageState extends State<BookingStep3Page> {
     } catch (e) {
       if (mounted) {
         setState(() => _isSubmitting = false);
+        final t = AppLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to create booking: $e')),
+          SnackBar(content: Text('${t.bookingFailedCreate}: $e')),
         );
       }
     }
@@ -390,7 +392,7 @@ class _BookingDetailsCard extends StatelessWidget {
             label: t.bookingDateAndTimeRow,
             value: flowData.bookingTimeMode == 'NOW'
                 ? t.bookingAsap
-                : 'Scheduled',
+                : t.bookingScheduled,
             badge: flowData.bookingTimeMode == 'NOW'
                 ? Text(
                     t.bookingAsapBadge,
@@ -420,7 +422,7 @@ class _BookingDetailsCard extends StatelessWidget {
               icon: Icons.directions_car_rounded,
               iconColor: const Color(0xFF004AC6),
               iconSize: 18,
-              label: 'CAR',
+              label: t.bookingCar,
               value: flowData.carDisplay!,
             ),
           ],
@@ -431,7 +433,7 @@ class _BookingDetailsCard extends StatelessWidget {
               icon: Icons.location_on_outlined,
               iconColor: const Color(0xFF943700),
               iconSize: 18,
-              label: 'ADDRESS',
+              label: t.bookingAddress,
               value: flowData.addressDisplay!,
             ),
           ],
@@ -598,7 +600,7 @@ class _AdditionalOptions extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Instructions',
+            t.bookingInstructions,
             style: const TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w600,
@@ -620,7 +622,7 @@ class _AdditionalOptions extends StatelessWidget {
               controller: instructionsController,
               maxLines: 2,
               decoration: InputDecoration(
-                hintText: 'Add instructions for the provider...',
+                hintText: t.bookingInstructionsPlaceholder,
                 hintStyle: const TextStyle(
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,

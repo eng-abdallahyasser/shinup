@@ -151,7 +151,7 @@ class _ProviderListPageState extends State<ProviderListPage> {
           onTap: () {
             Navigator.of(context).pushNamed(
               AppRouter.providerDetail,
-              arguments: _workers[index].providerId,
+              arguments: _workers[index].providerMemberId,
             );
           },
         );

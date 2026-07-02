@@ -226,7 +226,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 onTap: () {
                   Navigator.of(context).pushNamed(
                     AppRouter.providerDetail,
-                    arguments: _selectedWorker!.providerId,
+                    arguments: _selectedWorker!.providerMemberId,
                   );
                 },
               ),
@@ -262,7 +262,7 @@ class _ExplorePageState extends State<ExplorePage> {
   }
 
   Marker _buildWorkerMarker(NearbyWorkerResult worker) {
-    final isSelected = _selectedWorker?.providerId == worker.providerId;
+    final isSelected = _selectedWorker?.providerMemberId == worker.providerMemberId;
     return Marker(
       point: LatLng(worker.latitude, worker.longitude),
       width: isSelected ? 48 : 36,

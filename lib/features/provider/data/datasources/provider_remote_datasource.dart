@@ -28,8 +28,8 @@ class ProviderRemoteDataSource {
         .toList();
   }
 
-  Future<ProviderDetailModel> getProviderDetail(String providerId) async {
-    final data = await _client.get('/discover/providers/$providerId');
+  Future<ProviderDetailModel> getProviderDetail(String providerMemberId) async {
+    final data = await _client.get('/discover/service-workers/$providerMemberId');
     return ProviderDetailModel.fromJson(data);
   }
 }

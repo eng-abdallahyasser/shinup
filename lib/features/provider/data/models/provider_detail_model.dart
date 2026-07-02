@@ -1,42 +1,77 @@
 class ProviderDetailModel {
   final String id;
+  final String providerMemberId;
   final String typeProvider;
-  final String nameBusiness;
+  final String providerName;
+  final String? companyName;
   final String description;
-  final bool availableIs;
-  final DateTime atApproved;
-  final DateTime atCreated;
+  final String? providerLogoUrl;
+  final String? providerCoverUrl;
+  final String memberName;
+  final String memberDisplayName;
+  final String? memberBio;
+  final String? memberAvatarUrl;
+  final String affiliationLabel;
+  final RatingInfo rating;
+  final int completedBookingsCount;
+  final List<ServiceCategory> serviceCategories;
   final List<ProviderServiceSummary> servicesSummary;
-  // TODO: when backend adds providerMemberId to /discover/providers/{id} response
-  final String? providerMemberId;
+  final bool availableIs;
+  final DateTime joinedAt;
 
   const ProviderDetailModel({
     required this.id,
+    required this.providerMemberId,
     required this.typeProvider,
-    required this.nameBusiness,
+    required this.providerName,
+    this.companyName,
     required this.description,
-    required this.availableIs,
-    required this.atApproved,
-    required this.atCreated,
+    this.providerLogoUrl,
+    this.providerCoverUrl,
+    required this.memberName,
+    required this.memberDisplayName,
+    this.memberBio,
+    this.memberAvatarUrl,
+    required this.affiliationLabel,
+    required this.rating,
+    required this.completedBookingsCount,
+    required this.serviceCategories,
     required this.servicesSummary,
-    this.providerMemberId,
+    required this.availableIs,
+    required this.joinedAt,
   });
 
   factory ProviderDetailModel.fromJson(Map<String, dynamic> json) {
     return ProviderDetailModel(
-      id: json['id'] as String? ?? '',
+      id: json['providerId'] as String? ?? '',
+      providerMemberId: json['providerMemberId'] as String? ?? '',
       typeProvider: json['typeProvider'] as String? ?? '',
-      nameBusiness: json['nameBusiness'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      availableIs: json['availableIs'] as bool? ?? false,
-      atApproved: _parseDateTime(json['atApproved']),
-      atCreated: _parseDateTime(json['atCreated']),
+      providerName: json['providerName'] as String? ?? '',
+      companyName: json['companyName'] as String?,
+      description: json['providerDescription'] as String? ?? '',
+      providerLogoUrl: json['providerLogoUrl'] as String?,
+      providerCoverUrl: json['providerCoverUrl'] as String?,
+      memberName: json['memberName'] as String? ?? '',
+      memberDisplayName: json['memberDisplayName'] as String? ?? '',
+      memberBio: json['memberBio'] as String?,
+      memberAvatarUrl: json['memberAvatarUrl'] as String?,
+      affiliationLabel: json['affiliationLabel'] as String? ?? '',
+      rating: RatingInfo.fromJson(
+          json['rating'] as Map<String, dynamic>? ?? {}),
+      completedBookingsCount:
+          (json['completedBookingsCount'] as num?)?.toInt() ?? 0,
+      serviceCategories: (json['serviceCategories'] as List<dynamic>?)
+              ?.map((e) =>
+                  ServiceCategory.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       servicesSummary: (json['servicesSummary'] as List<dynamic>?)
               ?.map((e) =>
                   ProviderServiceSummary.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      providerMemberId: json['providerMemberId'] as String?,
+      availableIs: json['availableIs'] as bool? ?? false,
+      joinedAt: _parseDateTime(json['joinedAt']),
     );
   }
 
@@ -44,156 +79,78 @@ class ProviderDetailModel {
     if (value == null) return DateTime(0);
     if (value is String) return DateTime.tryParse(value) ?? DateTime(0);
     return DateTime(0);
+  }
+}
+
+class RatingInfo {
+  final double? averageRating;
+  final int reviewsCount;
+  final double? providerAverageRating;
+  final int providerReviewsCount;
+  final double? memberAverageRating;
+  final int memberReviewsCount;
+
+  const RatingInfo({
+    this.averageRating,
+    required this.reviewsCount,
+    this.providerAverageRating,
+    required this.providerReviewsCount,
+    this.memberAverageRating,
+    required this.memberReviewsCount,
+  });
+
+  factory RatingInfo.fromJson(Map<String, dynamic> json) {
+    return RatingInfo(
+      averageRating: (json['averageRating'] as num?)?.toDouble(),
+      reviewsCount: (json['reviewsCount'] as num?)?.toInt() ?? 0,
+      providerAverageRating:
+          (json['providerAverageRating'] as num?)?.toDouble(),
+      providerReviewsCount:
+          (json['providerReviewsCount'] as num?)?.toInt() ?? 0,
+      memberAverageRating:
+          (json['memberAverageRating'] as num?)?.toDouble(),
+      memberReviewsCount:
+          (json['memberReviewsCount'] as num?)?.toInt() ?? 0,
+    );
+  }
+}
+
+class ServiceCategory {
+  final String categoryId;
+  final String categoryName;
+
+  const ServiceCategory({
+    required this.categoryId,
+    required this.categoryName,
+  });
+
+  factory ServiceCategory.fromJson(Map<String, dynamic> json) {
+    return ServiceCategory(
+      categoryId: json['categoryId'] as String? ?? '',
+      categoryName: json['categoryName'] as String? ?? '',
+    );
   }
 }
 
 class ProviderServiceSummary {
-  final String id;
-  final String providerId;
   final String serviceId;
-  final String displayName;
-  final String description;
-  final bool availableIs;
-  final ServiceInfo service;
-  final PriceSummaryInfo priceSummary;
+  final String serviceName;
+  final String categoryId;
+  final String categoryName;
 
   const ProviderServiceSummary({
-    required this.id,
-    required this.providerId,
     required this.serviceId,
-    required this.displayName,
-    required this.description,
-    required this.availableIs,
-    required this.service,
-    required this.priceSummary,
+    required this.serviceName,
+    required this.categoryId,
+    required this.categoryName,
   });
 
   factory ProviderServiceSummary.fromJson(Map<String, dynamic> json) {
     return ProviderServiceSummary(
-      id: json['id'] as String? ?? '',
-      providerId: json['providerId'] as String? ?? '',
       serviceId: json['serviceId'] as String? ?? '',
-      displayName: json['displayName'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      availableIs: json['availableIs'] as bool? ?? false,
-      service:
-          ServiceInfo.fromJson(json['service'] as Map<String, dynamic>? ?? {}),
-      priceSummary: PriceSummaryInfo.fromJson(
-          json['priceSummary'] as Map<String, dynamic>? ?? {}),
-    );
-  }
-}
-
-class ServiceInfo {
-  final String id;
-  final String categoryId;
-  final String name;
-  final String type;
-  final String description;
-  final String? image;
-  final CategoryInfo category;
-
-  const ServiceInfo({
-    required this.id,
-    required this.categoryId,
-    required this.name,
-    required this.type,
-    required this.description,
-    this.image,
-    required this.category,
-  });
-
-  factory ServiceInfo.fromJson(Map<String, dynamic> json) {
-    return ServiceInfo(
-      id: json['id'] as String? ?? '',
+      serviceName: json['serviceName'] as String? ?? '',
       categoryId: json['categoryId'] as String? ?? '',
-      name: json['name'] as String? ?? '',
-      type: json['type'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      image: json['image'] as String?,
-      category: CategoryInfo.fromJson(
-          json['category'] as Map<String, dynamic>? ?? {}),
+      categoryName: json['categoryName'] as String? ?? '',
     );
-  }
-}
-
-class CategoryInfo {
-  final String id;
-  final String name;
-  final String description;
-  final String? image;
-  final int orderSort;
-
-  const CategoryInfo({
-    required this.id,
-    required this.name,
-    required this.description,
-    this.image,
-    required this.orderSort,
-  });
-
-  factory CategoryInfo.fromJson(Map<String, dynamic> json) {
-    return CategoryInfo(
-      id: json['id'] as String? ?? '',
-      name: json['name'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      image: json['image'] as String?,
-      orderSort: (json['orderSort'] as num?)?.toInt() ?? 0,
-    );
-  }
-}
-
-class PriceSummaryInfo {
-  final String providerServicePriceId;
-  final String providerServiceId;
-  final String? providerId;
-  final String? providerNameBusiness;
-  final String? serviceId;
-  final String? serviceName;
-  final String carTypeId;
-  final String carTypeName;
-  final double priceProvider;
-  final int durationMinutes;
-  final DateTime fromEffective;
-  final DateTime? toEffective;
-
-  const PriceSummaryInfo({
-    required this.providerServicePriceId,
-    required this.providerServiceId,
-    this.providerId,
-    this.providerNameBusiness,
-    this.serviceId,
-    this.serviceName,
-    required this.carTypeId,
-    required this.carTypeName,
-    required this.priceProvider,
-    required this.durationMinutes,
-    required this.fromEffective,
-    this.toEffective,
-  });
-
-  factory PriceSummaryInfo.fromJson(Map<String, dynamic> json) {
-    return PriceSummaryInfo(
-      providerServicePriceId: json['providerServicePriceId'] as String? ?? '',
-      providerServiceId: json['providerServiceId'] as String? ?? '',
-      providerId: json['providerId'] as String?,
-      providerNameBusiness: json['providerNameBusiness'] as String?,
-      serviceId: json['serviceId'] as String?,
-      serviceName: json['serviceName'] as String?,
-      carTypeId: json['carTypeId'] as String? ?? '',
-      carTypeName: json['carTypeName'] as String? ?? '',
-      priceProvider: (json['priceProvider'] as num?)?.toDouble() ?? 0.0,
-      durationMinutes: (json['durationMinutes'] as num?)?.toInt() ?? 0,
-      fromEffective: _parseDateTime(json['fromEffective']),
-      toEffective: json['toEffective'] != null
-          ? _parseDateTime(json['toEffective'])
-          : null,
-    );
-  }
-
-  static DateTime _parseDateTime(dynamic value) {
-    if (value == null) return DateTime(0);
-    if (value is String) return DateTime.tryParse(value) ?? DateTime(0);
-    return DateTime(0);
   }
 }

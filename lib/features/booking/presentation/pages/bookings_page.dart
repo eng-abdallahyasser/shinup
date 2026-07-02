@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shineup/core/localization/app_localizations.dart';
 import 'package:shineup/features/booking/data/models/booking_model.dart';
 import 'package:shineup/features/booking/presentation/cubit/booking_cubit.dart';
 
@@ -66,7 +67,7 @@ class _BookingsPageState extends State<BookingsPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  state.errorMessage ?? 'Something went wrong',
+                  state.errorMessage ?? AppLocalizations.of(context).bookingSomethingWrong,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontFamily: 'Inter',
@@ -85,7 +86,7 @@ class _BookingsPageState extends State<BookingsPage> {
                       borderRadius: BorderRadius.circular(9999),
                     ),
                   ),
-                  child: const Text('Retry'),
+                  child: Text(AppLocalizations.of(context).bookingRetry),
                 ),
               ],
             ),
@@ -111,9 +112,9 @@ class _BookingsPageState extends State<BookingsPage> {
             color: const Color(0xFFC3C6D7),
           ),
           const SizedBox(height: 16),
-          const Text(
-            'No bookings found',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context).bookingNoBookings,
+            style: const TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w600,
               fontSize: 18,
@@ -121,8 +122,8 @@ class _BookingsPageState extends State<BookingsPage> {
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Your bookings will appear here',
+          Text(
+            AppLocalizations.of(context).bookingEmptySubtitle,
             style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 14,
@@ -165,28 +166,29 @@ class _BookingsPageState extends State<BookingsPage> {
   void _showCancelDialog(BuildContext context, BookingModel booking) {
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Cancel Booking'),
-        content: const Text(
-          'Are you sure you want to cancel this booking?',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Keep Booking'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              context.read<BookingCubit>().cancelBooking(booking.id);
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.red,
+      builder: (ctx) {
+        final t = AppLocalizations.of(ctx);
+        return AlertDialog(
+          title: Text(t.bookingCancelTitle),
+          content: Text(t.bookingCancelConfirm),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text(t.bookingCancelKeep),
             ),
-            child: const Text('Cancel Booking'),
-          ),
-        ],
-      ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                context.read<BookingCubit>().cancelBooking(booking.id);
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.red,
+              ),
+              child: Text(t.bookingCancelAction),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -215,8 +217,8 @@ class _TopAppBar extends StatelessWidget {
             children: [
               Icon(Icons.menu, size: 20, color: const Color(0xFF004AC6)),
               const SizedBox(width: 8),
-              const Text(
-                'My Bookings',
+              Text(
+                AppLocalizations.of(context).bookingMyBookings,
                 style: TextStyle(
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w700,
@@ -251,7 +253,10 @@ class _FilterBar extends StatelessWidget {
     BookingFilter.cancelled,
   ];
 
-  static const _labels = ['Upcoming', 'Past', 'Cancelled'];
+  static List<String> labels(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    return [t.bookingFilterUpcoming, t.bookingFilterPast, t.bookingFilterCancelled];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -286,7 +291,7 @@ class _FilterBar extends StatelessWidget {
                         borderRadius: BorderRadius.circular(9999),
                       ),
                       child: Text(
-                        _labels[index],
+                        labels(context)[index],
                         style: TextStyle(
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w500,
@@ -321,6 +326,7 @@ class _BookingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     final status = booking.customerStatus;
     final statusConfig = _statusConfig(status.code);
 
@@ -417,12 +423,12 @@ class _BookingCard extends StatelessWidget {
             if (booking.scheduledAt != null) ...[
               _InfoRow(
                 icon: Icons.calendar_today_rounded,
-                text: _formatDate(booking.scheduledAt!),
+                text: _formatDate(booking.scheduledAt!, t),
               ),
               const SizedBox(height: 8),
               _InfoRow(
                 icon: Icons.access_time_rounded,
-                text: _formatTime(booking.scheduledAt!),
+                text: _formatTime(booking.scheduledAt!, t),
               ),
               const SizedBox(height: 8),
             ],
@@ -485,8 +491,8 @@ class _BookingCard extends StatelessWidget {
                               color: Color(0xFFDC2626),
                             ),
                           )
-                        : const Text(
-                            'Cancel Booking',
+                        : Text(
+                            t.bookingCancelBtn,
                             style: TextStyle(
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w600,
@@ -508,19 +514,14 @@ class _BookingCard extends StatelessWidget {
     return statusCode == 'PENDING' || statusCode == 'CONFIRMED';
   }
 
-  String _formatDate(DateTime date) {
-    final months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-    ];
-    final days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    return '${days[date.weekday - 1]}, ${months[date.month - 1]} ${date.day}';
+  String _formatDate(DateTime date, AppLocalizations t) {
+    return '${t.days[date.weekday - 1]}, ${t.months[date.month - 1]} ${date.day}';
   }
 
-  String _formatTime(DateTime date) {
+  String _formatTime(DateTime date, AppLocalizations t) {
     final hour = date.hour > 12 ? date.hour - 12 : date.hour;
     final minute = date.minute.toString().padLeft(2, '0');
-    final ampm = date.hour >= 12 ? 'PM' : 'AM';
+    final ampm = date.hour >= 12 ? t.timePM : t.timeAM;
     return '$hour:$minute $ampm';
   }
 }

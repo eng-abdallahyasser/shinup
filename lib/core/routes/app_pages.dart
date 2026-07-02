@@ -114,9 +114,10 @@ class AppRouter {
           settings: settings,
         );
       case providerDetail:
-        final providerId = settings.arguments as String;
+        final providerMemberId = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (_) => ProviderDetailPage(providerId: providerId),
+          builder: (_) =>
+              ProviderDetailPage(providerMemberId: providerMemberId),
           settings: settings,
         );
       case providerList:

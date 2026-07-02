@@ -13,16 +13,10 @@ import 'package:shineup/features/provider/presentation/widgets/reviews_content.d
 import 'package:shineup/features/provider/presentation/widgets/about_content.dart';
 import 'package:shineup/features/provider/presentation/widgets/services_content.dart';
 
-// TODO: Replace with dynamic image URL from API response
-const _providerImages = {
-  'shine-co': 'assets/images/provider_shine_co.jpg',
-  'garage-37': 'assets/images/provider_garage_37.jpg',
-};
-
 class ProviderDetailPage extends StatefulWidget {
-  final String providerId;
+  final String providerMemberId;
 
-  const ProviderDetailPage({super.key, required this.providerId});
+  const ProviderDetailPage({super.key, required this.providerMemberId});
 
   @override
   State<ProviderDetailPage> createState() => _ProviderDetailPageState();
@@ -45,7 +39,7 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
 
   Future<void> _loadProvider() async {
     try {
-      final provider = await _repository.getProviderDetail(widget.providerId);
+      final provider = await _repository.getProviderDetail(widget.providerMemberId);
       if (mounted) {
         setState(() {
           _provider = provider;
@@ -72,37 +66,13 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
     });
   }
 
-  double get _totalCost {
-    if (_provider == null) return 0;
-    double total = 0;
-    for (final summary in _provider!.servicesSummary) {
-      if (_selectedServiceIds.contains(summary.id)) {
-        total += summary.priceSummary.priceProvider;
-      }
-    }
-    return total;
-  }
-
-  int get _totalDurationMinutes {
-    if (_provider == null) return 0;
-    int total = 0;
-    for (final summary in _provider!.servicesSummary) {
-      if (_selectedServiceIds.contains(summary.id)) {
-        total += summary.priceSummary.durationMinutes;
-      }
-    }
-    return total;
-  }
-
   List<SelectedService> get _selectedServices {
     if (_provider == null) return [];
     return _provider!.servicesSummary
-        .where((s) => _selectedServiceIds.contains(s.id))
+        .where((s) => _selectedServiceIds.contains(s.serviceId))
         .map((s) => SelectedService(
-              providerServiceId: s.id,
-              name: s.displayName,
-              price: s.priceSummary.priceProvider,
-              durationMinutes: s.priceSummary.durationMinutes,
+              providerServiceId: s.serviceId,
+              name: s.serviceName,
             ))
         .toList();
   }
@@ -112,15 +82,11 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
 
     final Map<String, List<ServiceData>> grouped = {};
     for (final summary in _provider!.servicesSummary) {
-      final categoryName = summary.service.category.name;
-      grouped.putIfAbsent(categoryName, () => []);
-      grouped[categoryName]!.add(
+      grouped.putIfAbsent(summary.categoryName, () => []);
+      grouped[summary.categoryName]!.add(
         ServiceData(
-          id: summary.id,
-          name: summary.displayName,
-          description: summary.description,
-          price: '\$${summary.priceSummary.priceProvider.toStringAsFixed(0)}',
-          duration: '${summary.priceSummary.durationMinutes} min',
+          id: summary.serviceId,
+          name: summary.serviceName,
         ),
       );
     }
@@ -155,11 +121,11 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
           child: Column(
             children: [
               HeroImage(
-                imagePath: _providerImages[widget.providerId] ??
+                imagePath: _provider!.providerCoverUrl ??
                     'assets/images/provider_shine_co.jpg',
               ),
               ProfileHeader(
-                nameBusiness: _provider!.nameBusiness,
+                nameBusiness: _provider!.providerName,
                 availableIs: _provider!.availableIs,
                 description: _provider!.description,
               ),
@@ -171,16 +137,13 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
         ),
 
         BottomCta(
-          totalCost: _totalCost,
           itemCount: _selectedServiceIds.length,
           onBookNow: () {
             final flowData = BookingFlowData(
               providerId: _provider!.id,
-              providerMemberId: _provider!.providerMemberId ?? _provider!.id,
-              providerName: _provider!.nameBusiness,
+              providerMemberId: _provider!.providerMemberId,
+              providerName: _provider!.providerName,
               selectedServices: _selectedServices,
-              totalCost: _totalCost,
-              totalDurationMinutes: _totalDurationMinutes,
             );
             Navigator.of(context).pushNamed(
               AppRouter.bookingStep2,
